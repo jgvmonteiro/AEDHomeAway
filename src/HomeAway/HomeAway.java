@@ -14,11 +14,11 @@ public interface HomeAway {
      * @param name user's name
      * @param email user's email
      * @param phone user's phone
-     * @param adress user's address
+     * @param address user's address
      * @param nationality  user's nationality
      * @throws UserAlreadyExistsException 
      */
-    void addUser(String userId, String name, String email, String phone, String adress, String nationality) throws  UserAlreadyExistsException; 
+    void addUser(String userId, String name, String email, String phone, String address, String nationality) throws  UserAlreadyExistsException; 
     
     /**
      * 
