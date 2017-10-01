@@ -13,5 +13,5 @@ public interface User {
     String getPhone();
     String getNationality();
     String getAddress();
-
+    Home getHomeToRent();
 }

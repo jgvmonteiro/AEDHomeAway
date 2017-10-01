@@ -17,7 +17,7 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void addUser(String userId, String name, String email, String phone, String address, String nationality) throws UserAlreadyExistsException {
-        if(user.getID().equals(userId))
+        if(user != null && user.getID().equals(userId))
             throw new UserAlreadyExistsException("Insert user ID already existed in the system.");
         User user = new UserClass(userId, name, email, phone, nationality, address);
         this.user = user;
@@ -25,7 +25,7 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void editUser(String userId, String email, String phone, String address) throws UserDoesNotExistsException {
-        if(!user.getID().equals(userId))
+        if(user ==null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
         UserClass u = (UserClass)user;
         u.setAddress(address);
@@ -35,32 +35,49 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void removeUser(String userId) throws UserDoesNotExistsException, UserHasHomeToRent {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+        if(user.getHomeToRent()!=null)
+            throw  new UserHasHomeToRent("Attempt to remove a user who has homes to rent.");
+        user = null;
     }
 
     @Override
     public User getUserInfo(String userId) throws UserDoesNotExistsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+        return user;
     }
 
     @Override
     public void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, NotANumberException, UserDoesNotExistsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+       if(user.getHomeToRent().getHomeID().equals(homeId))
+           throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
+       Home h = new HomeClass(homeId, userId, local, price, price);
+       ((UserClass)user).setHomeToRent(h);
     }
 
     @Override
     public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisisted {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
+            throw new HomeDoesNotExists("Given home ID not found in the system.");
+        if(user.getHomeToRent().getVisitors()!=null)
+            throw new HomeAlreadyVisisted("Attempt to remove an home that has already a visit.");
+        ((UserClass)user).setHomeToRent(null);
     }
 
     @Override
     public Home getHomeInfo(String homeId) throws HomeDoesNotExists {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
+            throw new HomeDoesNotExists("Given home ID not found in the system.");
+        return user.getHomeToRent();
     }
 
     @Override
     public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, NotANumberException, UserIsOwnerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override

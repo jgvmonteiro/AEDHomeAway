@@ -5,7 +5,8 @@ package HomeAway;
  */
 public class UserClass implements User{
     
-    protected String userID, email, phone, name, nationality, address;
+    private String userID, email, phone, name, nationality, address;
+    private Home homeToRent;
 
     public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
         this.userID = userID;
@@ -58,6 +59,15 @@ public class UserClass implements User{
     
     protected void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public Home getHomeToRent() {
+        return homeToRent;
+    }
+    
+    protected void setHomeToRent(Home home){
+        this.homeToRent = home;
     }
     
     
