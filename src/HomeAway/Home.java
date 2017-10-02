@@ -11,7 +11,7 @@ public interface Home {
     String getLocal();
     int getCapacity();
     int getPrice();
-    User getVisitors();
     int getScore();
+    boolean visited();
     
 }

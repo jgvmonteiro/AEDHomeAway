@@ -65,7 +65,7 @@ public class HomeAwayClass implements HomeAway{
     public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisisted {
         if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
-        if(user.getHomeToRent().getVisitors()!=null)
+        if(user.getHomeToRent().visited())
             throw new HomeAlreadyVisisted("Attempt to remove an home that has already a visit.");
         ((UserClass)user).setHomeToRent(null);
         this.home = null;
@@ -82,25 +82,32 @@ public class HomeAwayClass implements HomeAway{
     public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, NotANumberException, UserIsOwnerException {
         if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
-       if(home.getHomeID().equals(homeId))
-           throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-       
-       ((UserClass)user).setHomeToRent(h);
+       if(home==null || !home.getHomeID().equals(homeId))
+            throw new HomeDoesNotExists("Given home ID not found in the system.");
+       if(score < 0)
+           throw new NotANumberException("Invalid input data.");
+       throw new UserIsOwnerException("User attempted to evaluate his own home.");
+       //((HomeClass)home).newRent();
     }
 
     @Override
     public void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExists, UserIsNotOwnerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+       if(home==null || !home.getHomeID().equals(homeId))
+            throw new HomeDoesNotExists("Given home ID not found in the system.");
+       //O QUE FAZER À EXCEPTCAO????
+       ((HomeClass)home).newRent();
     }
 
     @Override
     public Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsOwnerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return home;
     }
 
     @Override
     public Home getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return home;
     }
 
     @Override
