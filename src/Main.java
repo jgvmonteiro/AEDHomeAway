@@ -9,6 +9,7 @@ import java.util.Scanner;
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
 import HomeAway.Exceptions.*;
+import HomeAway.Home;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,26 +67,26 @@ public class Main {
         interpreter(a);
     }
     
-    private static void interpreter(HomeAway a) {
+    private static void interpreter(HomeAway hw) {
     	Scanner in = new Scanner(System.in);
     	String option = in.next(); in.nextLine();
     	
     	while(!option.equals(CMD_EXIT_SAVE)) {
     		switch(option) {
     			case CMD_INSERT_USER:
-    				addUser(a, in);
+    				addUser(hw, in);
     				break;
     			case CMD_UPDATE_USER:
-    				editUser(a, in);
+    				editUser(hw, in);
     				break;
     			case CMD_REMOVE_USER:
-    				removeUser(a, in);
+    				removeUser(hw, in);
     				break;
     			case CMD_GET_USER:
-    				checkData(a, in);
+    				checkData(hw, in);
     				break;
     			case CMD_ADD_HOME:
-    				addHome(a, in);
+    				addHome(hw, in);
     			default:
     				System.out.println("wrong command");
     		}
@@ -94,7 +95,7 @@ public class Main {
     	
     }
     
-    private static void addUser(HomeAway a, Scanner in) {
+    private static void addUser(HomeAway hw, Scanner in) {
     	String idUser = in.next();
     	String email = in.next();
     	String phone = in.next();
@@ -105,7 +106,7 @@ public class Main {
     	String address = in.nextLine();
     	
     	try {
-    		a.addUser(idUser, email, phone, name, nationality, address);
+    		hw.addUser(idUser, email, phone, name, nationality, address);
     		System.out.println(USER_INSERT_SUCCESS);
     	} 
     	catch(UserAlreadyExistsException e) {
@@ -113,7 +114,7 @@ public class Main {
     	}
     }
     
-    private static void editUser(HomeAway a, Scanner in) {
+    private static void editUser(HomeAway hw, Scanner in) {
     	String userId = in.next();
     	String email = in.next();
     	String phone = in.next();
@@ -122,7 +123,7 @@ public class Main {
     	String address = in.nextLine();
     	
     	try {
-    		a.editUser(userId, email, phone, address);
+    		hw.editUser(userId, email, phone, address);
     		System.out.println(USER_UPDATE_SUCCESS);
     	}
     	catch(UserDoesNotExistsException e) {
@@ -130,12 +131,12 @@ public class Main {
     	}
     }
     
-    private static void removeUser(HomeAway a, Scanner in) {
+    private static void removeUser(HomeAway hw, Scanner in) {
     	String userId = in.next();
     	in.nextLine();
     	
     	try {
-    		a.removeUser(userId);
+    		hw.removeUser(userId);
     		System.out.println(USER_REMOVE_SUCCESS);
     	}
     	catch(UserDoesNotExistsException e) {
@@ -146,19 +147,19 @@ public class Main {
     	}
     }
     
-    private static void checkData(HomeAway a, Scanner in) {
+    private static void checkData(HomeAway hw, Scanner in) {
     	String userId = in.next();
     	in.nextLine();
     	
     	try {
-    		a.getUserInfo(userId);
+    		hw.getUserInfo(userId);
     	}
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);
     	}
     }
     
-    private static void addHome(HomeAway a, Scanner in) {
+    private static void addHome(HomeAway hw, Scanner in) {
     	String homeId = in.next();
     	String userId = in.next();
     	int price = in.nextInt();
@@ -170,7 +171,7 @@ public class Main {
     	String address = in.nextLine();
     	
     	try {
-    		a.addHome(homeId, userId, price, capacity, address, location, description);
+    		hw.addHome(homeId, userId, price, capacity, address, location, description);
     		System.out.println(HOME_ADD_SUCCESS);
     	}
     	catch(HomeAlreadyExistsException e) {
@@ -184,12 +185,12 @@ public class Main {
     	}
     }
     
-    private static void removeHome(HomeAway a, Scanner in) {
+    private static void removeHome(HomeAway hw, Scanner in) {
     	String homeId = in.next();
     	in.nextLine();
     	
     	try {
-    		a.removeHome(homeId);
+    		hw.removeHome(homeId);
     		System.out.println(HOME_REMOVE_SUCCESS);
     	}
     	catch(HomeDoesNotExists e) {
@@ -200,6 +201,21 @@ public class Main {
     	}
     }
     
+    private static void getHomeInfo(HomeAway hw, Scanner in){
+        String homeID = in.next();
+        in.nextLine();
+        
+        try {
+            Home home = hw.getHomeInfo(homeID);
+            System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+        } catch (HomeDoesNotExists e) {
+            System.out.println(ERR_PROPERTY_NOT_EXIST);
+        }
+        Home home =  hw.getHomeInfo(homeID);
+        
+        
+        
+    }    
     
     
     
