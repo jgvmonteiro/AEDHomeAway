@@ -139,16 +139,16 @@ public class HomeAwayClass implements HomeAway{
         
         String desk = System.getProperty("user.home") + "/Desktop"; 
         
-        try {
+        try {/*
             FileOutputStream fout = new FileOutputStream(desk + "/home.o");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(home);
             fout.close();
             oos.close();
-            
+            */
              FileOutputStream fout2 = new FileOutputStream(desk + "/user.o");
-            ObjectOutputStream oos2 = new ObjectOutputStream(fout);
-            oos2.writeObject(home);
+            ObjectOutputStream oos2 = new ObjectOutputStream(fout2);
+            oos2.writeObject(user);
             fout2.close();
             oos2.close();
            
@@ -163,16 +163,16 @@ public class HomeAwayClass implements HomeAway{
     public void load() {
         String desk = System.getProperty("user.home") + "/Desktop"; 
         
-        try {
+        try {/*
             FileInputStream fout = new FileInputStream(desk + "/home.o");
             ObjectInputStream oos = new ObjectInputStream(fout);
             home = (Home)oos.readObject();
             fout.close();
-            oos.close();
+            oos.close();*/
             
             FileInputStream fout2 = new FileInputStream(desk + "/user.o");
-            ObjectInputStream oos2 = new ObjectInputStream(fout);
-            user = (User)oos.readObject();
+            ObjectInputStream oos2 = new ObjectInputStream(fout2);
+            user = (User)oos2.readObject();
             fout2.close();
             oos2.close();
             

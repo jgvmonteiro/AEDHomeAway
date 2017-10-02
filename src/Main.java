@@ -54,13 +54,12 @@ public class Main {
 	
 	private static final String FILE_TO_SAVE = "data.txt";
 	
-	
-	
-	
 
     public static void main(String[] args) {
         HomeAway a = new HomeAwayClass();
+        a.load();
         interpreter(a);
+        a.save();
     }
     
     private static void interpreter(HomeAway a) {

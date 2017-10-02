@@ -1,9 +1,12 @@
 package HomeAway;
+
+import java.io.Serializable;
+
 /**
  *
  * @author Joao Monteiro
  */
-public class UserClass implements User{
+public class UserClass implements User, Serializable{
     
     private String userID, email, phone, name, nationality, address;
     private Home homeToRent;
