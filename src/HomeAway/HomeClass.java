@@ -7,7 +7,7 @@ public class HomeClass implements Home{
 
     private String homeID, ownerID, local;
     private int price, capacity, score;
-    private User visitor;
+    private boolean visited;
 
     public HomeClass(String homeID, String ownerID, String local, int price, int capacity) {
         this.homeID = homeID;
@@ -16,6 +16,7 @@ public class HomeClass implements Home{
         this.price = price;
         this.capacity = capacity;
         this.score = 0;
+        this.visited = false;
     }
 
     @Override
@@ -44,8 +45,8 @@ public class HomeClass implements Home{
     }
 
     @Override
-    public User getVisitors() {
-        return visitor;
+    public boolean visited() {
+        return visited;
     }
 
     @Override
@@ -54,8 +55,8 @@ public class HomeClass implements Home{
     }
     
     
-    protected void newRent(User visitor){
-        this.visitor = visitor;
+    protected void newRent(){
+        this.visited = true;
     }
     
     
