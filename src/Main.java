@@ -231,7 +231,7 @@ public class Main {
             System.out.println(STAY_INSERT_SUCCESS);
         } catch (UserDoesNotExistsException e) {
             System.out.println(ERR_USER_NOT_EXIST);
-        } catch (InvalidDataException e){
+        } catch (InvalidDataException e){ 
             System.out.println(ERR_INVALID_DATA);
         } catch (HomeDoesNotExists e){
             System.out.println(ERR_PROPERTY_NOT_EXIST);
