@@ -66,7 +66,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(user.getHomeToRent().getHomeID().equals(homeId))
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-       Home h = new HomeClass(homeId, userId, local, address, price, price);
+       Home h = new HomeClass(homeId, userId, local, address, price, price, description);
        ((UserClass)user).setHomeToRent(h);
        this.home = h;
     }
@@ -134,8 +134,6 @@ public class HomeAwayClass implements HomeAway, Serializable{
         	return this.home;
         else throw new NoResultsException("Our home's local doesn't match the parameter local");
     }
-
-    
     
     
      

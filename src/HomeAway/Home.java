@@ -14,5 +14,5 @@ public interface Home {
     int getPrice();
     int getScore();
     boolean visited();
-    
+    String getDescription();
 }
