@@ -85,7 +85,7 @@ public interface HomeAway {
      * @throws UserDoesNotExistsException
      * @throws HomeDoesNotExists
      * @throws InvalidDataException
-     * @throws UserIsOwnerException 
+     * @throws UserHasNoHomesException 
      */
     void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException;
     
@@ -105,7 +105,7 @@ public interface HomeAway {
      * @return
      * @throws UserDoesNotExistsException 
      */
-    Home getOwnerHomes(String userId) throws UserDoesNotExistsException,UserIsOwnerException;
+    Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException;
     
     /**
      * 

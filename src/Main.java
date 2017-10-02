@@ -293,6 +293,7 @@ public class Main {
     		System.out.println(ERR_USER_DID_NOT_TRAVEL);
     	}
     }
+    
     //idHome descricao morada local preco pessoas pontos
     private static void listUser(HomeAway hw, Scanner in){
         String userID = in.next();
@@ -300,14 +301,12 @@ public class Main {
         
         try {
             Home home = hw.getOwnerHomes(userID);
-            System.out.printf(, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+            System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
         } catch (UserDoesNotExistsException e) {
-            
-        } catch (Exception e){
-        
+            System.out.println(ERR_USER_NOT_EXIST);
+        } catch (UserIsNotOwnerException e){
+            System.out.println(ERR_USER_NOT_OWNER);
         }
-        
-        
         
         
     }
