@@ -1,6 +1,9 @@
 package HomeAway;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -10,7 +13,8 @@ public class UserClass implements User, Serializable{
     
     private String userID, email, phone, name, nationality, address;
     private Home homeToRent;
-
+    private List<Home> visited;
+    
     public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
         this.userID = userID;
         this.email = email;
@@ -18,6 +22,7 @@ public class UserClass implements User, Serializable{
         this.name = name;
         this.nationality = nationality;
         this.address = address;
+        this.visited = new ArrayList<Home>();
     }
 
     @Override
@@ -68,9 +73,25 @@ public class UserClass implements User, Serializable{
     public Home getHomeToRent() {
         return homeToRent;
     }
+
+    @Override
+    public Iterator<Home> getVisitendHomes() {
+        return visited.iterator();
+    }
+
+    @Override
+    public int visitedHomesCount() {
+        return visited.size();
+    }
+    
+    
     
     protected void setHomeToRent(Home home){
         this.homeToRent = home;
+    }
+    
+    protected void newRent(Home home){
+        visited.add(home);
     }
     
     

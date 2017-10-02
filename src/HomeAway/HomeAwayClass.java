@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.Writer;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,16 +109,25 @@ public class HomeAwayClass implements HomeAway, Serializable{
             throw new HomeDoesNotExists("Given home ID not found in the system.");
        //O QUE FAZER À EXCEPTCAO????
        ((HomeClass)home).newRent();
+       ((UserClass)user).newRent(home);
     }
 
     @Override
     public Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+        if(home==null)
+            throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
         return home;
     }
 
     @Override
-    public Home getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException {
-        return home;
+    public Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException {
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+        if(user.visitedHomesCount()==0)
+            throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
+        return user.getVisitendHomes();
     }
 
     @Override

@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
 
 public class Main {
 	
@@ -283,8 +284,12 @@ public class Main {
     	in.nextLine();
     	
     	try {
-    		Home h = hw.getUserRents(userId);
-    		System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+            Iterator<Home> it = hw.getUserRents(userId);
+            while (in.hasNext()) {
+                Home h = it.next();
+                System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+            }
+    		
     	}
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);
@@ -293,6 +298,7 @@ public class Main {
     		System.out.println(ERR_USER_DID_NOT_TRAVEL);
     	}
     }
+    
     //idHome descricao morada local preco pessoas pontos
     private static void listUser(HomeAway hw, Scanner in){
         String userID = in.next();
@@ -300,14 +306,12 @@ public class Main {
         
         try {
             Home home = hw.getOwnerHomes(userID);
-            System.out.printf(, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+            System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
         } catch (UserDoesNotExistsException e) {
-            
-        } catch (Exception e){
-        
+            System.out.println(ERR_USER_NOT_EXIST);
+        } catch (UserIsNotOwnerException e){
+            System.out.println(ERR_USER_NOT_OWNER);
         }
-        
-        
         
         
     }
