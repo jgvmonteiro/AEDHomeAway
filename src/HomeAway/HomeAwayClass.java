@@ -60,7 +60,7 @@ public class HomeAwayClass implements HomeAway{
     }
 
     @Override
-    public void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, NotANumberException, UserDoesNotExistsException {
+    public void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
        if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(user.getHomeToRent().getHomeID().equals(homeId))
@@ -71,11 +71,11 @@ public class HomeAwayClass implements HomeAway{
     }
 
     @Override
-    public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisisted {
+    public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisited {
         if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
         if(user.getHomeToRent().visited())
-            throw new HomeAlreadyVisisted("Attempt to remove an home that has already a visit.");
+            throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
         ((UserClass)user).setHomeToRent(null);
         this.home = null;
     }
@@ -88,13 +88,13 @@ public class HomeAwayClass implements HomeAway{
     }
 
     @Override
-    public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, NotANumberException, UserIsOwnerException {
+    public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException {
         if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(home==null || !home.getHomeID().equals(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
        if(score < 0)
-           throw new NotANumberException("Invalid input data.");
+           throw new InvalidDataException("Invalid input data.");
        throw new UserIsOwnerException("User attempted to evaluate his own home.");
        //((HomeClass)home).newRent();
     }
@@ -120,8 +120,8 @@ public class HomeAwayClass implements HomeAway{
     }
 
     @Override
-    public Home searchHome(int capacity, String local) throws NotANumberException, NoResultsException {
-        if(capacity < 0) throw new NotANumberException("capacity is negative");
+    public Home searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
+        if(capacity < 0) throw new InvalidDataException("capacity is negative");
     	if(this.home.getCapacity() == capacity && this.home.getLocal().equals(local))
         	return this.home;
         else throw new NoResultsException("Local or people don't match the home in our system");

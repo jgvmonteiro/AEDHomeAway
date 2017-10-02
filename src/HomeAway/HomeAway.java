@@ -56,18 +56,18 @@ public interface HomeAway {
      * @param local
      * @param description
      * @throws HomeAlreadyExistsException
-     * @throws NotANumberException
+     * @throws InvalidDataException
      * @throws UserDoesNotExistsException 
      */
-    void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, NotANumberException, UserDoesNotExistsException;
+    void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException;
     
     /**
      * 
      * @param homeId
      * @throws HomeDoesNotExists
-     * @throws HomeAlreadyVisisted 
+     * @throws HomeAlreadyVisited 
      */
-    void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisisted;
+    void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisited;
     
     /**
      * 
@@ -84,10 +84,10 @@ public interface HomeAway {
      * @param score
      * @throws UserDoesNotExistsException
      * @throws HomeDoesNotExists
-     * @throws NotANumberException
+     * @throws InvalidDataException
      * @throws UserIsOwnerException 
      */
-    void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, NotANumberException, UserIsOwnerException;
+    void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException;
     
     /**
      * 
@@ -121,10 +121,10 @@ public interface HomeAway {
      * @param people
      * @param local
      * @return
-     * @throws NotANumberException
+     * @throws InvalidDataException
      * @throws NoResultsException 
      */
-    Home searchHome(int people, String local) throws NotANumberException, NoResultsException;
+    Home searchHome(int people, String local) throws InvalidDataException, NoResultsException;
     
     /**
      * 

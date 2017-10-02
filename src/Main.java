@@ -57,9 +57,7 @@ public class Main {
 
     public static void main(String[] args) {
         HomeAway a = new HomeAwayClass();
-        a.load();
         interpreter(a);
-        a.save();
     }
     
     private static void interpreter(HomeAway a) {
@@ -77,6 +75,11 @@ public class Main {
     			case CMD_REMOVE_USER:
     				removeUser(a, in);
     				break;
+    			case CMD_GET_USER:
+    				checkData(a, in);
+    				break;
+    			case CMD_ADD_HOME:
+    				addHome(a, in);
     			default:
     				System.out.println("wrong command");
     		}
@@ -134,6 +137,60 @@ public class Main {
     	}
     	catch(UserHasHomeToRent e) {
     		System.out.println(ERR_USER_IS_OWNER);
+    	}
+    }
+    
+    private static void checkData(HomeAway a, Scanner in) {
+    	String userId = in.next();
+    	in.nextLine();
+    	
+    	try {
+    		a.getUserInfo(userId);
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
+    	}
+    }
+    
+    private static void addHome(HomeAway a, Scanner in) {
+    	String homeId = in.next();
+    	String userId = in.next();
+    	int price = in.nextInt();
+    	int capacity = in.nextInt();
+    	String location = in.next();
+    	in.nextLine();
+    	
+    	String description = in.nextLine();
+    	String address = in.nextLine();
+    	
+    	try {
+    		a.addHome(homeId, userId, price, capacity, address, location, description);
+    		System.out.println(HOME_ADD_SUCCESS);
+    	}
+    	catch(HomeAlreadyExistsException e) {
+    		System.out.println(ERR_PROPERTY_EXIST);
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
+    	}
+    	catch(InvalidDataException e) {
+    		System.out.println(ERR_INVALID_DATA);
+    	}
+    }
+    
+    private static void removeHome(HomeAway a, Scanner in) {
+    	String homeId = in.next();
+    	in.nextLine();
+    	
+    	try {
+    		a.removeHome(homeId);
+    		System.out.println(HOME_REMOVE_SUCCESS);
+    	}
+    	catch(HomeDoesNotExists e) {
+    		System.out.println(ERR_PROPERTY_NOT_EXIST);
+    	}
+    	catch(HomeAlreadyVisited e) {
+    		System.out.println(ERR_PROPERTY_ALREADY_VISITED);
     	}
     }
     
