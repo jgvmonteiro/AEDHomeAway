@@ -30,6 +30,7 @@ public class Main {
 	private static final String HOME_REMOVE_SUCCESS = "Propriedade removida com sucesso.";
 	private static final String CHECK_HOME_DATA_SUCCESS = "%s: %s, %s, %d, %d, %d, %s"; //description, address, local, price, capacity, score, name
 	private static final String STAY_INSERT_SUCCESS = "Estadia adicionada com sucesso.";
+	private static final String CHECK_STAYS_SUCCESS = "%s %s %s %s %d %d %d"; //idHome descricao morada local preco pessoas pontos
 	
 	private static final String SAVE_AND_QUIT = "Gravando e terminando.";
 	
@@ -99,6 +100,9 @@ public class Main {
     				break;
     			case CMD_ADD_TRAVEL:
     				addStay(hw, in);
+    				break;
+    			case CMD_LIST_TRAVELLER_STAYS:
+    				listStaysByUser(hw, in);
     				break;
     			default:
     				System.out.println("wrong command");
@@ -274,6 +278,21 @@ public class Main {
 
     }
     
+    private static void listStaysByUser(HomeAway hw, Scanner in) {
+    	String userId = in.next();
+    	in.nextLine();
+    	
+    	try {
+    		Home h = hw.getUserRents(userId);
+    		System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
+    	}
+    	catch(UserHasNotRentsException e) {
+    		System.out.println(ERR_USER_DID_NOT_TRAVEL);
+    	}
+    }
     //idHome descricao morada local preco pessoas pontos
     private static void listUser(HomeAway hw, Scanner in){
         String userID = in.next();

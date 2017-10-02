@@ -111,7 +111,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsOwnerException {
+    public Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
         return home;
     }
 
