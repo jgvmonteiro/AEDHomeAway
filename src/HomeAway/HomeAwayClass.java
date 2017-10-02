@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Joao Monteiro
  */
-public class HomeAwayClass implements HomeAway{
+public class HomeAwayClass implements HomeAway, Serializable{
 
     private User user;
     private Home home;
@@ -27,7 +28,7 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void addUser(String userId, String name, String email, String phone, String address, String nationality) throws UserAlreadyExistsException {
-        if(user != null && user.getID().equals(userId))
+        if(user != null)
             throw new UserAlreadyExistsException("Insert user ID already existed in the system.");
         User user = new UserClass(userId, name, email, phone, nationality, address);
         this.user = user;

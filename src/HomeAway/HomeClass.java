@@ -1,9 +1,12 @@
 package HomeAway;
+
+import java.io.Serializable;
+
 /**
  *
  * @author Joao Monteiro
  */
-public class HomeClass implements Home{
+public class HomeClass implements Home, Serializable{
 
     private String homeID, ownerID, local;
     private int price, capacity, score;

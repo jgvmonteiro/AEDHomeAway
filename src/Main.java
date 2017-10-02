@@ -8,7 +8,10 @@ import java.util.Scanner;
 
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
+import HomeAway.User;
 import HomeAway.Exceptions.*;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,9 +64,10 @@ public class Main {
 	private static final String FILE_TO_SAVE = "data.txt";
 	
 
-    public static void main(String[] args) {
-        HomeAway a = new HomeAwayClass();
+    public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
+    	HomeAway a = (HomeAway) load();
         interpreter(a);
+        //save(a);
     }
     
     private static void interpreter(HomeAway a) {
@@ -86,6 +90,10 @@ public class Main {
     				break;
     			case CMD_ADD_HOME:
     				addHome(a, in);
+    				break;
+    			case CMD_REMOVE_HOME:
+    				removeHome(a, in);
+    				break;
     			default:
     				System.out.println("wrong command");
     		}
@@ -151,7 +159,9 @@ public class Main {
     	in.nextLine();
     	
     	try {
-    		a.getUserInfo(userId);
+    		User u = a.getUserInfo(userId);
+    		System.out.printf(CHECK_USER_DATA_SUCCESS, u.getName(), u.getAddress(), u.getNationality(),
+    												   u.getEmail(), u.getPhone());
     	}
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);
@@ -212,11 +222,20 @@ public class Main {
     }
     
     private static Object load() throws FileNotFoundException, IOException, ClassNotFoundException{
-        String desktop = System.getProperty("user.home") + "/Desktop"; 
-        ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
-        Object o = inStream.readObject();
-        inStream.close();
-        return o;
+        try {
+    	String desktop = System.getProperty("user.home") + "/Desktop"; 
+        File file = new File(desktop + "/homeAway.o");
+        if(file.exists()) {
+	        ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
+	        Object o = inStream.readObject();
+	        inStream.close();
+	        return o;
+        }
+        else return new HomeAwayClass();
+        } catch(IOException|ClassNotFoundException e) {
+        	System.out.println("error with the file");
+        	return null;
+        }
     }
     
     
