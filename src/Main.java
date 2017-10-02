@@ -230,7 +230,6 @@ public class Main {
         
     }    
     
-<<<<<<< HEAD
     private static void addOwnerStay(HomeAway hw, String userId, String homeId) {
     	
     	
