@@ -219,12 +219,29 @@ public class Main {
             System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
         } catch (HomeDoesNotExists e) {
             System.out.println(ERR_PROPERTY_NOT_EXIST);
-        }
-        Home home =  hw.getHomeInfo(homeID);
-        
+        }        
         
         
     }    
+    
+    private static void rentHome(HomeAway hw, String userID, String homeID, int score){
+
+        try {
+            hw.rentHome(userID, homeID, score);
+            System.out.println(STAY_INSERT_SUCCESS);
+        } catch (UserDoesNotExistsException e) {
+            System.out.println(ERR_USER_NOT_EXIST);
+        } catch (InvalidDataException e){
+            System.out.println(ERR_INVALID_DATA);
+        } catch (HomeDoesNotExists e){
+            System.out.println(ERR_PROPERTY_NOT_EXIST);
+        } catch (UserIsOwnerException e){
+            System.out.println(ERR_USER_IS_OWNER);
+        }
+
+    }
+    
+    
     
     
     
