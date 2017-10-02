@@ -65,16 +65,16 @@ public class HomeAwayClass implements HomeAway, Serializable{
     public void addHome(String homeId, String userId, int price, int people, String address, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
        if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
-       if(user.getHomeToRent().getHomeID().equals(homeId))
+       if(home != null && user.getHomeToRent().getHomeID().equals(homeId))
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-       Home h = new HomeClass(homeId, userId, local, address, price, price, description);
+       Home h = new HomeClass(homeId, userId, user.getName(), local, address, price, price, description);
        ((UserClass)user).setHomeToRent(h);
        this.home = h;
     }
 
     @Override
     public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisited {
-        if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
+        if(home==null || !user.getHomeToRent().getHomeID().equals(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
         if(user.getHomeToRent().visited())
             throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
@@ -122,7 +122,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException {
+    public Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
         if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
         if(user.visitedHomesCount()==0)
@@ -133,14 +133,14 @@ public class HomeAwayClass implements HomeAway, Serializable{
     @Override
     public Home searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
         if(capacity < 0) throw new InvalidDataException("capacity is negative");
-    	if(this.home.getCapacity() == capacity && this.home.getLocal().equals(local))
+    	if(home !=null && home.getCapacity() == capacity && this.home.getLocal().equals(local))
         	return this.home;
         else throw new NoResultsException("Local or people don't match the home in our system");
     }
 
     @Override
     public Home topHomes(String local) throws NoResultsException {
-        if(this.home.getLocal().equals(local))
+        if(home != null && this.home.getLocal().equals(local))
         	return this.home;
         else throw new NoResultsException("Our home's local doesn't match the parameter local");
     }

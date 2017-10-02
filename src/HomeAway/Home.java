@@ -6,6 +6,7 @@ package HomeAway;
  */
 public interface Home {
     
+    String getOwnerName();
     String getOwnerID();
     String getHomeID();
     String getLocal();

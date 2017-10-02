@@ -234,8 +234,8 @@ public class Main {
         in.nextLine();
         
         try {
-            Home home = hw.getHomeInfo(homeID);
-            System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+            Home home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
+            System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore(), home.getOwnerName());
         } catch (HomeDoesNotExists e) {
             System.out.println(ERR_PROPERTY_NOT_EXIST);
         }        
@@ -302,7 +302,7 @@ public class Main {
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);
     	}
-    	catch(UserHasNotRentsException e) {
+    	catch(UserIsNotOwnerException e) {
     		System.out.println(ERR_USER_DID_NOT_TRAVEL);
     	}
     }
