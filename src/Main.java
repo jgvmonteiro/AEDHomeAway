@@ -94,6 +94,12 @@ public class Main {
     			case CMD_REMOVE_HOME:
     				removeHome(hw, in);
     				break;
+    			case CMD_GET_HOME:
+    				getHomeInfo(hw, in);
+    				break;
+    			case CMD_ADD_TRAVEL:
+    				addStay(hw, in);
+    				break;
     			default:
     				System.out.println("wrong command");
     		}
@@ -226,6 +232,31 @@ public class Main {
         
     }    
     
+    private static void addOwnerStay(HomeAway hw, String userId, String homeId) {
+    	
+    	
+    	try {
+    		hw.rentOwnHome(userId, homeId);
+    		System.out.println(STAY_INSERT_SUCCESS);
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
+    	}
+    	catch(HomeDoesNotExists e) {
+    		System.out.println(ERR_PROPERTY_NOT_EXIST);
+    	}
+    	catch(UserIsNotOwnerException e) {
+    		System.out.println(ERR_USER_NOT_OWNER);
+    	}
+    }
+    
+    private static void addStay(HomeAway hw, Scanner in) {
+    	String args = in.nextLine();
+    	String arr[];
+    	arr = args.split(" ");
+    	if(arr.length == 2)
+    		addOwnerStay(hw, arr[0], arr[1]);
+    }
     
     
     
