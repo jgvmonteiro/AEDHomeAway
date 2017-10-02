@@ -280,11 +280,13 @@ public class Main {
         in.nextLine();
         
         try {
-            Home home = hw.getUserRents(userID);
+            Home home = hw.getOwnerHomes(userID);
             System.out.printf(CHECK_USER_DATA_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getCapacity(), home.getScore());
         } catch (UserDoesNotExistsException e) {
             
-        } catch (Us)
+        } catch (Exception e){
+        
+        }
         
         
         
