@@ -105,6 +105,12 @@ public class Main {
     			case CMD_LIST_TRAVELLER_STAYS:
     				listStaysByUser(hw, in);
     				break;
+    			case CMD_LIST_HOST_PROPERTIES:
+    				listUser(hw, in);
+    				break;
+    			case CMD_SEARCH_PROPERTIES:
+    				searchHomes(hw, in);
+    				break;
     			default:
     				System.out.println("wrong command");
     		}
@@ -249,7 +255,7 @@ public class Main {
     		System.out.println(ERR_PROPERTY_NOT_EXIST);
     	}
     	catch(UserIsNotOwnerException e) {
-    		System.out.println(ERR_USER_NOT_OWNER);
+    		System.out.println(ERR_TRAVELLER_NOT_OWNER);
     	}
     }
     
@@ -274,7 +280,7 @@ public class Main {
         } catch (HomeDoesNotExists e){
             System.out.println(ERR_PROPERTY_NOT_EXIST);
         } catch (UserIsOwnerException e){
-            System.out.println(ERR_USER_IS_OWNER);
+            System.out.println(ERR_TRAVELLER_IS_OWNER);
         }
 
     }
