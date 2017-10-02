@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
-import HomeAway.Exceptions.UserAlreadyExistsException;
+import HomeAway.Exceptions.*;
 
 public class Main {
 	
@@ -67,14 +67,21 @@ public class Main {
     	Scanner in = new Scanner(System.in);
     	String option = in.next(); in.nextLine();
     	
-    	while(option.equals(CMD_EXIT_SAVE)) {
+    	while(!option.equals(CMD_EXIT_SAVE)) {
     		switch(option) {
     			case CMD_INSERT_USER:
     				addUser(a, in);
     				break;
+    			case CMD_UPDATE_USER:
+    				editUser(a, in);
+    				break;
+    			case CMD_REMOVE_USER:
+    				removeUser(a, in);
+    				break;
     			default:
     				System.out.println("wrong command");
     		}
+    		option = in.next(); in.nextLine();
     	}
     	
     }
@@ -108,11 +115,28 @@ public class Main {
     	
     	try {
     		a.editUser(userId, email, phone, address);
-    		System.out.println();
+    		System.out.println(USER_UPDATE_SUCCESS);
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
     	}
     }
     
-    
+    private static void removeUser(HomeAway a, Scanner in) {
+    	String userId = in.next();
+    	in.nextLine();
+    	
+    	try {
+    		a.removeUser(userId);
+    		System.out.println(USER_REMOVE_SUCCESS);
+    	}
+    	catch(UserDoesNotExistsException e) {
+    		System.out.println(ERR_USER_NOT_EXIST);
+    	}
+    	catch(UserHasHomeToRent e) {
+    		System.out.println(ERR_USER_IS_OWNER);
+    	}
+    }
     
     
     

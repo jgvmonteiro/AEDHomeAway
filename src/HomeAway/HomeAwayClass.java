@@ -35,7 +35,7 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void editUser(String userId, String email, String phone, String address) throws UserDoesNotExistsException {
-        if(user ==null || !user.getID().equals(userId))
+        if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
         UserClass u = (UserClass)user;
         u.setAddress(address);
