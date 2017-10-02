@@ -9,6 +9,12 @@ import java.util.Scanner;
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
 import HomeAway.Exceptions.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Main {
 	
@@ -194,6 +200,24 @@ public class Main {
     	}
     }
     
+    
+    
+    
+    
+    private static void save(Object o) throws FileNotFoundException, IOException{
+        String desktop = System.getProperty("user.home") + "/Desktop"; 
+        ObjectOutputStream  outStream = new ObjectOutputStream(new FileOutputStream(desktop+"/homeAway.o"));
+        outStream.writeObject(o);
+        outStream.close();
+    }
+    
+    private static Object load() throws FileNotFoundException, IOException, ClassNotFoundException{
+        String desktop = System.getProperty("user.home") + "/Desktop"; 
+        ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
+        Object o = inStream.readObject();
+        inStream.close();
+        return o;
+    }
     
     
     
