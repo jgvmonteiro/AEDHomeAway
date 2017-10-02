@@ -104,13 +104,18 @@ public class HomeAwayClass implements HomeAway{
     }
 
     @Override
-    public Home searchHome(int people, String local) throws NotANumberException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Home searchHome(int capacity, String local) throws NotANumberException, NoResultsException {
+        if(capacity < 0) throw new NotANumberException("capacity is negative");
+    	if(this.home.getCapacity() == capacity && this.home.getLocal().equals(local))
+        	return this.home;
+        else throw new NoResultsException("Local or people don't match the home in our system");
     }
 
     @Override
     public Home topHomes(String local) throws NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(this.home.getLocal().equals(local))
+        	return this.home;
+        else throw new NoResultsException("Our home's local doesn't match the parameter local");
     }
 
     @Override

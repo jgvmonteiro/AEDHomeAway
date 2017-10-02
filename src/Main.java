@@ -98,6 +98,20 @@ public class Main {
     	}
     }
     
+    private static void editUser(HomeAway a, Scanner in) {
+    	String userId = in.next();
+    	String email = in.next();
+    	String phone = in.next();
+    	in.nextLine();
+    	
+    	String address = in.nextLine();
+    	
+    	try {
+    		a.editUser(userId, email, phone, address);
+    		
+    	}
+    }
+    
     
     
     
