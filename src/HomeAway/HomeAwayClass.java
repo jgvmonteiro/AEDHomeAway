@@ -10,6 +10,7 @@ import HomeAway.*;
 public class HomeAwayClass implements HomeAway{
 
     private User user;
+    private Home home;
     
     public HomeAwayClass() {
         
@@ -57,6 +58,7 @@ public class HomeAwayClass implements HomeAway{
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
        Home h = new HomeClass(homeId, userId, local, price, price);
        ((UserClass)user).setHomeToRent(h);
+       this.home = h;
     }
 
     @Override
@@ -66,18 +68,24 @@ public class HomeAwayClass implements HomeAway{
         if(user.getHomeToRent().getVisitors()!=null)
             throw new HomeAlreadyVisisted("Attempt to remove an home that has already a visit.");
         ((UserClass)user).setHomeToRent(null);
+        this.home = null;
     }
 
     @Override
     public Home getHomeInfo(String homeId) throws HomeDoesNotExists {
-        if(user.getHomeToRent()==null || !user.getHomeToRent().getHomeID().equals(homeId))
+        if(home==null || !home.getHomeID().equals(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
-        return user.getHomeToRent();
+        return home;
     }
 
     @Override
     public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, NotANumberException, UserIsOwnerException {
-        
+        if(user == null || !user.getID().equals(userId))
+            throw new UserDoesNotExistsException("Given user ID not found in the system.");
+       if(home.getHomeID().equals(homeId))
+           throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
+       
+       ((UserClass)user).setHomeToRent(h);
     }
 
     @Override

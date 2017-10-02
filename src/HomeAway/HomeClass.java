@@ -54,7 +54,7 @@ public class HomeClass implements Home{
     }
     
     
-    protected void addVisitor(User visitor){
+    protected void newRent(User visitor){
         this.visitor = visitor;
     }
     
