@@ -4,8 +4,11 @@
  * @author Joao Monteiro
  */
 
+import java.util.Scanner;
+
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
+import HomeAway.Exceptions.UserAlreadyExistsException;
 
 public class Main {
 	
@@ -56,13 +59,47 @@ public class Main {
 	
 
     public static void main(String[] args) {
-        System.out.println("This is a test.");
-        
         HomeAway a = new HomeAwayClass();
-        
-        
-        
+        interpreter(a);
     }
+    
+    private static void interpreter(HomeAway a) {
+    	Scanner in = new Scanner(System.in);
+    	String option = in.next(); in.nextLine();
+    	
+    	while(option.equals(CMD_EXIT_SAVE)) {
+    		switch(option) {
+    			case CMD_INSERT_USER:
+    				addUser(a, in);
+    				break;
+    			default:
+    				System.out.println("wrong command");
+    		}
+    	}
+    	
+    }
+    
+    private static void addUser(HomeAway a, Scanner in) {
+    	String idUser = in.next();
+    	String email = in.next();
+    	String phone = in.next();
+    	String name = in.next();
+    	in.nextLine();
+    	
+    	String nationality = in.nextLine();
+    	String address = in.nextLine();
+    	
+    	try {
+    		a.addUser(idUser, email, phone, name, nationality, address);
+    		System.out.println(USER_INSERT_SUCCESS);
+    	} 
+    	catch(UserAlreadyExistsException e) {
+    		System.out.println(ERR_USER_EXIST);
+    	}
+    }
+    
+    
+    
     
     
     
