@@ -2,6 +2,15 @@ package HomeAway;
 
 import HomeAway.Exceptions.*;
 import HomeAway.*;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Writer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -127,12 +136,52 @@ public class HomeAwayClass implements HomeAway{
 
     @Override
     public void save() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String desk = System.getProperty("user.home") + "/Desktop"; 
+        
+        try {
+            FileOutputStream fout = new FileOutputStream(desk + "/home.o");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(home);
+            fout.close();
+            oos.close();
+            
+             FileOutputStream fout2 = new FileOutputStream(desk + "/user.o");
+            ObjectOutputStream oos2 = new ObjectOutputStream(fout);
+            oos2.writeObject(home);
+            fout2.close();
+            oos2.close();
+           
+        } catch (IOException ex) {
+            Logger.getLogger(HomeAwayClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     @Override
     public void load() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String desk = System.getProperty("user.home") + "/Desktop"; 
+        
+        try {
+            FileInputStream fout = new FileInputStream(desk + "/home.o");
+            ObjectInputStream oos = new ObjectInputStream(fout);
+            home = (Home)oos.readObject();
+            fout.close();
+            oos.close();
+            
+            FileInputStream fout2 = new FileInputStream(desk + "/user.o");
+            ObjectInputStream oos2 = new ObjectInputStream(fout);
+            user = (User)oos.readObject();
+            fout2.close();
+            oos2.close();
+            
+           
+        } catch (Exception ex) {
+            Logger.getLogger(HomeAwayClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
     }
     
     
