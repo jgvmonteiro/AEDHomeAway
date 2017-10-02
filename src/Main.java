@@ -284,9 +284,7 @@ public class Main {
             System.out.printf(CHECK_USER_DATA_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getCapacity(), home.getScore());
         } catch (UserDoesNotExistsException e) {
             
-        } catch (UserIsNotOwnerException){
-            
-        }
+        } catch (Us)
         
         
         
