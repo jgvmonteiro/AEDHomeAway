@@ -111,6 +111,9 @@ public class Main {
     			case CMD_SEARCH_PROPERTIES:
     				searchHomes(hw, in);
     				break;
+    			case CMD_LIST_BEST_PROPERTIES:
+    				listTopHome(hw, in);
+    				break;
     			default:
     				System.out.println("wrong command");
     		}
