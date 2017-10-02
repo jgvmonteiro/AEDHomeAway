@@ -1,5 +1,7 @@
 package HomeAway;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Joao Monteiro
@@ -14,4 +16,6 @@ public interface User {
     String getNationality();
     String getAddress();
     Home getHomeToRent();
+    Iterator<Home> getVisitendHomes();
+    int visitedHomesCount();
 }

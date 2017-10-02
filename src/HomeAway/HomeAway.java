@@ -1,6 +1,7 @@
 package HomeAway;
 
 import HomeAway.Exceptions.*;
+import java.util.Iterator;
 
 /**
  *
@@ -114,7 +115,7 @@ public interface HomeAway {
      * @throws UserDoesNotExistsException
      * @throws UserHasNotRentsException 
      */
-    Home getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
+    Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
     
     /**
      * 
