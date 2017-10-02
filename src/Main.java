@@ -74,7 +74,7 @@ public class Main {
     
     private static void interpreter(HomeAway hw) {
     	Scanner in = new Scanner(System.in);
-    	String option = in.next(); in.nextLine();
+    	String option = in.next();
     	
     	while(!option.equals(CMD_EXIT_SAVE)) {
     		switch(option) {
@@ -117,7 +117,7 @@ public class Main {
     			default:
     				System.out.println("wrong command");
     		}
-    		option = in.next(); in.nextLine();
+    		option = in.next();
     	}
     	
     }
@@ -193,8 +193,7 @@ public class Main {
     	String userId = in.next();
     	int price = in.nextInt();
     	int capacity = in.nextInt();
-    	String location = in.next();
-    	in.nextLine();
+    	String location = in.nextLine().trim();
     	
     	String description = in.nextLine();
     	String address = in.nextLine();
