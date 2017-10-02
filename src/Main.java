@@ -281,7 +281,7 @@ public class Main {
         
         try {
             Home home = hw.getOwnerHomes(userID);
-            System.out.printf(CHECK_USER_DATA_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getCapacity(), home.getScore());
+            System.out.printf(, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
         } catch (UserDoesNotExistsException e) {
             
         } catch (Exception e){
