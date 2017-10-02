@@ -61,12 +61,12 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public void addHome(String homeId, String userId, int price, int people, String adress, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
+    public void addHome(String homeId, String userId, int price, int people, String address, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
        if(user == null || !user.getID().equals(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(user.getHomeToRent().getHomeID().equals(homeId))
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-       Home h = new HomeClass(homeId, userId, local, price, price);
+       Home h = new HomeClass(homeId, userId, local, address, price, price);
        ((UserClass)user).setHomeToRent(h);
        this.home = h;
     }

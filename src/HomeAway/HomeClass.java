@@ -8,11 +8,12 @@ import java.io.Serializable;
  */
 public class HomeClass implements Home, Serializable{
 
-    private String homeID, ownerID, local;
+    private String homeID, ownerID, local, address;
     private int price, capacity, score;
     private boolean visited;
 
-    public HomeClass(String homeID, String ownerID, String local, int price, int capacity) {
+    public HomeClass(String homeID, String ownerID, String local, String address, int price, int capacity) {
+        this.address = address;
         this.homeID = homeID;
         this.ownerID = ownerID;
         this.local = local;
@@ -36,6 +37,12 @@ public class HomeClass implements Home, Serializable{
     public String getLocal() {
         return local;
     }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+    
 
     @Override
     public int getCapacity() {
