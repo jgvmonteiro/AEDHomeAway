@@ -312,6 +312,23 @@ public class Main {
         
     }
     
+    private static void searchHomes(HomeAway hw, Scanner in) {
+    	int capacity = in.nextInt();
+    	String local = in.next();
+    	in.nextLine();
+    	
+    	try {
+    		Home h = hw.searchHome(capacity, local);
+    		System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), 
+    						  h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+    	}
+    	catch(InvalidDataException e) {
+    		System.out.println(ERR_INVALID_DATA);
+    	}
+    	catch(NoResultsException e) {
+    		System.out.println(ERR_SEARCH_NO_RESULTS);
+    	}
+    }
     
     
     
