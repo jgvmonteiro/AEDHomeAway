@@ -340,6 +340,19 @@ public class Main {
     	}
     }
     
+    private static void listTopHome(HomeAway hw, Scanner in){
+        String local = in.next();
+        in.nextLine();
+        try {
+            Home home = hw.topHomes(local);
+            System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+        } catch (NoResultsException e) {
+            System.out.println(ERR_SEARCH_NO_RESULTS);
+        }
+        
+
+    }
+    
     
     
     private static void save(Object o) throws FileNotFoundException, IOException{
