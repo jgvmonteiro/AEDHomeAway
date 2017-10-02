@@ -134,56 +134,7 @@ public class HomeAwayClass implements HomeAway{
         else throw new NoResultsException("Our home's local doesn't match the parameter local");
     }
 
-    @Override
-    public void save() {
-        
-        String desk = System.getProperty("user.home") + "/Desktop"; 
-        
-        try {
-            FileOutputStream fout = new FileOutputStream(desk + "/home.o");
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(home);
-            fout.close();
-            oos.close();
-            
-             FileOutputStream fout2 = new FileOutputStream(desk + "/user.o");
-            ObjectOutputStream oos2 = new ObjectOutputStream(fout);
-            oos2.writeObject(home);
-            fout2.close();
-            oos2.close();
-           
-        } catch (IOException ex) {
-            Logger.getLogger(HomeAwayClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
 
-    @Override
-    public void load() {
-        String desk = System.getProperty("user.home") + "/Desktop"; 
-        
-        try {
-            FileInputStream fout = new FileInputStream(desk + "/home.o");
-            ObjectInputStream oos = new ObjectInputStream(fout);
-            home = (Home)oos.readObject();
-            fout.close();
-            oos.close();
-            
-            FileInputStream fout2 = new FileInputStream(desk + "/user.o");
-            ObjectInputStream oos2 = new ObjectInputStream(fout);
-            user = (User)oos.readObject();
-            fout2.close();
-            oos2.close();
-            
-           
-        } catch (Exception ex) {
-            Logger.getLogger(HomeAwayClass.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    
-    }
-    
     
     
     

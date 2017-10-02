@@ -134,9 +134,6 @@ public interface HomeAway {
      */
     Home topHomes(String local) throws NoResultsException;
             
-    void save();
-    
-    void load();
-    
+
     
 }
