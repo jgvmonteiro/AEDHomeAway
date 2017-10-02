@@ -108,7 +108,7 @@ public class Main {
     	
     	try {
     		a.editUser(userId, email, phone, address);
-    		
+    		System.out.println();
     	}
     }
     
