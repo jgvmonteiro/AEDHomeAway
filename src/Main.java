@@ -268,8 +268,8 @@ public class Main {
     	String arr[];
     	arr = args.split(" ");
     	if(arr.length == 2)
-    		addOwnerStay(hw, arr[0], arr[1]);
-    	else rentHome(hw, arr[1], arr[2], Integer.parseInt(arr[3]));
+    		addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
+    	else rentHome(hw, arr[1], arr[2], Integer.parseInt(arr[3]));	//nao funciona na fase 1
     }
     
     private static void rentHome(HomeAway hw, String userID, String homeID, int score){

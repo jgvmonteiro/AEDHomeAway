@@ -67,7 +67,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(home != null && user.getHomeToRent().getHomeID().equalsIgnoreCase(homeId))
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-       if(price <= 0 || people <= 0)
+       if(price < 0 || people < 0)
     	   throw new InvalidDataException("Invalid price or capacity.");
        Home h = new HomeClass(homeId, userId, user.getName(), local, address, price, price, description);
        ((UserClass)user).setHomeToRent(h);
