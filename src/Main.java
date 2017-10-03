@@ -4,6 +4,7 @@
  * @author Joao Monteiro
  */
 
+
 import java.util.Scanner;
 
 import HomeAway.HomeAway;
@@ -264,10 +265,10 @@ public class Main {
     }
     
     private static void addStay(HomeAway hw, Scanner in) {
-    	String args = in.nextLine();
+    	String args = in.nextLine().trim();
     	String arr[];
     	arr = args.split(" ");
-    	if(arr.length == 3)
+    	if(arr.length == 2)
     		addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
     	else rentHome(hw, arr[0], arr[1], Integer.parseInt(arr[2]));	//nao funciona na fase 1
     }
@@ -295,11 +296,10 @@ public class Main {
     	
     	try {
             Iterator<Home> it = hw.getUserRents(userId);
-            while (in.hasNext()) {
+            while (it.hasNext()) {
                 Home h = it.next();
                 System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
             }
-    		
     	}
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);

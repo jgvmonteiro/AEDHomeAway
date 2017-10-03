@@ -94,12 +94,12 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
     @Override
     public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException {
-        if(user == null || !user.getID().equalsIgnoreCase(userId))
+       if(score <= 0)
+           throw new InvalidDataException("Invalid input data.");
+       if(user == null || !user.getID().equalsIgnoreCase(userId))
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(home==null || !home.getHomeID().equalsIgnoreCase(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
-       if(score <= 0)
-           throw new InvalidDataException("Invalid input data.");
        throw new UserIsOwnerException("User attempted to evaluate his own home.");
        //((HomeClass)home).newRent();
     }
