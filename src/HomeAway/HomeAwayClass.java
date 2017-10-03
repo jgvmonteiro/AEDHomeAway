@@ -98,7 +98,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
             throw new UserDoesNotExistsException("Given user ID not found in the system.");
        if(home==null || !home.getHomeID().equalsIgnoreCase(homeId))
             throw new HomeDoesNotExists("Given home ID not found in the system.");
-       if(score < 0)
+       if(score <= 0)
            throw new InvalidDataException("Invalid input data.");
        throw new UserIsOwnerException("User attempted to evaluate his own home.");
        //((HomeClass)home).newRent();

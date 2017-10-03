@@ -267,7 +267,7 @@ public class Main {
     	String args = in.nextLine();
     	String arr[];
     	arr = args.split(" ");
-    	if(arr.length == 2)
+    	if(arr.length == 3)
     		addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
     	else rentHome(hw, arr[0], arr[1], Integer.parseInt(arr[2]));	//nao funciona na fase 1
     }
