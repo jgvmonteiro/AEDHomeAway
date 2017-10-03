@@ -75,7 +75,7 @@ public class UserClass implements User, Serializable{
     }
 
     @Override
-    public Iterator<Home> getVisitedHomes() {
+    public Iterator<Home> getVisitendHomes() {
         return visited.iterator();
     }
 
