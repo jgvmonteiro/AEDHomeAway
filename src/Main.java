@@ -270,17 +270,17 @@ public class Main {
     	arr = args.split(" ");
     	if(arr.length == 2)
     		addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
-    	else rentHome(hw, arr[0], arr[1], Integer.parseInt(arr[2]));	//nao funciona na fase 1
+    	else rentHome(hw, arr[0], arr[1], arr[2]);	//nao funciona na fase 1
     }
     
-    private static void rentHome(HomeAway hw, String userID, String homeID, int score){
-
+    private static void rentHome(HomeAway hw, String userID, String homeID, String score){
         try {
-            hw.rentHome(userID, homeID, score);
+        	int scoreAmount = Integer.parseInt(score);
+            hw.rentHome(userID, homeID, scoreAmount);
             System.out.println(STAY_INSERT_SUCCESS);
         } catch (UserDoesNotExistsException e) {
             System.out.println(ERR_USER_NOT_EXIST);
-        } catch (InvalidDataException e){ 
+        } catch (InvalidDataException|NumberFormatException e){ 
             System.out.println(ERR_INVALID_DATA);
         } catch (HomeDoesNotExists e){
             System.out.println(ERR_PROPERTY_NOT_EXIST);
@@ -353,8 +353,6 @@ public class Main {
         } catch (NoResultsException e) {
             System.out.println(ERR_SEARCH_NO_RESULTS);
         }
-        
-
     }
     
     
@@ -369,17 +367,16 @@ public class Main {
     private static Object load() throws FileNotFoundException, IOException, ClassNotFoundException{
         try {
     	String desktop = System.getProperty("user.home") + "/Desktop"; 
-        File file = new File(desktop + "/homeAway.o");
-        if(file.exists()) {
-	        ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
-	        Object o = inStream.readObject();
-	        inStream.close();
-	        return o;
-        }
-        else return new HomeAwayClass();
-        } catch(IOException|ClassNotFoundException e) {
+        //File file = new File(desktop + "/homeAway.o");
+	    ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
+	    Object o = inStream.readObject();
+	    inStream.close();
+	    return o;
+        } catch(ClassNotFoundException e) {
         	System.out.println("error with the file");
         	return null;
+        } catch(FileNotFoundException e) {
+        	return new HomeAwayClass();
         }
     }
     
