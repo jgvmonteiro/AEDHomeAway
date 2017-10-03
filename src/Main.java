@@ -70,7 +70,7 @@ public class Main {
     	HomeAway a = (HomeAway) load();
         interpreter(a);
         System.out.println(SAVE_AND_QUIT);
-        //save(a);
+        save(a);
     }
     
     private static void interpreter(HomeAway hw) {
@@ -267,7 +267,7 @@ public class Main {
     	String args = in.nextLine();
     	String arr[];
     	arr = args.split(" ");
-    	if(arr.length == 2)
+    	if(arr.length == 3)
     		addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
     	else rentHome(hw, arr[1], arr[2], Integer.parseInt(arr[3]));	//nao funciona na fase 1
     }
