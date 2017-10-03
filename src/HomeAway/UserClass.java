@@ -13,7 +13,9 @@ public class UserClass implements User, Serializable{
     
     private String userID, email, phone, name, nationality, address;
     private Home homeToRent;
-    private List<Home> visited;
+    private Home visited;
+    
+    private int visitedAmount;
     
     public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
         this.userID = userID;
@@ -22,7 +24,9 @@ public class UserClass implements User, Serializable{
         this.name = name;
         this.nationality = nationality;
         this.address = address;
-        this.visited = new ArrayList<Home>();
+        this.visited = null;
+        
+        this.visitedAmount = 0;
     }
 
     @Override
@@ -58,13 +62,11 @@ public class UserClass implements User, Serializable{
     protected void setEmail(String email) {
         this.email = email;
     }
-
     
     protected void setPhone(String phone) {
         this.phone = phone;
     }
-
-    
+   
     protected void setAddress(String address) {
         this.address = address;
     }
@@ -75,26 +77,31 @@ public class UserClass implements User, Serializable{
     }
 
     @Override
-    public Iterator<Home> getVisitedHomes() {
-        return visited.iterator();
+    public Home[] getVisitedHomes() {
+        Home[] homeList = new Home[visitedAmount];
+        homeList[0] = visited;
+        return homeList;
     }
 
     @Override
     public int visitedHomesCount() {
-        return visited.size();
+        return visited == null? 0 : 1;
     }
-    
-    
-    
+            
     protected void setHomeToRent(Home home){
         this.homeToRent = home;
     }
     
     protected void newRent(Home home){
-        visited.add(home);
+        visited = home;
+    }
+
+    public void incVisitedAmount() {
+    	visitedAmount++;
+    }
+
+    public int getVisitedAmount() {
+    	return visitedAmount;
     }
     
-    
-    
-
 }

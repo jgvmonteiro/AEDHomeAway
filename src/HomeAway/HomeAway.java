@@ -115,7 +115,7 @@ public interface HomeAway {
      * @throws UserDoesNotExistsException
      * @throws UserHasNotRentsException 
      */
-    Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
+    Home[] getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
     
     /**
      * 
