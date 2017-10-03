@@ -65,18 +65,18 @@ public interface HomeAway {
     /**
      * 
      * @param homeId
-     * @throws HomeDoesNotExists
+     * @throws HomeDoesNotExistsException
      * @throws HomeAlreadyVisited 
      */
-    void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisited;
+    void removeHome(String homeId) throws HomeDoesNotExistsException, HomeAlreadyVisited;
     
     /**
      * 
      * @param homeId
      * @return
-     * @throws HomeDoesNotExists 
+     * @throws HomeDoesNotExistsException 
      */
-    Home getHomeInfo(String homeId) throws HomeDoesNotExists;
+    Home getHomeInfo(String homeId) throws HomeDoesNotExistsException;
     
     /**
      * 
@@ -84,21 +84,21 @@ public interface HomeAway {
      * @param homeId
      * @param score
      * @throws UserDoesNotExistsException
-     * @throws HomeDoesNotExists
+     * @throws HomeDoesNotExistsException
      * @throws InvalidDataException
      * @throws UserHasNoHomesException 
      */
-    void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException;
+    void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException;
     
     /**
      * 
      * @param userId
      * @param homeId
      * @throws UserDoesNotExistsException
-     * @throws HomeDoesNotExists
+     * @throws HomeDoesNotExistsException
      * @throws UserIsNotOwnerException 
      */
-    void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExists, UserIsNotOwnerException;
+    void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException;
     
     /**
      * 

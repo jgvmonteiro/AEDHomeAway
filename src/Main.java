@@ -224,7 +224,7 @@ public class Main {
     		hw.removeHome(homeId);
     		System.out.println(HOME_REMOVE_SUCCESS);
     	}
-    	catch(HomeDoesNotExists e) {
+    	catch(HomeDoesNotExistsException e) {
     		System.out.println(ERR_PROPERTY_NOT_EXIST);
     	}
     	catch(HomeAlreadyVisited e) {
@@ -239,7 +239,7 @@ public class Main {
         try {
             Home home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
             System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore(), home.getOwnerName());
-        } catch (HomeDoesNotExists e) {
+        } catch (HomeDoesNotExistsException e) {
             System.out.println(ERR_PROPERTY_NOT_EXIST);
         }        
         
@@ -256,7 +256,7 @@ public class Main {
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);
     	}
-    	catch(HomeDoesNotExists e) {
+    	catch(HomeDoesNotExistsException e) {
     		System.out.println(ERR_PROPERTY_NOT_EXIST);
     	}
     	catch(UserIsNotOwnerException e) {
@@ -282,7 +282,7 @@ public class Main {
             System.out.println(ERR_USER_NOT_EXIST);
         } catch (InvalidDataException|NumberFormatException e){ 
             System.out.println(ERR_INVALID_DATA);
-        } catch (HomeDoesNotExists e){
+        } catch (HomeDoesNotExistsException e){
             System.out.println(ERR_PROPERTY_NOT_EXIST);
         } catch (UserIsOwnerException e){
             System.out.println(ERR_TRAVELLER_IS_OWNER);
@@ -297,7 +297,7 @@ public class Main {
     	try {
             Home homeList[] = hw.getUserRents(userId);
             Home h = homeList[0];
-            for(int i = 0; i < homeList.length - 1; i++)
+            for(int i = 0; i < homeList.length; i++)
                 System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
     	}
     	catch(UserDoesNotExistsException e) {

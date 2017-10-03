@@ -29,7 +29,13 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
     
     private boolean hasUser(String userID){
-        return getUser(userID)!=null;
+    	try {
+    		getUser(userID);
+    		return true;
+    	}
+        catch(UserDoesNotExistsException e) {
+        	return false;
+        }
     }
     
     private User getUser(String userID) throws UserDoesNotExistsException{
@@ -39,12 +45,18 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
     
     private boolean hasHome(String homeID){
-        return getHome(homeID)!=null;
+    	try {
+    		getHome(homeID);
+    		return true;
+    	}
+        catch(HomeDoesNotExistsException e) {
+        	return false;
+        }
     }
     
-    private Home getHome(String homeID){
+    private Home getHome(String homeID) throws HomeDoesNotExistsException{
         if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
-            throw new HomeDoesNotExists("Given home ID not found in the system.");
+            throw new HomeDoesNotExistsException("Given home ID not found in the system.");
         return home;
     }
     
@@ -72,7 +84,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
         User user = getUser(userId);
         if(user.hasHomeToRent())
             throw  new UserHasHomeToRent("Attempt to remove a user who has homes to rent.");
-        user = null;
+        this.user = null;
     }
 
     @Override
@@ -94,7 +106,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public void removeHome(String homeId) throws HomeDoesNotExists, HomeAlreadyVisited {
+    public void removeHome(String homeId) throws HomeDoesNotExistsException, HomeAlreadyVisited {
         Home home = getHome(homeId);
         if(user.getHomeToRent().visited())
             throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
@@ -103,23 +115,23 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public Home getHomeInfo(String homeId) throws HomeDoesNotExists {
+    public Home getHomeInfo(String homeId) throws HomeDoesNotExistsException {
         Home home = getHome(homeId);
         return home;
     }
 
     @Override
-    public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExists, InvalidDataException, UserIsOwnerException {
-        User user = getUser(userId);
+    public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
+    	if(score <= 0)
+            throw new InvalidDataException("Invalid input data.");
+    	User user = getUser(userId);
         Home home = getHome(homeId);
-        if(score <= 0)
-           throw new InvalidDataException("Invalid input data.");
         throw new UserIsOwnerException("User attempted to evaluate his own home.");
        //((HomeClass)home).newRent();
     }
 
     @Override
-    public void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExists, UserIsNotOwnerException {
+    public void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
         User user = getUser(userId);
         Home home = getHome(homeId);
        //O QUE FAZER À EXCEPTCAO????
