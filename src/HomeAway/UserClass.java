@@ -90,7 +90,7 @@ public class UserClass implements User, Serializable{
 
     @Override
     public boolean hasHomeToRent() {
-        return homeToRent!=null;
+        return homeToRent != null;
     }
  
     protected void setHomeToRent(Home home){
