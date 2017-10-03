@@ -87,7 +87,12 @@ public class UserClass implements User, Serializable{
     public int visitedHomesCount() {
         return visited == null? 0 : 1;
     }
-            
+
+    @Override
+    public boolean hasHomeToRent() {
+        return homeToRent!=null;
+    }
+ 
     protected void setHomeToRent(Home home){
         this.homeToRent = home;
     }
