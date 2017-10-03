@@ -16,6 +16,7 @@ public interface User {
     String getNationality();
     String getAddress();
     Home getHomeToRent();
+    boolean hasHomeToRent();
     Iterator<Home> getVisitendHomes();
     int visitedHomesCount();
 }
