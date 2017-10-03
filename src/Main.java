@@ -33,7 +33,7 @@ public class Main {
 	private static final String STAY_INSERT_SUCCESS = "Estadia adicionada com sucesso.";
 	private static final String CHECK_STAYS_SUCCESS = "%s %s %s %s %d %d %d\n"; //idHome descricao morada local preco pessoas pontos
 	
-	private static final String SAVE_AND_QUIT = "Gravando e terminando.";
+	private static final String SAVE_AND_QUIT = "Gravando e terminando...\n";
 	
 	private static final String ERR_USER_EXIST = "Utilizador existente.";
 	private static final String ERR_USER_NOT_EXIST = "Utilizador inexistente.";

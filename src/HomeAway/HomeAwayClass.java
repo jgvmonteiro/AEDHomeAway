@@ -70,7 +70,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
            throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
        if(price <= 0 || people <= 0 || people > MAX_PEOPLE_IN_HOME)
     	   throw new InvalidDataException("Invalid price or capacity.");
-       Home h = new HomeClass(homeId, userId, user.getName(), local, address, price, price, description);
+       Home h = new HomeClass(homeId, userId, user, local, address, price, people, description);
        ((UserClass)user).setHomeToRent(h);
        this.home = h;
     }
@@ -135,15 +135,15 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
     @Override
     public Home searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
-        if(capacity < 0) throw new InvalidDataException("capacity is negative");
-    	if(home !=null && home.getCapacity() == capacity && this.home.getLocal().equalsIgnoreCase(local))
+        if(capacity < 1 || capacity > 20) throw new InvalidDataException("capacity is negative");
+    	if(home !=null && home.getCapacity() >= capacity && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
         	return this.home;
         else throw new NoResultsException("Local or people don't match the home in our system");
     }
 
     @Override
     public Home topHomes(String local) throws NoResultsException {
-        if(home != null && this.home.getLocal().equalsIgnoreCase(local))
+        if(home != null && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
         	return this.home;
         else throw new NoResultsException("Our home's local doesn't match the parameter local");
     }
