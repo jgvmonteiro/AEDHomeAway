@@ -26,12 +26,12 @@ public class Main {
 	private static final String USER_INSERT_SUCCESS = "Insercao de utilizador com sucesso.";
 	private static final String USER_UPDATE_SUCCESS = "Utilizador atualizado com sucesso.";
 	private static final String USER_REMOVE_SUCCESS = "Utilizador removido com sucesso.";
-	private static final String CHECK_USER_DATA_SUCCESS = "%s: %s, %s, %s, %s"; //name, address, nationality, email, phone number
+	private static final String CHECK_USER_DATA_SUCCESS = "%s: %s, %s, %s, %s\n"; //name, address, nationality, email, phone number
 	private static final String HOME_ADD_SUCCESS = "Propriedade adicionada com sucesso.";
 	private static final String HOME_REMOVE_SUCCESS = "Propriedade removida com sucesso.";
-	private static final String CHECK_HOME_DATA_SUCCESS = "%s: %s, %s, %d, %d, %d, %s"; //description, address, local, price, capacity, score, name
+	private static final String CHECK_HOME_DATA_SUCCESS = "%s: %s, %s, %d, %d, %d, %s\n"; //description, address, local, price, capacity, score, name
 	private static final String STAY_INSERT_SUCCESS = "Estadia adicionada com sucesso.";
-	private static final String CHECK_STAYS_SUCCESS = "%s %s %s %s %d %d %d"; //idHome descricao morada local preco pessoas pontos
+	private static final String CHECK_STAYS_SUCCESS = "%s %s %s %s %d %d %d\n"; //idHome descricao morada local preco pessoas pontos
 	
 	private static final String SAVE_AND_QUIT = "Gravando e terminando.";
 	
@@ -69,12 +69,13 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
     	HomeAway a = (HomeAway) load();
         interpreter(a);
+        System.out.println(SAVE_AND_QUIT);
         //save(a);
     }
     
     private static void interpreter(HomeAway hw) {
     	Scanner in = new Scanner(System.in);
-    	String option = in.next();
+    	String option = in.next().toUpperCase();
     	
     	while(!option.equals(CMD_EXIT_SAVE)) {
     		switch(option) {
@@ -117,7 +118,8 @@ public class Main {
     			default:
     				System.out.println("wrong command");
     		}
-    		option = in.next();
+    		System.out.println();
+    		option = in.next().toUpperCase();
     	}
     	
     }
@@ -126,8 +128,8 @@ public class Main {
     	String idUser = in.next();
     	String email = in.next();
     	String phone = in.next();
-    	String name = in.next();
-    	in.nextLine();
+    	String name = in.nextLine().trim();
+    	
     	
     	String nationality = in.nextLine();
     	String address = in.nextLine();
