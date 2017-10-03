@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Joao Monteiro
  */
-public class UserClass implements User, Serializable{
+public class UserClass implements User{
     
     private String userID, email, phone, name, nationality, address;
     private Home homeToRent;
@@ -98,6 +98,7 @@ public class UserClass implements User, Serializable{
     }
     
     protected void newRent(Home home){
+    	incVisitedAmount();
         visited = home;
     }
 

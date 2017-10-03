@@ -6,7 +6,7 @@ import java.io.Serializable;
  *
  * @author Joao Monteiro
  */
-public class HomeClass implements Home, Serializable{
+public class HomeClass implements Home{
 
     private String homeID, ownerID, local, address, description;
     private User owner;

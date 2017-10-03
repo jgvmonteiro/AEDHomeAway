@@ -295,11 +295,10 @@ public class Main {
     	in.nextLine();
     	
     	try {
-            Iterator<Home> it = hw.getUserRents(userId);
-            while (it.hasNext()) {
-                Home h = it.next();
+            Home homeList[] = hw.getUserRents(userId);
+            Home h = homeList[0];
+            for(int i = 0; i < homeList.length - 1; i++)
                 System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
-            }
     	}
     	catch(UserDoesNotExistsException e) {
     		System.out.println(ERR_USER_NOT_EXIST);

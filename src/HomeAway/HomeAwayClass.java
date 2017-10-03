@@ -138,11 +138,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
 
     @Override
-    public Iterator<Home> getUserRents(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
+    public Home[] getUserRents(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
         User user = getUser(userId);;
         if(user.visitedHomesCount()==0)
             throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
-        return user.getVisitendHomes();
+        return user.getVisitedHomes();
     }
 
     @Override

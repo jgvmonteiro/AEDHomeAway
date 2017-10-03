@@ -1,10 +1,12 @@
 package HomeAway;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joao Monteiro
  */
-public interface Home {
+public interface Home extends Serializable{
     
     String getOwnerName();
     String getOwnerID();

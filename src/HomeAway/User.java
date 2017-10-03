@@ -1,12 +1,13 @@
 package HomeAway;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  *
  * @author Joao Monteiro
  */
-public interface User {
+public interface User extends Serializable{
 
     
     String getID();
