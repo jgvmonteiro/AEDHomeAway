@@ -9,15 +9,15 @@ import java.util.Iterator;
  */
 public interface User extends Serializable{
 
-    
-    String getID();
-    String getName();
-    String getEmail();
-    String getPhone();
-    String getNationality();
-    String getAddress();
-    Home getHomeToRent();
-    Home[] getVisitedHomes();
-    boolean hasHomeToRent();
-    int visitedHomesCount();
+	
+	String getID();
+	String getName();
+	String getEmail();
+	String getPhone();
+	String getNationality();
+	String getAddress();
+	Home getHomeToRent();
+	Home[] getVisitedHomes();
+	boolean hasHomeToRent();
+	int visitedHomesCount();
 }

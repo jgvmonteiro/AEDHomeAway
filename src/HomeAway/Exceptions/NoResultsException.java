@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class NoResultsException extends RuntimeException{
 
-    public NoResultsException() {
-    }
+	public NoResultsException() {
+	}
 
-    public NoResultsException(String message) {
-        super(message);
-    }
+	public NoResultsException(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }

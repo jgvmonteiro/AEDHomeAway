@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class HomeAlreadyExistsException extends RuntimeException{
 
-    public HomeAlreadyExistsException() {
-    }
+	public HomeAlreadyExistsException() {
+	}
 
-    public HomeAlreadyExistsException(String message) {
-        super(message);
-    }
-    
-    
+	public HomeAlreadyExistsException(String message) {
+		super(message);
+	}
+	
+	
 
 }

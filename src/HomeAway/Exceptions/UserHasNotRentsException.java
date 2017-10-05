@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class UserHasNotRentsException extends RuntimeException{
 
-    public UserHasNotRentsException() {
-    }
+	public UserHasNotRentsException() {
+	}
 
-    public UserHasNotRentsException(String message) {
-        super(message);
-    }
+	public UserHasNotRentsException(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }

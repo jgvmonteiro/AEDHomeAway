@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class UserDoesNotExistsException extends RuntimeException{
 
-    public UserDoesNotExistsException() {
-    }
+	public UserDoesNotExistsException() {
+	}
 
-    public UserDoesNotExistsException(String message) {
-        super(message);
-    }
+	public UserDoesNotExistsException(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }

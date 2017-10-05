@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class UserIsNotOwnerException extends RuntimeException{
 
-    public UserIsNotOwnerException() {
-    }
+	public UserIsNotOwnerException() {
+	}
 
-    public UserIsNotOwnerException(String message) {
-        super(message);
-    }
+	public UserIsNotOwnerException(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }

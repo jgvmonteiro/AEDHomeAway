@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class HomeDoesNotExistsException extends RuntimeException{
 
-    public HomeDoesNotExistsException() {
-    }
+	public HomeDoesNotExistsException() {
+	}
 
-    public HomeDoesNotExistsException(String message) {
-        super(message);
-    }
+	public HomeDoesNotExistsException(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }

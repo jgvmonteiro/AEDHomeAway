@@ -5,15 +5,15 @@ package HomeAway.Exceptions;
  */
 public class UserIsOwnerException extends RuntimeException{
 
-    public UserIsOwnerException() {
-    }
+	public UserIsOwnerException() {
+	}
 
-    public UserIsOwnerException(String message) {
-        super(message);
-    }
-    
-    
+	public UserIsOwnerException(String message) {
+		super(message);
+	}
+	
+	
 
-    
-    
+	
+	
 }

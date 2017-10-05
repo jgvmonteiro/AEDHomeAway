@@ -5,13 +5,13 @@ package HomeAway.Exceptions;
  */
 public class UserHasHomeToRent extends RuntimeException{
 
-    public UserHasHomeToRent() {
-    }
+	public UserHasHomeToRent() {
+	}
 
-    public UserHasHomeToRent(String message) {
-        super(message);
-    }
+	public UserHasHomeToRent(String message) {
+		super(message);
+	}
 
-    
-    
+	
+	
 }
