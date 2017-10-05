@@ -8,5 +8,5 @@ import java.io.Serializable;
  */
 public interface Home extends HomeInfo, Serializable{
 	
-	void newRent();
+	void newVisit();
 }

@@ -97,7 +97,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		   throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
 	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_IN_HOME)
 		   throw new InvalidDataException("Invalid price or capacity.");
-	   Home h = new HomeClass(homeId, userId, user, local, address, price, people, description);
+	   Home h = new HomeClass(homeId, user, local, address, price, people, description);
 	   user.setHomeToRent(h);
 	   this.home = h;
 	}
@@ -105,7 +105,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void removeHome(String homeId) throws HomeDoesNotExistsException, HomeAlreadyVisited {
 		Home home = getHome(homeId);
-		if(user.getHomeToRent().visited())
+		if(user.getHomeToRent().hasBeenVisited())
 			throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
 		user.setHomeToRent(null);
 		this.home = null;
@@ -134,7 +134,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   //O QUE FAZER À EXCEPTCAO????
 	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))
 		   throw new UserIsNotOwnerException("Cannot rent this home without a avaluation.");
-	   home.newRent();
+	   home.newVisit();
 	   user.newRent(home);
 	}
 

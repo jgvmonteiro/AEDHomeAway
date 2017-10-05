@@ -8,15 +8,14 @@ import java.io.Serializable;
  */
 public class HomeClass implements Home{
 
-	private String homeID, ownerID, local, address, description;
+	private String homeID, local, address, description;
 	private User owner;
 	private int price, capacity, score;
 	private boolean visited;
 
-	public HomeClass(String homeID, String ownerID, User owner, String local, String address, int price, int capacity, String description) {
+	public HomeClass(String homeID, User owner, String local, String address, int price, int capacity, String description) {
 		this.address = address;
 		this.homeID = homeID;
-		this.ownerID = ownerID;
 		this.owner = owner;
 		this.local = local;
 		this.price = price;
@@ -31,11 +30,9 @@ public class HomeClass implements Home{
 		return owner.getName();
 	}
 
-	
-	
 	@Override
 	public String getOwnerID() {
-		return ownerID;
+		return owner.getID();
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public class HomeClass implements Home{
 	}
 
 	@Override
-	public boolean visited() {
+	public boolean hasBeenVisited() {
 		return visited;
 	}
 
@@ -74,11 +71,12 @@ public class HomeClass implements Home{
 		return score;
 	}
 	
-	
-	public void newRent(){
+	@Override
+	public void newVisit(){
 		this.visited = true;
 	}
 	
+	@Override
 	public String getDescription() {
 		return this.description;
 	}
