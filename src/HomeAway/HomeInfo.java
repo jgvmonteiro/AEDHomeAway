@@ -3,12 +3,13 @@ package HomeAway;
 import java.io.Serializable;
 
 /**
- * HomeInfo interface
+ * HomeInfo interface.
  * Represents an house in the system.
- * Stores and gives information about this house
- * Does NOT allow to makes changes to this house information
+ * Stores and gives information about the house.
+ * Does NOT allow to makes changes to the house information.
  * 
- * @author Joao Monteiro
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  */
 public interface HomeInfo extends Serializable{
 	

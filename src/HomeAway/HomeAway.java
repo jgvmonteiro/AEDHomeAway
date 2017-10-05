@@ -1,11 +1,11 @@
 package HomeAway;
 
 import HomeAway.Exceptions.*;
-import java.util.Iterator;
 
 /**
  *
- * @author Joao Monteiro
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  */
 public interface HomeAway {
 	

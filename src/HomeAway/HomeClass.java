@@ -1,10 +1,13 @@
 package HomeAway;
 
-import java.io.Serializable;
-
 /**
- *
- * @author Joao Monteiro
+ * Home class.
+ * Used to create a new Home object in the system.
+ * The description of the methods is provided in the interface implemented.
+ * @see HomeInfo for more information.
+ * 
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  */
 public class HomeClass implements Home{
 
@@ -13,7 +16,7 @@ public class HomeClass implements Home{
 	private int price, capacity, score;
 	private boolean visited;
 
-	public HomeClass(String homeID, User owner, String local, String address, int price, int capacity, String description) {
+	public HomeClass(String homeID, User owner, String local, String address, String description, int price, int capacity) {
 		this.address = address;
 		this.homeID = homeID;
 		this.owner = owner;
@@ -50,7 +53,11 @@ public class HomeClass implements Home{
 		return address;
 	}
 	
-
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
+	
 	@Override
 	public int getCapacity() {
 		return capacity;
@@ -75,14 +82,5 @@ public class HomeClass implements Home{
 	public void newVisit(){
 		this.visited = true;
 	}
-	
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
-	
-	
-	
-	
 	
 }

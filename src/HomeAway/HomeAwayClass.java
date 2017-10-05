@@ -97,7 +97,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		   throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
 	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_IN_HOME)
 		   throw new InvalidDataException("Invalid price or capacity.");
-	   Home h = new HomeClass(homeId, user, local, address, price, people, description);
+	   Home h = new HomeClass(homeId, user, local, address, description, price, people);
 	   user.setHomeToRent(h);
 	   this.home = h;
 	}
