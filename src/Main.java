@@ -13,6 +13,7 @@ import HomeAway.User;
 import HomeAway.Exceptions.*;
 import java.io.File;
 import HomeAway.Home;
+import HomeAway.HomeInfo;
 import HomeAway.UserInfo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -238,7 +239,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Home home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
+			HomeInfo home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
 			System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore(), home.getOwnerName());
 		} catch (HomeDoesNotExistsException e) {
 			System.out.println(ERR_PROPERTY_NOT_EXIST);
@@ -296,8 +297,8 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Home homeList[] = hw.getUserRents(userId);
-			Home h = homeList[0];
+			HomeInfo homeList[] = hw.getUserRents(userId);
+			HomeInfo h = homeList[0];
 			for(int i = 0; i < homeList.length; i++)
 				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
 		}
@@ -315,7 +316,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Home home = hw.getOwnerHomes(userID);
+			HomeInfo home = hw.getOwnerHomes(userID);
 			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
@@ -332,7 +333,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Home h = hw.searchHome(capacity, local);
+			HomeInfo h = hw.searchHome(capacity, local);
 			System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), 
 							  h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
 		}
@@ -348,7 +349,7 @@ public class Main {
 		String local = in.next();
 		in.nextLine();
 		try {
-			Home home = hw.topHomes(local);
+			HomeInfo home = hw.topHomes(local);
 			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
 		} catch (NoResultsException e) {
 			System.out.println(ERR_SEARCH_NO_RESULTS);

@@ -76,7 +76,7 @@ public interface HomeAway {
 	 * @return
 	 * @throws HomeDoesNotExistsException 
 	 */
-	Home getHomeInfo(String homeId) throws HomeDoesNotExistsException;
+	HomeInfo getHomeInfo(String homeId) throws HomeDoesNotExistsException;
 	
 	/**
 	 * 
@@ -106,7 +106,7 @@ public interface HomeAway {
 	 * @return
 	 * @throws UserDoesNotExistsException 
 	 */
-	Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException;
+	HomeInfo getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException;
 	
 	/**
 	 * 
@@ -115,7 +115,7 @@ public interface HomeAway {
 	 * @throws UserDoesNotExistsException
 	 * @throws UserHasNotRentsException 
 	 */
-	Home[] getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
+	HomeInfo[] getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
 	
 	/**
 	 * 
@@ -125,7 +125,7 @@ public interface HomeAway {
 	 * @throws InvalidDataException
 	 * @throws NoResultsException 
 	 */
-	Home searchHome(int people, String local) throws InvalidDataException, NoResultsException;
+	HomeInfo searchHome(int people, String local) throws InvalidDataException, NoResultsException;
 	
 	/**
 	 * 
@@ -133,7 +133,7 @@ public interface HomeAway {
 	 * @return
 	 * @throws NoResultsException 
 	 */
-	Home topHomes(String local) throws NoResultsException;
+	HomeInfo topHomes(String local) throws NoResultsException;
 			
 
 	

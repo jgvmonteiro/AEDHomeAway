@@ -6,16 +6,7 @@ import java.io.Serializable;
  *
  * @author Joao Monteiro
  */
-public interface Home extends Serializable{
+public interface Home extends HomeInfo, Serializable{
 	
-	String getOwnerName();
-	String getOwnerID();
-	String getHomeID();
-	String getLocal();
-	String getAddress();
-	int getCapacity();
-	int getPrice();
-	int getScore();
-	boolean visited();
-	String getDescription();
+	void newRent();
 }

@@ -75,7 +75,7 @@ public class HomeClass implements Home{
 	}
 	
 	
-	protected void newRent(){
+	public void newRent(){
 		this.visited = true;
 	}
 	

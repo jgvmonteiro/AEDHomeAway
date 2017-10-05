@@ -71,10 +71,9 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void editUser(String userId, String email, String phone, String address) throws UserDoesNotExistsException {
 		User user = getUser(userId);
-		UserClass u = (UserClass)user;
-		u.setAddress(address);
-		u.setEmail(email);
-		u.setPhone(phone);
+		user.setAddress(address);
+		user.setEmail(email);
+		user.setPhone(phone);
 	}
 
 	@Override
@@ -99,7 +98,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_IN_HOME)
 		   throw new InvalidDataException("Invalid price or capacity.");
 	   Home h = new HomeClass(homeId, userId, user, local, address, price, people, description);
-	   ((UserClass)user).setHomeToRent(h);
+	   user.setHomeToRent(h);
 	   this.home = h;
 	}
 
@@ -108,12 +107,12 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		Home home = getHome(homeId);
 		if(user.getHomeToRent().visited())
 			throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
-		((UserClass)user).setHomeToRent(null);
+		user.setHomeToRent(null);
 		this.home = null;
 	}
 
 	@Override
-	public Home getHomeInfo(String homeId) throws HomeDoesNotExistsException {
+	public HomeInfo getHomeInfo(String homeId) throws HomeDoesNotExistsException {
 		Home home = getHome(homeId);
 		return home;
 	}
@@ -135,12 +134,12 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   //O QUE FAZER À EXCEPTCAO????
 	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))
 		   throw new UserIsNotOwnerException("Cannot rent this home without a avaluation.");
-	   ((HomeClass)home).newRent();
-	   ((UserClass)user).newRent(home);
+	   home.newRent();
+	   user.newRent(home);
 	}
 
 	@Override
-	public Home getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
+	public HomeInfo getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userId);
 		if(!user.hasHomeToRent())
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
@@ -148,7 +147,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public Home[] getUserRents(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
+	public HomeInfo[] getUserRents(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userId);;
 		if(user.visitedHomesCount()==0)
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
@@ -156,7 +155,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public Home searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
+	public HomeInfo searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
 		if(capacity < 1 || capacity > 20) throw new InvalidDataException("capacity is negative");
 		if(home !=null && home.getCapacity() >= capacity && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
 			return this.home;
@@ -164,7 +163,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public Home topHomes(String local) throws NoResultsException {
+	public HomeInfo topHomes(String local) throws NoResultsException {
 		if(home != null && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
 			return this.home;
 		else throw new NoResultsException("Our home's local doesn't match the parameter local");
