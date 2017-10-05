@@ -13,6 +13,7 @@ import HomeAway.User;
 import HomeAway.Exceptions.*;
 import java.io.File;
 import HomeAway.Home;
+import HomeAway.UserInfo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -182,7 +183,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			User u = hw.getUserInfo(userId);
+			UserInfo u = hw.getUserInfo(userId);
 			System.out.printf(CHECK_USER_DATA_SUCCESS, u.getName(), u.getAddress(), u.getNationality(),
 													   u.getEmail(), u.getPhone());
 		}

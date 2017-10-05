@@ -45,7 +45,7 @@ public interface HomeAway {
 	 * @return
 	 * @throws UserDoesNotExistsException 
 	 */
-	User getUserInfo(String userId) throws UserDoesNotExistsException;
+	UserInfo getUserInfo(String userId) throws UserDoesNotExistsException;
 	
 	/**
 	 * 

@@ -86,7 +86,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public User getUserInfo(String userId) throws UserDoesNotExistsException {
+	public UserInfo getUserInfo(String userId) throws UserDoesNotExistsException {
 		User user = getUser(userId);
 		return user;
 	}
