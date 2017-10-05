@@ -7,17 +7,9 @@ import java.util.Iterator;
  *
  * @author Joao Monteiro
  */
-public interface User extends Serializable{
+public interface User extends UserInfo, Serializable{
 
+	void setHomeToRent(Home home);
+	void newRent(Home home);
 	
-	String getID();
-	String getName();
-	String getEmail();
-	String getPhone();
-	String getNationality();
-	String getAddress();
-	Home getHomeToRent();
-	Home[] getVisitedHomes();
-	boolean hasHomeToRent();
-	int visitedHomesCount();
 }

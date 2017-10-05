@@ -92,16 +92,16 @@ public class UserClass implements User{
 	public boolean hasHomeToRent() {
 		return homeToRent != null;
 	}
- 
-	protected void setHomeToRent(Home home){
+
+	public void setHomeToRent(Home home){
 		this.homeToRent = home;
 	}
 	
-	protected void newRent(Home home){
+	public void newRent(Home home){
 		incVisitedAmount();
 		visited = home;
 	}
-
+	
 	public void incVisitedAmount() {
 		visitedAmount++;
 	}
