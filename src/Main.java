@@ -68,6 +68,7 @@ public class Main {
 	
 
     public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("This is a test.");
     	HomeAway a = (HomeAway) load();
         interpreter(a);
         System.out.println(SAVE_AND_QUIT);
