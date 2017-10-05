@@ -29,12 +29,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
     
     private boolean hasUser(String userID){
-    	try {
-    		getUser(userID);
-    		return true;
-    	}
-        catch(UserDoesNotExistsException e) {
-        	return false;
+        try {
+            getUser(userID);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
     
@@ -45,12 +44,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
     }
     
     private boolean hasHome(String homeID){
-    	try {
-    		getHome(homeID);
-    		return true;
-    	}
-        catch(HomeDoesNotExistsException e) {
-        	return false;
+        try {
+            getHome(homeID);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
     
