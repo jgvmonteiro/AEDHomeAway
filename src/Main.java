@@ -374,7 +374,8 @@ public class Main {
 		inStream.close();
 		return o;
 		} catch(ClassNotFoundException e) {
-			System.out.println("error with the file");
+			System.out.println("Error loading file.");
+			System.exit(1);
 			return null;
 		} catch(FileNotFoundException e) {
 			return new HomeAwayClass();
