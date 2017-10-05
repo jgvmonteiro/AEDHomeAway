@@ -2,17 +2,7 @@ package HomeAway;
 
 import HomeAway.Exceptions.*;
 import HomeAway.*;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.Writer;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -139,7 +129,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public HomeInfo getOwnerHomes(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
+	public HomeInfo getUserProperties(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userId);
 		if(!user.hasHomeToRent())
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");

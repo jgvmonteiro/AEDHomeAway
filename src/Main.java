@@ -316,7 +316,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			HomeInfo home = hw.getOwnerHomes(userID);
+			HomeInfo home = hw.getUserProperties(userID);
 			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
