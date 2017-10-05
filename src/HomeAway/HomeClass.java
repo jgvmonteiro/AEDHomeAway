@@ -21,11 +21,11 @@ public class HomeClass implements Home{
 		this.homeID = homeID;
 		this.owner = owner;
 		this.local = local;
+		this.description = description;
 		this.price = price;
 		this.capacity = capacity;
 		this.score = 0;
 		this.visited = false;
-		this.description = description;
 	}
 
 	@Override

@@ -43,10 +43,10 @@ public interface HomeAway {
 	void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent;
 
 	/**
-	 * Gives information about an user in the system.
+	 * Returns information about an user in the system.
 	 * 
 	 * @param userID Identification(ID) of the user in the system.
-	 * @return UserInfo object, containing information about the user.
+	 * @return UserInfo object, contains information about the user.
 	 * @see UserInfo for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 */
@@ -78,10 +78,10 @@ public interface HomeAway {
 	void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisited;
 	
 	/**
-	 * Gives information about a property in the system.
+	 * Returns information about a property in the system.
 	 * 
 	 * @param homeID Property Identification in the system.
-	 * @return HomeInfo object, containing information about the property.
+	 * @return HomeInfo object, contains information about the property.
 	 * @see HomeInfo for more details.
 	 * @throws HomeDoesNotExistsException Property with the supplied ID was not found in the system.
 	 */
@@ -112,35 +112,41 @@ public interface HomeAway {
 	void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException;
 	
 	/**
+	 * Returns all properties owner by a specified user.			<(fase 1 apenas uma propriedade existe no sistema)>
 	 * 
-	 * 
-	 * @param userID
-	 * @return
-	 * @throws UserDoesNotExistsException 
-	 * @throws UserIsNotOwnerException
+	 * @param userID User's identification in the system.
+	 * @return HomeInfo object, contains information about the property.
+	 * @see HomeInfo for more details.
+	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
+	 * @throws UserIsNotOwnerException User does not own any property.
 	 */
 	HomeInfo getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException;
 	
 	/**
+	 * Returns all the properties visited by a specified user.
 	 * 
-	 * @param userId
-	 * @return
-	 * @throws UserDoesNotExistsException
-	 * @throws UserHasNotRentsException 
+	 * @param userID User's identification in the system
+	 * @return HomeInfo objects, contains information about the properties user visited. 
+	 * @see HomeInfo for more details.
+	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
+	 * @throws UserHasNotRentsException User hasn't stayed in any property.
 	 */
-	HomeInfo[] getUserRents(String userId) throws UserDoesNotExistsException, UserHasNotRentsException;
+	HomeInfo[] getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
 	
 	/**
+	 * Searches a property on a given local that can host certain amount of people.
 	 * 
-	 * @param people
-	 * @param local
-	 * @return
-	 * @throws InvalidDataException
-	 * @throws NoResultsException 
+	 * @param people Number of people property has to be able to host.
+	 * @param local Local of the property.
+	 * @return HomeInfo object, contains information about the property.
+	 * @see HomeInfo for more details.
+	 * @throws InvalidDataException Number of people must be a number between 1 and 20.
+	 * @throws NoResultsException No property in the system matched for the given arguments.
 	 */
 	HomeInfo searchHome(int people, String local) throws InvalidDataException, NoResultsException;
 	
 	/**
+	 * 
 	 * 
 	 * @param local
 	 * @return

@@ -9,19 +9,10 @@ import java.util.Scanner;
 
 import HomeAway.HomeAway;
 import HomeAway.HomeAwayClass;
-import HomeAway.User;
 import HomeAway.Exceptions.*;
-import java.io.File;
-import HomeAway.Home;
 import HomeAway.HomeInfo;
 import HomeAway.UserInfo;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Iterator;
+import java.io.*;
 
 public class Main {
 	
@@ -297,7 +288,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			HomeInfo homeList[] = hw.getUserRents(userId);
+			HomeInfo homeList[] = hw.getUserVisits(userId);
 			HomeInfo h = homeList[0];
 			for(int i = 0; i < homeList.length; i++)
 				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
