@@ -17,7 +17,7 @@ public interface UserInfo extends Serializable{
 	String getNationality();
 	String getAddress();
 	Home getHomeToRent();
-	Home[] getVisitedHomes();
+	Visits getVisitedHomes();
 	boolean hasHomeToRent();
 	int visitedHomesCount();
 }

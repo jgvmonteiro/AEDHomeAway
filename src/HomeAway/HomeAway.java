@@ -131,7 +131,7 @@ public interface HomeAway {
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws UserHasNotRentsException User hasn't stayed in any property.
 	 */
-	HomeInfo[] getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
+	Visits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
 	
 	/**
 	 * Searches a property on a given local that can host certain amount of people.

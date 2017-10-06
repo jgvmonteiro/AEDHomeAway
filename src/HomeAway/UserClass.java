@@ -13,9 +13,8 @@ public class UserClass implements User{
 	
 	private String userID, email, phone, name, nationality, address;
 	private Home homeToRent;
-	private Home visited;
+	private Visits visited_;
 	
-	private int visitedAmount;
 	
 	public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
 		this.userID = userID;
@@ -24,9 +23,7 @@ public class UserClass implements User{
 		this.name = name;
 		this.nationality = nationality;
 		this.address = address;
-		this.visited = null;
-		
-		this.visitedAmount = 0;
+		this.visited_ = null;
 	}
 
 	@Override
@@ -77,15 +74,13 @@ public class UserClass implements User{
 	}
 
 	@Override
-	public Home[] getVisitedHomes() {
-		Home[] homeList = new Home[visitedAmount];
-		homeList[0] = visited;
-		return homeList;
+	public Visits getVisitedHomes() {
+		return visited_;
 	}
 
 	@Override
 	public int visitedHomesCount() {
-		return visited == null? 0 : 1;
+		return visited_ == null? 0 : 1;
 	}
 
 	@Override
@@ -98,16 +93,18 @@ public class UserClass implements User{
 	}
 	
 	public void newRent(Home home){
+		if(visited_ == null)
+			visited_ = new Visits(home);
 		incVisitedAmount();
-		visited = home;
+		
 	}
 	
 	public void incVisitedAmount() {
-		visitedAmount++;
+		visited_.visit();
 	}
 
 	public int getVisitedAmount() {
-		return visitedAmount;
+		return visited_.getVisitations();
 	}
 	
 }
