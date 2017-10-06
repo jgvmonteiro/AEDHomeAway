@@ -1,8 +1,7 @@
 package HomeAway;
 
 /**
- * Home class.
- * Used to create a new Home object in the system.
+ * Home implementation class.
  * The description of the methods is provided in the interface implemented.
  * @see HomeInfo for more information.
  * 

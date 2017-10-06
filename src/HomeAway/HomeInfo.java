@@ -14,62 +14,52 @@ import java.io.Serializable;
 public interface HomeInfo extends Serializable{
 	
 	/**
-	 * Information.
 	 * @return Name of this property owner.
 	 */
 	String getOwnerName();
 	
 	/**
-	 * Information.
 	 * @return System identification of owner of the property.
 	 */
 	String getOwnerID();
 	
 	/**
-	 * Information.
 	 * @return System identification of the property.
 	 */
 	String getHomeID();
 	
 	/**
-	 * Information.
 	 * @return Property's location.
 	 */
 	String getLocal();
 	
 	/**
-	 * Information.
 	 * @return Property's address.
 	 */
 	String getAddress();
 	
 	/**
-	 * Information.
 	 * @return Property description.
 	 */
 	String getDescription();
 	
 	/**
-	 * Information.
 	 * @return Maximum number of people that can stay in the property.
 	 */
 	int getCapacity();
 	
 	/**
-	 * Information.
 	 * @return Cost(price) to stay in the property.
 	 */
 	int getPrice();
 	
 	/**
-	 * Information.
 	 * When an Property is visited, the user who makes the visit (unless it's his own property) leaves feedback on the property, the higher the better.
 	 * @return Property's score given by the visitors.
 	 */
 	int getScore();
 	
 	/**
-	 * Information.
 	 * @return True if someone have already stayed in the property, false otherwise.
 	 */
 	boolean hasBeenVisited();

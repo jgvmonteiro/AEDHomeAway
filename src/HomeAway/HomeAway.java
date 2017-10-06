@@ -3,7 +3,10 @@ package HomeAway;
 import HomeAway.Exceptions.*;
 
 /**
- *
+ * HomeAway interface.
+ * Contains all methods necessary to control the HomeAway application. 
+ * Stores and manages users and properties.
+ * 
  * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
@@ -92,13 +95,13 @@ public interface HomeAway {
 	 * 
 	 * @param userID Identification of the user who is going to stay in the property.
 	 * @param homeID Identification of the property.
-	 * @param score The evaluation the users gives to this property. 
+	 * @param feedback The evaluation the users gives to this property. 
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws HomeDoesNotExistsException Property with the supplied ID was not found in the system.
 	 * @throws InvalidDataException Score must be a positive value grater than zero.
 	 * @throws UserIsOwnerException User cannot evaluate his own house.
 	 */
-	void rentHome(String userID, String homeID, int score) throws UserDoesNotExistsException, UserIsOwnerException, InvalidDataException, UserIsOwnerException;
+	void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, UserIsOwnerException, InvalidDataException, UserIsOwnerException;
 	
 	/**
 	 * Registers the visit of a user to his own property.
@@ -146,11 +149,11 @@ public interface HomeAway {
 	HomeInfo searchHome(int people, String local) throws InvalidDataException, NoResultsException;
 	
 	/**
+	 * Searches properties in a given local ordered by the visitor's feedback on the property, highest to lower.
 	 * 
-	 * 
-	 * @param local
-	 * @return
-	 * @throws NoResultsException 
+	 * @param local Local of the property.
+	 * @return HomeInfo object, contains information about the property.
+	 * @throws NoResultsException No property in the system matched for the given arguments.
 	 */
 	HomeInfo topHomes(String local) throws NoResultsException;
 			

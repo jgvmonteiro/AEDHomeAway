@@ -100,7 +100,7 @@ public class UserClass implements User{
 	}
 	
 	public void incVisitedAmount() {
-		visited_.visit();
+		visited_.newVisit();
 	}
 
 	public int getVisitedAmount() {

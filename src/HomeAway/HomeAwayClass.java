@@ -1,18 +1,21 @@
 package HomeAway;
 
 import HomeAway.Exceptions.*;
-import HomeAway.*;
 import java.io.Serializable;
 
 /**
- *
- * @author Joao Monteiro
+ * HomeAway implementation class.
+ * The description of the methods is provided in the interface implemented.
+ * @see HomeAway for more information.
+ * 
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
 public class HomeAwayClass implements HomeAway, Serializable{
 
-	private User user;
+	private User user;  
 	private Home home;
-	private static final int MAX_PEOPLE_IN_HOME = 20;
+	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
 		
@@ -22,7 +25,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		try {
 			getUser(userID);
 			return true;
-		} catch (Exception e) {
+		} catch (UserDoesNotExistsException e) {
 			return false;
 		}
 	}
@@ -35,14 +38,14 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	
 	private boolean hasHome(String homeID){
 		try {
-			getHome(homeID);
+			getProperty(homeID);
 			return true;
-		} catch (Exception e) {
+		} catch (HomeDoesNotExistsException e) {
 			return false;
 		}
 	}
 	
-	private Home getHome(String homeID) throws HomeDoesNotExistsException{
+	private Home getProperty(String homeID) throws HomeDoesNotExistsException{
 		if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
 			throw new HomeDoesNotExistsException("Given home ID not found in the system.");
 		return home;
@@ -51,50 +54,50 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	
 
 	@Override
-	public void addUser(String userId, String email, String phone, String name, String nationality, String address) throws UserAlreadyExistsException {
-		if(hasUser(userId))
+	public void addUser(String userID, String email, String phone, String name, String nationality, String address) throws UserAlreadyExistsException {
+		if(hasUser(userID))
 			throw new UserAlreadyExistsException("Insert user ID already existed in the system.");
-		User user = new UserClass(userId, name, email, phone, nationality, address);
+		User user = new UserClass(userID, name, email, phone, nationality, address);
 		this.user = user;
 	}
 	
 	@Override
-	public void editUser(String userId, String email, String phone, String address) throws UserDoesNotExistsException {
-		User user = getUser(userId);
+	public void editUser(String userID, String email, String phone, String address) throws UserDoesNotExistsException {
+		User user = getUser(userID);
 		user.setAddress(address);
 		user.setEmail(email);
 		user.setPhone(phone);
 	}
 
 	@Override
-	public void removeUser(String userId) throws UserDoesNotExistsException, UserHasHomeToRent {
-		User user = getUser(userId);
+	public void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent {
+		User user = getUser(userID);
 		if(user.hasHomeToRent())
 			throw  new UserHasHomeToRent("Attempt to remove a user who has homes to rent.");
 		this.user = null;
 	}
 
 	@Override
-	public UserInfo getUserInfo(String userId) throws UserDoesNotExistsException {
-		User user = getUser(userId);
+	public UserInfo getUserInfo(String userID) throws UserDoesNotExistsException {
+		User user = getUser(userID);
 		return user;
 	}
 
 	@Override
-	public void addHome(String homeId, String userId, int price, int people, String address, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
-	   User user = getUser(userId);
-	   if(hasHome(homeId))
+	public void addHome(String homeID, String userID, int price, int people, String address, String local, String description) throws HomeAlreadyExistsException, InvalidDataException, UserDoesNotExistsException {
+	   User user = getUser(userID);
+	   if(hasHome(homeID))
 		   throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_IN_HOME)
+	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_PEER_PROPERTY)
 		   throw new InvalidDataException("Invalid price or capacity.");
-	   Home h = new HomeClass(homeId, user, local, address, description, price, people);
+	   Home h = new HomeClass(homeID, user, local, address, description, price, people);
 	   user.setHomeToRent(h);
 	   this.home = h;
 	}
 
 	@Override
-	public void removeHome(String homeId) throws HomeDoesNotExistsException, HomeAlreadyVisited {
-		Home home = getHome(homeId);
+	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisited {
+		Home home = getProperty(homeID);
 		if(user.getHomeToRent().hasBeenVisited())
 			throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
 		user.setHomeToRent(null);
@@ -102,25 +105,25 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public HomeInfo getHomeInfo(String homeId) throws HomeDoesNotExistsException {
-		Home home = getHome(homeId);
+	public HomeInfo getHomeInfo(String homeID) throws HomeDoesNotExistsException {
+		Home home = getProperty(homeID);
 		return home;
 	}
 
 	@Override
-	public void rentHome(String userId, String homeId, int score) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
-		if(score <= 0)
+	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
+		if(feedback <= 0)
 			throw new InvalidDataException("Invalid input data.");
-		User user = getUser(userId);
-		Home home = getHome(homeId);
+		User user = getUser(userID);
+		Home home = getProperty(homeID);
 		throw new UserIsOwnerException("User attempted to evaluate his own home.");
 	   //((HomeClass)home).newRent();
 	}
 
 	@Override
-	public void rentOwnHome(String userId, String homeId) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userId);
-		Home home = getHome(homeId);
+	public void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
+		User user = getUser(userID);
+		Home home = getProperty(homeID);
 	   //O QUE FAZER À EXCEPTCAO????
 	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))
 		   throw new UserIsNotOwnerException("Cannot rent this home without a avaluation.");
@@ -129,16 +132,16 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public HomeInfo getUserProperties(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userId);
+	public HomeInfo getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
+		User user = getUser(userID);
 		if(!user.hasHomeToRent())
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
 		return home;
 	}
 
 	@Override
-	public Visits getUserVisits(String userId) throws UserDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userId);;
+	public Visits getUserVisits(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
+		User user = getUser(userID);;
 		if(user.visitedHomesCount()==0)
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
 		return user.getVisitedHomes();

@@ -2,6 +2,10 @@ package HomeAway;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author chaos_
+ */
 public class Visits implements Serializable{
 
 	private Home home;
@@ -20,7 +24,7 @@ public class Visits implements Serializable{
 		return this.timesVisited;
 	}
 	
-	public void visit(){
+	protected void newVisit(){
 		this.timesVisited++;
 	}
 }
