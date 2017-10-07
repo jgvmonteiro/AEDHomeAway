@@ -110,7 +110,7 @@ public interface HomeAway {
 	 * @param homeID Identification of the property.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws HomeDoesNotExistsException Property with the supplied ID was not found in the system.
-	 * @throws UserIsNotOwnerException The property ID does not bellow to the given user ID.
+	 * @throws UserIsNotOwnerException The property ID does not belong to the given user ID.
 	 */
 	void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException;
 	
