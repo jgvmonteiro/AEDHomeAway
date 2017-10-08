@@ -3,11 +3,11 @@ package HomeAway;
 import java.io.Serializable;
 
 /**
- * Home interface, extends HomeInfo
+ * Home interface.
  * Represents a property in the system.
  * Stores and gives information about the property.
- * Allows to update information about the property.
- * @see HomeInfo interface for more details.
+ * Allows to change information about the property.
+ * @see HomeInfo interface for information.
  * 
  * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt

@@ -129,12 +129,12 @@ public interface HomeAway {
 	 * Returns all the properties visited by a specified user.
 	 * 
 	 * @param userID User's identification in the system
-	 * @return HomeInfo objects, contains information about the properties user visited. 
-	 * @see HomeInfo for more details.
+	 * @return UserVisits object, contains information about the properties the user has visited. 
+	 * @see UserVisits for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws UserHasNotRentsException User hasn't stayed in any property.
 	 */
-	Visits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
+	UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
 	
 	/**
 	 * Searches a property on a given local that can host certain amount of people.

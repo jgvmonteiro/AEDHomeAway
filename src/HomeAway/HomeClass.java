@@ -3,7 +3,7 @@ package HomeAway;
 /**
  * Home implementation class.
  * The description of the methods is provided in the interface implemented.
- * @see HomeInfo for more information.
+ * @see Home for more information.
  * 
  * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt

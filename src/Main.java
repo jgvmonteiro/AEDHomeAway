@@ -12,7 +12,7 @@ import HomeAway.HomeAwayClass;
 import HomeAway.Exceptions.*;
 import HomeAway.HomeInfo;
 import HomeAway.UserInfo;
-import HomeAway.Visits;
+import HomeAway.UserVisits;
 
 import java.io.*;
 
@@ -290,7 +290,7 @@ public class Main {
 		in.nextLine();
 		
 		try {
-			Visits v = hw.getUserVisits(userId);
+			UserVisits v = hw.getUserVisits(userId);
 			HomeInfo h = v.getHome();
 			for(int i = 0; i < v.getVisitations(); i++)
 				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());

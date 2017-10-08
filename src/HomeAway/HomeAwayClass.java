@@ -72,7 +72,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent {
 		User user = getUser(userID);
-		if(user.hasHomeToRent())
+		if(user.hasPropertyToRent())
 			throw  new UserHasHomeToRent("Attempt to remove a user who has homes to rent.");
 		this.user = null;
 	}
@@ -91,16 +91,16 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_PEER_PROPERTY)
 		   throw new InvalidDataException("Invalid price or capacity.");
 	   Home h = new HomeClass(homeID, user, local, address, description, price, people);
-	   user.setHomeToRent(h);
+	   user.newPropertyToRent(h);
 	   this.home = h;
 	}
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisited {
 		Home home = getProperty(homeID);
-		if(user.getHomeToRent().hasBeenVisited())
+		if(user.getPropertyToRent().hasBeenVisited())
 			throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
-		user.setHomeToRent(null);
+		user.newPropertyToRent(null);
 		this.home = null;
 	}
 
@@ -128,23 +128,23 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))
 		   throw new UserIsNotOwnerException("Cannot rent this home without a avaluation.");
 	   home.newVisit();
-	   user.newRent(home);
+	   user.newVisit(home);
 	}
 
 	@Override
 	public HomeInfo getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userID);
-		if(!user.hasHomeToRent())
+		if(!user.hasPropertyToRent())
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
 		return home;
 	}
 
 	@Override
-	public Visits getUserVisits(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
+	public UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userID);;
-		if(user.visitedHomesCount()==0)
+		if(user.getUserVisits()==null)
 			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
-		return user.getVisitedHomes();
+		return user.getUserVisits();
 	}
 
 	@Override
