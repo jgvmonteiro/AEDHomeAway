@@ -57,7 +57,7 @@ public interface HomeInfo extends Serializable{
 	 * When an Property is visited, the user who makes the visit (unless it's his own property) leaves feedback on the property, the higher the better.
 	 * @return Property's score given by the visitors.
 	 */
-	int getScore();
+	int getFeedback();
 	
 	/**
 	 * @return True if someone have already stayed in the property, false otherwise.

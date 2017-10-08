@@ -38,16 +38,16 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	
 	private boolean hasHome(String homeID){
 		try {
-			getProperty(homeID);
+			getHome(homeID);
 			return true;
 		} catch (HomeDoesNotExistsException e) {
 			return false;
 		}
 	}
 	
-	private Home getProperty(String homeID) throws HomeDoesNotExistsException{
+	private Home getHome(String homeID) throws HomeDoesNotExistsException{
 		if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
-			throw new HomeDoesNotExistsException("Given home ID not found in the system.");
+			throw new HomeDoesNotExistsException("Given property ID not found in the system.");
 		return home;
 	}
 	
@@ -71,16 +71,14 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
 	@Override
 	public void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent {
-		User user = getUser(userID);
-		if(user.hasPropertyToRent())
-			throw  new UserHasHomeToRent("Attempt to remove a user who has homes to rent.");
+		if(getUser(userID).hasPropertyToRent())
+			throw new UserHasHomeToRent("Attempt to remove a user who has properties available for rent.");
 		this.user = null;
 	}
 
 	@Override
 	public UserInfo getUserInfo(String userID) throws UserDoesNotExistsException {
-		User user = getUser(userID);
-		return user;
+		return getUser(userID);
 	}
 
 	@Override
@@ -88,7 +86,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   User user = getUser(userID);
 	   if(hasHome(homeID))
 		   throw new HomeAlreadyExistsException("Attempt to add an home that already exists.");
-	   if(price <= 0 || people <= 0 || people > MAX_PEOPLE_PEER_PROPERTY)
+	   if(price < 1 || people < 1 || people > MAX_PEOPLE_PEER_PROPERTY)
 		   throw new InvalidDataException("Invalid price or capacity.");
 	   Home h = new HomeClass(homeID, user, local, address, description, price, people);
 	   user.newPropertyToRent(h);
@@ -96,70 +94,63 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisited {
-		Home home = getProperty(homeID);
+	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
+		Home home = getHome(homeID);
 		if(user.getPropertyToRent().hasBeenVisited())
-			throw new HomeAlreadyVisited("Attempt to remove an home that has already a visit.");
+			throw new HomeAlreadyVisitedException("Attempt to remove an home that has already a visit.");
 		user.newPropertyToRent(null);
 		this.home = null;
 	}
 
 	@Override
 	public HomeInfo getHomeInfo(String homeID) throws HomeDoesNotExistsException {
-		Home home = getProperty(homeID);
-		return home;
+		return getHome(homeID);
 	}
 
 	@Override
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
-		if(feedback <= 0)
-			throw new InvalidDataException("Invalid input data.");
-		User user = getUser(userID);
-		Home home = getProperty(homeID);
-		throw new UserIsOwnerException("User attempted to evaluate his own home.");
-	   //((HomeClass)home).newRent();
+		if(feedback < 1)
+			throw new InvalidDataException("Invalid feedback value, must be greater than 0.");
+		User user = getUser(userID); //Phase 1 there's only one user and one home so
+		Home home = getHome(homeID);   //this method should never be called. Anyway this lines are here just to make sure the exception 
+		throw new UserIsOwnerException("User attempted to evaluate his own home."); //are correctly throw if the method is called
+		//user.newVisit(home);
+		//home.newVisit(feedback);
 	}
 
 	@Override
 	public void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userID);
-		Home home = getProperty(homeID);
-	   //O QUE FAZER À EXCEPTCAO????
-	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))
-		   throw new UserIsNotOwnerException("Cannot rent this home without a avaluation.");
-	   home.newVisit();
-	   user.newVisit(home);
+		User user = getUser(userID); //Verifies if ids are valid first, if not throwns exception
+		Home home = getHome(homeID);
+	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))	 //Phase 1 this exception shloud never be thrown....
+		   throw new UserIsNotOwnerException("Property does is not owned by the user, must supply feedback."); 
+	    user.newVisit(home);
+		home.newVisit();	  
 	}
 
 	@Override
 	public HomeInfo getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userID);
-		if(!user.hasPropertyToRent())
-			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
-		return home;
+		return getUser(userID).getPropertyToRent();
 	}
 
 	@Override
-	public UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException {
-		User user = getUser(userID);;
-		if(user.getUserVisits()==null)
-			throw new UserIsNotOwnerException("Utilizador nao e proprietario.");
-		return user.getUserVisits();
+	public UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException{
+		return getUser(userID).getUserVisits();
 	}
 
 	@Override
 	public HomeInfo searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
-		if(capacity < 1 || capacity > 20) throw new InvalidDataException("capacity is negative");
+		if(capacity < 1 || capacity > 20) throw new InvalidDataException("Property capacity must be a value between 1 and 20.");
 		if(home !=null && home.getCapacity() >= capacity && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
 			return this.home;
-		else throw new NoResultsException("Local or people don't match the home in our system");
+		else throw new NoResultsException("Local or people don't match an home in the system.");
 	}
 
 	@Override
 	public HomeInfo topHomes(String local) throws NoResultsException {
 		if(home != null && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
 			return this.home;
-		else throw new NoResultsException("Our home's local doesn't match the parameter local");
+		else throw new NoResultsException("No homes exist in the given local.");
 	}
 	
 	

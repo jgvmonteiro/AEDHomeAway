@@ -1,5 +1,7 @@
 package HomeAway;
 
+import HomeAway.Exceptions.UserHasNotVisitedException;
+
 /**
  * User implementation class.
  * The description of the methods is provided in the interface implemented.
@@ -80,7 +82,7 @@ public class UserClass implements User{
 	}
 	
 	@Override
-	public Home getPropertyToRent() {
+	public Home getPropertyToRent() throws UserIsNotOwnerException{
 		return homeToRent;
 	}
 	
@@ -97,7 +99,9 @@ public class UserClass implements User{
 	}
 
 	@Override
-	public UserVisits getUserVisits() {
+	public UserVisits getUserVisits() throws UserHasNotVisitedException{
+		if(visits==null)
+			throw new UserHasNotVisitedException("Attempt to get visits from a user that hasn't visited any property yet.");
 		return visits;
 	}
 

@@ -15,9 +15,16 @@ import java.io.Serializable;
 public interface Home extends HomeInfo, Serializable{
 	
 	/**
-	 * Use this method when the property is visited by an user.
+	 * Use this method when the property is visited by the owner.
 	 * Sets the property has visited.
 	 * @see hasBeenVisited in HouseInfo interface for more information.
 	 */
 	void newVisit();
+	
+	/**
+	 * Use this method when the property is visited by a user that doesn't own the property.
+	 * Sets the property has visited.
+	 * @see hasBeenVisited in HouseInfo interface for more information.
+	 */
+	void newVisit(int feedback);
 }

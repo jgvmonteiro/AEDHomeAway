@@ -1,8 +1,10 @@
 package HomeAway.Exceptions;
 /**
- * Thrown whenever there is an attempt to use a negative value for a home capacity or price, or when 
+ * Thrown whenever there is an attempt to use a negative value for a property capacity or price, or when 
  * the capacity is over 20
- * @author Joao Monteiro
+ * 
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
 public class InvalidDataException extends RuntimeException{
 

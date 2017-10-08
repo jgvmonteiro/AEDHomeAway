@@ -222,7 +222,7 @@ public class Main {
 		catch(HomeDoesNotExistsException e) {
 			System.out.println(ERR_PROPERTY_NOT_EXIST);
 		}
-		catch(HomeAlreadyVisited e) {
+		catch(HomeAlreadyVisitedException e) {
 			System.out.println(ERR_PROPERTY_ALREADY_VISITED);
 		}
 	}
@@ -233,7 +233,7 @@ public class Main {
 		
 		try {
 			HomeInfo home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
-			System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore(), home.getOwnerName());
+			System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback(), home.getOwnerName());
 		} catch (HomeDoesNotExistsException e) {
 			System.out.println(ERR_PROPERTY_NOT_EXIST);
 		}		
@@ -293,7 +293,7 @@ public class Main {
 			UserVisits v = hw.getUserVisits(userId);
 			HomeInfo h = v.getHome();
 			for(int i = 0; i < v.getVisitations(); i++)
-				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
@@ -310,7 +310,7 @@ public class Main {
 		
 		try {
 			HomeInfo home = hw.getUserProperties(userID);
-			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
 		} catch (UserIsNotOwnerException e){
@@ -328,7 +328,7 @@ public class Main {
 		try {
 			HomeInfo h = hw.searchHome(capacity, local);
 			System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), 
-							  h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getScore());
+							  h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(InvalidDataException e) {
 			System.out.println(ERR_INVALID_DATA);
@@ -343,7 +343,7 @@ public class Main {
 		in.nextLine();
 		try {
 			HomeInfo home = hw.topHomes(local);
-			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getScore());
+			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (NoResultsException e) {
 			System.out.println(ERR_SEARCH_NO_RESULTS);
 		}

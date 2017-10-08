@@ -76,9 +76,9 @@ public interface HomeAway {
 	 * 
 	 * @param homeID Property Identification in the system.
 	 * @throws HomeDoesNotExistsException Property with the supplied ID was not found in the system.
-	 * @throws HomeAlreadyVisited The property has been already visited and cannot be removed.
+	 * @throws HomeAlreadyVisitedException The property has been already visited and cannot be removed.
 	 */
-	void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisited;
+	void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException;
 	
 	/**
 	 * Returns information about a property in the system.
@@ -115,10 +115,10 @@ public interface HomeAway {
 	void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException;
 	
 	/**
-	 * Returns all properties owner by a specified user.			<(fase 1 apenas uma propriedade existe no sistema)>
+	 * Returns all properties owner by a specified user.
 	 * 
 	 * @param userID User's identification in the system.
-	 * @return HomeInfo object, contains information about the property.
+	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
 	 * @see HomeInfo for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws UserIsNotOwnerException User does not own any property.
@@ -132,16 +132,16 @@ public interface HomeAway {
 	 * @return UserVisits object, contains information about the properties the user has visited. 
 	 * @see UserVisits for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
-	 * @throws UserHasNotRentsException User hasn't stayed in any property.
+	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
-	UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotRentsException;
+	UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException;
 	
 	/**
 	 * Searches a property on a given local that can host certain amount of people.
 	 * 
 	 * @param people Number of people property has to be able to host.
 	 * @param local Local of the property.
-	 * @return HomeInfo object, contains information about the property.
+	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
 	 * @see HomeInfo for more details.
 	 * @throws InvalidDataException Number of people must be a number between 1 and 20.
 	 * @throws NoResultsException No property in the system matched for the given arguments.
@@ -152,7 +152,7 @@ public interface HomeAway {
 	 * Searches properties in a given local ordered by the visitor's feedback on the property, highest to lower.
 	 * 
 	 * @param local Local of the property.
-	 * @return HomeInfo object, contains information about the property.
+	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
 	 * @throws NoResultsException No property in the system matched for the given arguments.
 	 */
 	HomeInfo topHomes(String local) throws NoResultsException;

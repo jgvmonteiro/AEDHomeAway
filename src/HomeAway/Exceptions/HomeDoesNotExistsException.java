@@ -1,7 +1,9 @@
 package HomeAway.Exceptions;
 /**
- * Thrown whenever there is an attempt to search for a home with an identifier that does not correspond with anything
- * @author Joao Monteiro
+ * Thrown whenever there is an attempt to search for a property with an identifier(id) that does not match any property in the system.
+
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
 public class HomeDoesNotExistsException extends RuntimeException{
 

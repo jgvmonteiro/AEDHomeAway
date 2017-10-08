@@ -1,5 +1,7 @@
 package HomeAway;
 
+import HomeAway.Exceptions.UserHasNotVisitedException;
+import HomeAway.Exceptions.UserIsNotOwnerException;
 import java.io.Serializable;
 
 /**
@@ -58,8 +60,9 @@ public interface UserInfo extends Serializable{
 	/**
 	 * 
 	 * @return Property owner by the user available for other users(or himself) to rent.
+	 * @throws UserIsNotOwnerException User doesn't have any property available for rent.
 	 */
-	Home getPropertyToRent();
+	Home getPropertyToRent() throws UserIsNotOwnerException;
 	
 	/**
 	 * 
@@ -71,7 +74,7 @@ public interface UserInfo extends Serializable{
 	 * 
 	 * @return UserVists object, contains information about all properties the user has visited.
 	 */
-	UserVisits getUserVisits();
+	UserVisits getUserVisits() throws UserHasNotVisitedException;
 	
 
 	

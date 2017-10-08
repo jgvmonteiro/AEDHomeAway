@@ -12,7 +12,7 @@ public class HomeClass implements Home{
 
 	private String homeID, local, address, description;
 	private User owner;
-	private int price, capacity, score;
+	private int price, capacity, feedback;
 	private boolean visited;
 
 	public HomeClass(String homeID, User owner, String local, String address, String description, int price, int capacity) {
@@ -23,7 +23,7 @@ public class HomeClass implements Home{
 		this.description = description;
 		this.price = price;
 		this.capacity = capacity;
-		this.score = 0;
+		this.feedback = 0;
 		this.visited = false;
 	}
 
@@ -73,13 +73,21 @@ public class HomeClass implements Home{
 	}
 
 	@Override
-	public int getScore() {
-		return score;
+	public int getFeedback() {
+		return feedback;
 	}
 	
 	@Override
 	public void newVisit(){
 		this.visited = true;
 	}
+
+	@Override
+	public void newVisit(int feedback) {
+		this.visited = true;
+		this.feedback+=feedback;
+	}
+	
+	
 	
 }
