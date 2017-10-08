@@ -24,6 +24,7 @@ public interface Home extends HomeInfo, Serializable{
 	/**
 	 * Use this method when the property is visited by a user that doesn't own the property.
 	 * Sets the property has visited.
+	 * @param feedback The feedback of the user on the property.
 	 * @see hasBeenVisited in HouseInfo interface for more information.
 	 */
 	void newVisit(int feedback);

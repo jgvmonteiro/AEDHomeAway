@@ -1,6 +1,7 @@
 package HomeAway;
 
 import HomeAway.Exceptions.UserHasNotVisitedException;
+import HomeAway.Exceptions.UserIsNotOwnerException;
 
 /**
  * User implementation class.
@@ -83,6 +84,8 @@ public class UserClass implements User{
 	
 	@Override
 	public Home getPropertyToRent() throws UserIsNotOwnerException{
+		if(homeToRent==null)
+			throw new UserIsNotOwnerException("User is not owner of any property.");
 		return homeToRent;
 	}
 	
