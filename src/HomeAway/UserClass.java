@@ -107,8 +107,5 @@ public class UserClass implements User{
 			throw new UserHasNotVisitedException("Attempt to get visits from a user that hasn't visited any property yet.");
 		return visits;
 	}
-
-
-
 	
 }
