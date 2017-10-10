@@ -60,7 +60,7 @@ public class Main {
 	private static final String CMD_LIST_BEST_PROPERTIES = "LB";
 	private static final String CMD_EXIT_SAVE = "XS";
 	
-	private static final String FILE_TO_SAVE = "data.txt";
+	private static final String SAVE_FILE_NAME = "data.txt";
 	
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
@@ -326,18 +326,19 @@ public class Main {
 		}
 	}
 	
-	private static void save(Object o) throws FileNotFoundException, IOException{
-		String desktop = System.getProperty("user.home") + "/Desktop"; 
-		ObjectOutputStream  outStream = new ObjectOutputStream(new FileOutputStream(desktop+"/homeAway.o"));
-		outStream.writeObject(o);
-		outStream.close();
+	private static void save(Object o){
+		try {
+			ObjectOutputStream  outStream = new ObjectOutputStream(new FileOutputStream(SAVE_FILE_NAME));
+			outStream.writeObject(o);
+			outStream.close();
+		} catch (Exception e) {
+			//something went wrong...
+		}
 	}
 	
 	private static HomeAway load() throws FileNotFoundException, IOException, ClassNotFoundException{
 		try {
-			String desktop = System.getProperty("user.home") + "/Desktop"; 
-			//File file = new File(desktop + "/homeAway.o");
-			ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
+			ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(SAVE_FILE_NAME));
 			Object o = inStream.readObject();
 			inStream.close();
 			return (HomeAway)o;
