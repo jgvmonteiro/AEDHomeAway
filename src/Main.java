@@ -1,7 +1,8 @@
 
-/**
+/**MAIN
  *
- * @author Joao Monteiro
+ * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
+ * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
 
 
@@ -22,12 +23,12 @@ public class Main {
 	private static final String USER_INSERT_SUCCESS = "Insercao de utilizador com sucesso.";
 	private static final String USER_UPDATE_SUCCESS = "Utilizador atualizado com sucesso.";
 	private static final String USER_REMOVE_SUCCESS = "Utilizador removido com sucesso.";
-	private static final String CHECK_USER_DATA_SUCCESS = "%s: %s, %s, %s, %s\n"; //name, address, nationality, email, phone number
+	private static final String GET_USER_DATA_SUCCESS = "%s: %s, %s, %s, %s\n"; //name, address, nationality, email, phone number
 	private static final String HOME_ADD_SUCCESS = "Propriedade adicionada com sucesso.";
 	private static final String HOME_REMOVE_SUCCESS = "Propriedade removida com sucesso.";
 	private static final String CHECK_HOME_DATA_SUCCESS = "%s: %s, %s, %d, %d, %d, %s\n"; //description, address, local, price, capacity, score, name
 	private static final String STAY_INSERT_SUCCESS = "Estadia adicionada com sucesso.";
-	private static final String CHECK_STAYS_SUCCESS = "%s %s %s %s %d %d %d\n"; //idHome descricao morada local preco pessoas pontos
+	private static final String HOME_INFO = "%s %s %s %s %d %d %d\n"; //idHome descricao morada local preco pessoas pontos
 	
 	private static final String SAVE_AND_QUIT = "Gravando e terminando...\n";
 	
@@ -63,10 +64,10 @@ public class Main {
 	
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
-		HomeAway a = (HomeAway) load(); 
-		interpreter(a);
+		HomeAway hw = load(); 
+		interpreter(hw);
 		System.out.println(SAVE_AND_QUIT);
-		save(a);
+		save(hw);
 	}
 	
 	private static void interpreter(HomeAway hw) {
@@ -85,7 +86,7 @@ public class Main {
 					removeUser(hw, in);
 					break;
 				case CMD_GET_USER:
-					checkData(hw, in);
+					getUserInfo(hw, in);
 					break;
 				case CMD_ADD_HOME:
 					addHome(hw, in);
@@ -97,22 +98,22 @@ public class Main {
 					getHomeInfo(hw, in);
 					break;
 				case CMD_ADD_TRAVEL:
-					addStay(hw, in);
+					newVisit(hw, in);
 					break;
 				case CMD_LIST_TRAVELLER_STAYS:
-					listStaysByUser(hw, in);
+					listUserVisits(hw, in);
 					break;
 				case CMD_LIST_HOST_PROPERTIES:
-					listUser(hw, in);
+					listUserProperties(hw, in);
 					break;
 				case CMD_SEARCH_PROPERTIES:
-					searchHomes(hw, in);
+					searchHome(hw, in);
 					break;
 				case CMD_LIST_BEST_PROPERTIES:
 					listTopHome(hw, in);
 					break;
 				default:
-					System.out.println("wrong command");
+					System.out.println("Invalid command");
 			}
 			System.out.println();
 			option = in.next().toUpperCase();
@@ -125,11 +126,8 @@ public class Main {
 		String email = in.next();
 		String phone = in.next();
 		String name = in.nextLine().trim();
-		
-		
 		String nationality = in.nextLine();
-		String address = in.nextLine();
-		
+		String address = in.nextLine();		
 		try {
 			hw.addUser(idUser, email, phone, name, nationality, address);
 			System.out.println(USER_INSERT_SUCCESS);
@@ -144,9 +142,7 @@ public class Main {
 		String email = in.next();
 		String phone = in.next();
 		in.nextLine();
-		
 		String address = in.nextLine();
-		
 		try {
 			hw.editUser(userId, email, phone, address);
 			System.out.println(USER_UPDATE_SUCCESS);
@@ -159,7 +155,6 @@ public class Main {
 	private static void removeUser(HomeAway hw, Scanner in) {
 		String userId = in.next();
 		in.nextLine();
-		
 		try {
 			hw.removeUser(userId);
 			System.out.println(USER_REMOVE_SUCCESS);
@@ -172,14 +167,12 @@ public class Main {
 		}
 	}
 	
-	private static void checkData(HomeAway hw, Scanner in) {
+	private static void getUserInfo(HomeAway hw, Scanner in) {
 		String userId = in.next();
 		in.nextLine();
-		
 		try {
 			UserInfo u = hw.getUserInfo(userId);
-			System.out.printf(CHECK_USER_DATA_SUCCESS, u.getName(), u.getAddress(), u.getNationality(),
-													   u.getEmail(), u.getPhone());
+			System.out.printf(GET_USER_DATA_SUCCESS, u.getName(), u.getAddress(), u.getNationality(),u.getEmail(), u.getPhone());
 		}
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
@@ -191,11 +184,9 @@ public class Main {
 		String userId = in.next();
 		int price = in.nextInt();
 		int capacity = in.nextInt();
-		String location = in.nextLine().trim();
-		
+		String location = in.nextLine().trim();	
 		String description = in.nextLine();
-		String address = in.nextLine();
-		
+		String address = in.nextLine();	
 		try {
 			hw.addHome(homeId, userId, price, capacity, address, location, description);
 			System.out.println(HOME_ADD_SUCCESS);
@@ -213,8 +204,7 @@ public class Main {
 	
 	private static void removeHome(HomeAway hw, Scanner in) {
 		String homeId = in.next();
-		in.nextLine();
-		
+		in.nextLine();		
 		try {
 			hw.removeHome(homeId);
 			System.out.println(HOME_REMOVE_SUCCESS);
@@ -230,20 +220,23 @@ public class Main {
 	private static void getHomeInfo(HomeAway hw, Scanner in){
 		String homeID = in.next();
 		in.nextLine();
-		
 		try {
 			HomeInfo home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
 			System.out.printf(CHECK_HOME_DATA_SUCCESS, home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback(), home.getOwnerName());
 		} catch (HomeDoesNotExistsException e) {
 			System.out.println(ERR_PROPERTY_NOT_EXIST);
 		}		
-		
-		
 	}	
 	
-	private static void addOwnerStay(HomeAway hw, String userId, String homeId) {
-		
-		
+	private static void newVisit(HomeAway hw, Scanner in) {
+		String args = in.nextLine().trim();
+		String[] arr = args.split(" ");
+		if(arr.length == 2)
+			ownerVisit(hw, arr[0], arr[1]);
+		else userVisit(hw, arr[0], arr[1], arr[2]);	//nao utilizado na fase 1
+	}
+	
+	private static void ownerVisit(HomeAway hw, String userId, String homeId) {
 		try {
 			hw.rentOwnHome(userId, homeId);
 			System.out.println(STAY_INSERT_SUCCESS);
@@ -259,16 +252,7 @@ public class Main {
 		}
 	}
 	
-	private static void addStay(HomeAway hw, Scanner in) {
-		String args = in.nextLine().trim();
-		String arr[];
-		arr = args.split(" ");
-		if(arr.length == 2)
-			addOwnerStay(hw, arr[0], arr[1]);	//funciona na fase 1
-		else rentHome(hw, arr[0], arr[1], arr[2]);	//nao funciona na fase 1
-	}
-	
-	private static void rentHome(HomeAway hw, String userID, String homeID, String score){
+	private static void userVisit(HomeAway hw, String userID, String homeID, String score){
 		try {
 			int scoreAmount = Integer.parseInt(score);
 			hw.rentHome(userID, homeID, scoreAmount);
@@ -282,18 +266,16 @@ public class Main {
 		} catch (UserIsOwnerException e){
 			System.out.println(ERR_TRAVELLER_IS_OWNER);
 		}
-
 	}
 	
-	private static void listStaysByUser(HomeAway hw, Scanner in) {
+	private static void listUserVisits(HomeAway hw, Scanner in) {
 		String userId = in.next();
-		in.nextLine();
-		
+		in.nextLine();		
 		try {
 			UserVisits v = hw.getUserVisits(userId);
 			HomeInfo h = v.getHome();
 			for(int i = 0; i < v.getVisitations(); i++)
-				System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+				System.out.printf(HOME_INFO, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
@@ -304,31 +286,26 @@ public class Main {
 	}
 	
 	//idHome descricao morada local preco pessoas pontos
-	private static void listUser(HomeAway hw, Scanner in){
+	private static void listUserProperties(HomeAway hw, Scanner in){
 		String userID = in.next();
-		in.nextLine();
-		
+		in.nextLine();	
 		try {
 			HomeInfo home = hw.getUserProperties(userID);
-			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			System.out.printf(HOME_INFO, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
 		} catch (UserIsNotOwnerException e){
 			System.out.println(ERR_USER_NOT_OWNER);
 		}
-		
-		
 	}
 	
-	private static void searchHomes(HomeAway hw, Scanner in) {
+	private static void searchHome(HomeAway hw, Scanner in) {
 		int capacity = in.nextInt();
 		String local = in.next();
-		in.nextLine();
-		
+		in.nextLine();	
 		try {
 			HomeInfo h = hw.searchHome(capacity, local);
-			System.out.printf(CHECK_STAYS_SUCCESS, h.getHomeID(), h.getDescription(), 
-							  h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+			System.out.printf(HOME_INFO, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(InvalidDataException e) {
 			System.out.println(ERR_INVALID_DATA);
@@ -343,13 +320,11 @@ public class Main {
 		in.nextLine();
 		try {
 			HomeInfo home = hw.topHomes(local);
-			System.out.printf(CHECK_STAYS_SUCCESS, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			System.out.printf(HOME_INFO, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (NoResultsException e) {
 			System.out.println(ERR_SEARCH_NO_RESULTS);
 		}
 	}
-	
-	
 	
 	private static void save(Object o) throws FileNotFoundException, IOException{
 		String desktop = System.getProperty("user.home") + "/Desktop"; 
@@ -358,14 +333,14 @@ public class Main {
 		outStream.close();
 	}
 	
-	private static Object load() throws FileNotFoundException, IOException, ClassNotFoundException{
+	private static HomeAway load() throws FileNotFoundException, IOException, ClassNotFoundException{
 		try {
-		String desktop = System.getProperty("user.home") + "/Desktop"; 
-		//File file = new File(desktop + "/homeAway.o");
-		ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
-		Object o = inStream.readObject();
-		inStream.close();
-		return o;
+			String desktop = System.getProperty("user.home") + "/Desktop"; 
+			//File file = new File(desktop + "/homeAway.o");
+			ObjectInputStream  inStream = new ObjectInputStream(new FileInputStream(desktop+"/homeAway.o"));
+			Object o = inStream.readObject();
+			inStream.close();
+			return (HomeAway)o;
 		} catch(ClassNotFoundException e) {
 			System.out.println("Error loading file.");
 			System.exit(1);

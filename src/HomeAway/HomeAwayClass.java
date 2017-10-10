@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class HomeAwayClass implements HomeAway, Serializable{
 
-	private User user;  
+	private User user;  //Phase 1 no need for lists since the system will only have one user and one property.
 	private Home home;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
@@ -49,9 +49,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
 			throw new HomeDoesNotExistsException("Given property ID not found in the system.");
 		return home;
-	}
-	
-	
+	}	
 
 	@Override
 	public void addUser(String userID, String email, String phone, String name, String nationality, String address) throws UserAlreadyExistsException {

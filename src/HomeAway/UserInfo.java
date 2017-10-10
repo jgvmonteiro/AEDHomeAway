@@ -73,6 +73,7 @@ public interface UserInfo extends Serializable{
 	/**
 	 * 
 	 * @return UserVists object, contains information about all properties the user has visited.
+	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
 	UserVisits getUserVisits() throws UserHasNotVisitedException;
 	
