@@ -8,6 +8,11 @@ package HomeAway.Exceptions;
  */
 public class UserIsNotOwnerException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public UserIsNotOwnerException() {
 	}
 

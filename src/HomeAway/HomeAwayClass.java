@@ -13,6 +13,10 @@ import java.io.Serializable;
  */
 public class HomeAwayClass implements HomeAway, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user;  //Phase 1 no need for lists since the system will only have one user and one property.
 	private Home home;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
@@ -93,7 +97,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
-		Home home = getHome(homeID);
+		Home home = getHome(homeID);	//checking if home exists
 		if(user.getPropertyToRent().hasBeenVisited())
 			throw new HomeAlreadyVisitedException("Attempt to remove an home that has already a visit.");
 		user.newPropertyToRent(null);

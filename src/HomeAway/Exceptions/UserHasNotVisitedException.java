@@ -7,6 +7,11 @@ package HomeAway.Exceptions;
  */
 public class UserHasNotVisitedException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public UserHasNotVisitedException() {
 	}
 

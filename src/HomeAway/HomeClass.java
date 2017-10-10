@@ -10,6 +10,10 @@ package HomeAway;
  */
 public class HomeClass implements Home{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String homeID, local, address, description;
 	private User owner;
 	private int price, capacity, feedback;

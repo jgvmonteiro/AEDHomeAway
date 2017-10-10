@@ -13,6 +13,10 @@ import HomeAway.Exceptions.UserIsNotOwnerException;
  */
 public class UserClass implements User{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userID, email, phone, name, nationality, address;
 	private Home homeToRent;
 	private UserVisits visits;

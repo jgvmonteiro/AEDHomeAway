@@ -11,6 +11,10 @@ import java.io.Serializable;
  */
 public class UserVisits implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Home home;
 	private int timesVisited;
 	

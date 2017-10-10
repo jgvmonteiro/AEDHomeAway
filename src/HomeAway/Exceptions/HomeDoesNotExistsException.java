@@ -7,6 +7,11 @@ package HomeAway.Exceptions;
  */
 public class HomeDoesNotExistsException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public HomeDoesNotExistsException() {
 	}
 
