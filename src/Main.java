@@ -280,7 +280,7 @@ public class Main {
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
 		}
-		catch(UserIsNotOwnerException e) {
+		catch(UserHasNotVisitedException e) {
 			System.out.println(ERR_USER_DID_NOT_TRAVEL);
 		}
 	}
