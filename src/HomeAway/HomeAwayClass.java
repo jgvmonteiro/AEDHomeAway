@@ -97,7 +97,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
-		Home home = getHome(homeID);	//checking if home exists
+		getHome(homeID);	//checking if home exists
 		if(user.getPropertyToRent().hasBeenVisited())
 			throw new HomeAlreadyVisitedException("Attempt to remove an home that has already a visit.");
 		user.newPropertyToRent(null);
@@ -113,8 +113,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
 		if(feedback < 1)
 			throw new InvalidDataException("Invalid feedback value, must be greater than 0.");
-		User user = getUser(userID); //Phase 1 there's only one user and one home so
-		Home home = getHome(homeID);   //this method should never be called. Anyway this lines are here just to make sure the exception 
+		getUser(userID); //Phase 1 there's only one user and one home so
+		getHome(homeID);   //this method should never be called. Anyway this lines are here just to make sure the exception 
 		throw new UserIsOwnerException("User attempted to evaluate his own home."); //are correctly throw if the method is called
 		//user.newVisit(home);
 		//home.newVisit(feedback);
