@@ -60,7 +60,7 @@ public class Main {
 	private static final String CMD_LIST_BEST_PROPERTIES = "LB";
 	private static final String CMD_EXIT_SAVE = "XS";
 	
-	private static final String SAVE_FILE_NAME = "data.txt";
+	private static final String SAVE_FILE_NAME = "data.o";
 	
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
