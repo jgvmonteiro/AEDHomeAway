@@ -8,12 +8,12 @@
 
 import java.util.Scanner;
 
-import HomeAway.HomeAway;
-import HomeAway.HomeAwayClass;
-import HomeAway.Exceptions.*;
-import HomeAway.HomeInfo;
-import HomeAway.UserInfo;
-import HomeAway.UserVisits;
+import homeAway.exceptions.*;
+import homeaway.HomeAway;
+import homeaway.HomeAwayClass;
+import homeaway.HomeInfo;
+import homeaway.UserInfo;
+import homeaway.UserVisits;
 
 import java.io.*;
 

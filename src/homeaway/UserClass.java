@@ -1,4 +1,4 @@
-package HomeAway;
+package homeaway;
 
 import HomeAway.Exceptions.UserHasNotVisitedException;
 import HomeAway.Exceptions.UserIsNotOwnerException;
