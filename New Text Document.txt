@@ -6,6 +6,9 @@ APPEND:
      */
     public void append( DoublyLinkedList<E> list )
     {
+    	if(list == null || list.isEmpty()){
+    		return;
+    	}
         if(!list.isEmpty() && this.currentSize == 0) {
         	//this = list; :(
         	this.head = list.head;
