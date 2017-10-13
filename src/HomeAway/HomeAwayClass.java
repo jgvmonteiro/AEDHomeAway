@@ -22,7 +22,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
-		
+		this.user = null;
+		this.home = null;
 	}
 	
 	private boolean hasUser(String userID){

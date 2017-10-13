@@ -19,5 +19,5 @@ APPEND:
         this.tail.setNext(list.head);
         this.tail = list.tail;
         this.currentSize += list.currentSize;
-        list = null;
+        list = new DoublyLinkedList<E>;
     }
