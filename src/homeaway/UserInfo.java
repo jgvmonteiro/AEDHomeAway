@@ -1,7 +1,7 @@
 package homeaway;
 
-import HomeAway.Exceptions.UserHasNotVisitedException;
-import HomeAway.Exceptions.UserIsNotOwnerException;
+import homeAway.exceptions.UserHasNotVisitedException;
+import homeAway.exceptions.UserIsNotOwnerException;
 import java.io.Serializable;
 
 /**

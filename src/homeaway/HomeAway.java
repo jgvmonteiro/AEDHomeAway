@@ -1,6 +1,6 @@
 package homeaway;
 
-import HomeAway.Exceptions.*;
+import homeAway.exceptions.*;
 
 /**
  * HomeAway interface.
