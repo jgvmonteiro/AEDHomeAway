@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown when a user attempts rent his own home but he does not own it, or,
  * when there is an attempt to list the properties owned by the user but he does not own any property.

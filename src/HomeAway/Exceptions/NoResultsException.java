@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown when there is an attempt to search for a property in the system but nothing matches the given parameters. 
  * 

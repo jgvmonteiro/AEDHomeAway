@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown when there is an attempt to remove a user but they have a property in the system available for rent.
  * 

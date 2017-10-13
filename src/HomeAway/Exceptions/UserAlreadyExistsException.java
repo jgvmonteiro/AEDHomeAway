@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown when there is an attempt to add a user with the same id as one that already exists in system.
  * 

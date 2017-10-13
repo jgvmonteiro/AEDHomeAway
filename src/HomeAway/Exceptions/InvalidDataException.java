@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown whenever there is an attempt to use a negative value for a property capacity or price, or when 
  * the capacity is over 20

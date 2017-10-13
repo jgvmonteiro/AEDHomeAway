@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown when there is an attempt to list user's visits but user hasn't visited any property.
  * 

@@ -1,4 +1,4 @@
-package HomeAway.Exceptions;
+package homeAway.exceptions;
 /**
  * Thrown whenever there is an attempt to search for a property with an identifier(id) that does not match any property in the system.
 
