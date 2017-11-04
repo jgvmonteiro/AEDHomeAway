@@ -4,6 +4,8 @@ import homeAway.exceptions.UserHasNotVisitedException;
 import homeAway.exceptions.UserIsNotOwnerException;
 import java.io.Serializable;
 
+import dataStructures.Iterator;
+
 /**
  * UserInfo interface.
  * Represents a property in the system.
@@ -72,10 +74,10 @@ public interface UserInfo extends Serializable{
 	
 	/**
 	 * 
-	 * @return UserVists object, contains information about all properties the user has visited.
+	 * @return UserVists iterator, contains information about all properties the user has visited.
 	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
-	UserVisits getUserVisits() throws UserHasNotVisitedException;
+	Iterator<HomeInfo> getUserVisits() throws UserHasNotVisitedException;
 	
 
 	
