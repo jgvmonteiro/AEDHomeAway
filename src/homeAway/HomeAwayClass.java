@@ -19,13 +19,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Home home;
 	private Dictionary<String, User> users;
 	private Dictionary<String, Home> properties;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
-		this.home = null;
 		this.users = new ChainedHashTable<String, User>(10000);
 	}
 	
@@ -55,7 +53,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 	
 	private Home getHome(String homeID) throws HomeDoesNotExistsException{
-		if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
+		Home home = properties.find(homeID);
+		if(home==null)
 			throw new HomeDoesNotExistsException();
 		return home;
 	}	
@@ -95,18 +94,17 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		   throw new HomeAlreadyExistsException();
 	   if(price < 1 || people < 1 || people > MAX_PEOPLE_PEER_PROPERTY)
 		   throw new InvalidDataException();
-	   Home h = new HomeClass(homeID, user, local, address, description, price, people);
-	   user.newPropertyToRent(h);
-	   this.home = h;
+	   Home home = new HomeClass(homeID, user, local, address, description, price, people);
+	   user.newPropertyToRent(home);
+	   properties.insert(homeID, home);
 	}
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
-		getHome(homeID);	//checking if home exists
-		if(users.find().getPropertyToRent().hasBeenVisited())
+		Home home = properties.remove(homeID);	//checking if home exists
+		if(home.hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
-		user.newPropertyToRent(null);
-		this.home = null;
+		home.getOwner().newPropertyToRent(null);
 	}
 
 	@Override
