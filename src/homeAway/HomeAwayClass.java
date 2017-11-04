@@ -21,10 +21,13 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Dictionary<String, User> users;
 	private Dictionary<String, Home> properties;
+	private Dictionary<String, Home> propertiesLocal;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
 		this.users = new ChainedHashTable<String, User>(10000);
+		this.properties = new ChainedHashTable<String, Home>(5000);
+		this.propertiesLocal = new ChainedHashTable<String, Home>(5000);
 	}
 	
 	private boolean hasUser(String userID){
@@ -127,7 +130,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userID); //Verifies if ids are valid first, if not throwns exception
-		Home home = getHome(homeID);
+		Home home = getHome(homeID); 
 	   if(home.getOwner() != user)	 //
 		   throw new UserIsNotOwnerException(); 
 	    user.newVisit(home);
@@ -139,9 +142,9 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		return getUser(userID).getPropertyToRent();
 	}
 
-	@Override
+	@Override 
 	public Iterator<HomeInfo> getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException{
-		return getUser(userID).getUserVisits();
+		return getUser(userID).getUserVisits(); 
 	}
 
 	@Override

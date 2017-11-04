@@ -136,7 +136,7 @@ public interface HomeAway {
 	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
 	Iterator<HomeInfo> getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException;
-	
+	 
 	/**
 	 * Searches a property on a given local that can host certain amount of people.
 	 * 

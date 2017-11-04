@@ -77,7 +77,7 @@ public interface UserInfo extends Serializable{
 	 * @return UserVists iterator, contains information about all properties the user has visited.
 	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
-	Iterator<HomeInfo> getUserVisits() throws UserHasNotVisitedException;
+	Iterator<HomeInfo> getUserVisits() throws UserHasNotVisitedException; 
 	
 
 	
