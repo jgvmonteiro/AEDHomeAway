@@ -1,3 +1,4 @@
+
 package dataStructures;
 
 /**
@@ -320,28 +321,15 @@ public class DoublyLinkedList<E> implements List<E>
     }
 
 
-    /** 
-    * Removes all of the elements from the specified list and
-    * inserts them at the end of the list (in proper sequence).
-    * @param list - list to be appended to the end of this
-    */
-   public void append( DoublyLinkedList<E> list )
-   {
-   	if(list == null || list.isEmpty()){
-   		return;
-   	}
-       if(!list.isEmpty() && this.currentSize == 0) {
-       	//this = list; :(
-       	this.head = list.head;
-       	this.tail = list.tail;
-       	this.currentSize = list.currentSize;
-       }
-       list.head.setPrevious(this.tail);
-       this.tail.setNext(list.head);
-       this.tail = list.tail;
-       this.currentSize += list.currentSize;
-       list = new DoublyLinkedList<E>();
-   }
+    /**
+     * Removes all of the elements from the specified list and
+     * inserts them at the end of the list (in proper sequence).
+     * @param list - list to be appended to the end of this
+     */
+    public void append( DoublyLinkedList<E> list )
+    {
+        //TODO: Left as an exercise.
+    }
 
 
 }   
