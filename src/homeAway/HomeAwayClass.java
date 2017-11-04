@@ -118,9 +118,9 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
 		if(feedback < 1)
 			throw new InvalidDataException();
-		getUser(userID); //Phase 1 there's only one user and one home so
-		getHome(homeID);   //this method should never be called. Anyway this lines are here just to make sure the exception 
-		throw new UserIsOwnerException(); //are correctly throw if the method is called
+		getUser(userID); 
+		getHome(homeID);  
+		throw new UserIsOwnerException(); 
 		//user.newVisit(home);
 		//home.newVisit(feedback);
 	}
