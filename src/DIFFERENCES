@@ -1,0 +1,29 @@
+1 - 2
+
+ADD USER:
+	1- 1 USER
+	2- MAIS USERS
+	
+ADD HOME:
+	1- 1 HOME
+	2- MAIS HOMES. MAS CADA HOST SO TEM UMA PROPERTY, E NAO SE VAI TENTAR ADICIONAR VARIAS
+PERTENCENTES AO MESMO HOST NEM VARIAS NO MESMO LOCAL
+
+RENT HOME:
+	1- 1 USER, 1 HOME
+	2- VARIOS USERS, VARIAS HOMES, SEM RESTRICOES
+	
+RENT OWN HOME:
+	1- same
+	2- VARIOS USERS, VARIAS HOMES, CADA HOST SO TEM UMA (mesmo que add home)
+	
+LISTAR PROP DE HOST:
+	2- CADA HOST SO TEM UMA PROP
+	
+SEARCH HOME:
+	2- SO EXISTE UMA PROPRIEDADE EM CADA LOCAL
+	
+"Não existindo valores máximos
+definidos, podemos prever que não deverão existir mais do que dez mil utilizadores no
+sistema, nem mais do que cinco mil propriedades."
+	
