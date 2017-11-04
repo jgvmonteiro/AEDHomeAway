@@ -22,13 +22,14 @@ public class StackIterator<E> implements Iterator<E>{
 		if(!hasNext())
 			throw new NoSuchElementException();
 		
-		this.next = this.next.getNext();
-		return this.next.getElement();
+		E n = next.getElement();
+		next = next.getNext();
+		return n;
 	}
 
 	@Override
 	public void rewind() {
-		this.next = first;
+		next = first;
 	}
 
 }

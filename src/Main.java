@@ -38,7 +38,7 @@ public class Main {
 	private static final String ERR_USER_NOT_OWNER = "Utilizador nao e proprietario.";
 	private static final String ERR_INVALID_DATA = "Dados invalidos.";
 	private static final String ERR_PROPERTY_EXIST = "Propriedade existente.";
-	private static final String ERR_PROPERTY_ALREADY_VISITED = "Propriedade ja foi visitada";
+	private static final String ERR_PROPERTY_ALREADY_VISITED = "Propriedade ja foi visitada.";
 	private static final String ERR_PROPERTY_NOT_EXIST = "Propriedade inexistente.";
 	private static final String ERR_TRAVELLER_IS_OWNER = "Viajante e o proprietario.";
 	private static final String ERR_TRAVELLER_NOT_OWNER = "Viajante nao e o proprietario.";
@@ -67,7 +67,7 @@ public class Main {
 		HomeAway hw = load(); 
 		interpreter(hw);
 		System.out.println(SAVE_AND_QUIT);
-		//save(hw);
+		save(hw);
 	}
 	
 	private static void interpreter(HomeAway hw) {
@@ -303,8 +303,7 @@ public class Main {
 	
 	private static void searchHome(HomeAway hw, Scanner in) {
 		int capacity = in.nextInt();
-		String local = in.next();
-		in.nextLine();	
+		String local = in.nextLine().trim();
 		try {
 			HomeInfo h = hw.searchHome(capacity, local);
 			printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
@@ -318,8 +317,7 @@ public class Main {
 	}
 	
 	private static void listTopHome(HomeAway hw, Scanner in){
-		String local = in.next();
-		in.nextLine();
+		String local = in.nextLine().trim();
 		try {
 			HomeInfo home = hw.topHomes(local);
 			printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
