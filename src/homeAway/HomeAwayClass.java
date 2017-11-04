@@ -3,6 +3,9 @@ package homeAway;
 import homeAway.exceptions.*;
 import java.io.Serializable;
 
+import dataStructures.ChainedHashTable;
+import dataStructures.Dictionary;
+
 /**
  * HomeAway implementation class.
  * The description of the methods is provided in the interface implemented.
@@ -17,13 +20,14 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private User user;  //Phase 1 no need for lists since the system will only have one user and one property.
 	private Home home;
+	private Dictionary<String, User> userHash;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
 		this.user = null;
 		this.home = null;
+		this.userHash = new ChainedHashTable<String, User>(10000);
 	}
 	
 	private boolean hasUser(String userID){
@@ -36,7 +40,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 	
 	private User getUser(String userID) throws UserDoesNotExistsException{
-		if(user == null || !user.getID().equalsIgnoreCase(userID))
+		User user = userHash.find(userID);
+		if(user == null)
 			throw new UserDoesNotExistsException();
 		return user;
 	}
@@ -61,7 +66,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(hasUser(userID))
 			throw new UserAlreadyExistsException();
 		User user = new UserClass(userID, name, email, phone, nationality, address);
-		this.user = user;
+		this.userHash.insert(userID, user);
 	}
 	
 	@Override
@@ -76,7 +81,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent {
 		if(getUser(userID).hasPropertyToRent())
 			throw new UserHasHomeToRent();
-		this.user = null;
+		userHash.remove(userID);
 	}
 
 	@Override
@@ -99,7 +104,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
 		getHome(homeID);	//checking if home exists
-		if(user.getPropertyToRent().hasBeenVisited())
+		if(userHash.find().getPropertyToRent().hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
 		user.newPropertyToRent(null);
 		this.home = null;
