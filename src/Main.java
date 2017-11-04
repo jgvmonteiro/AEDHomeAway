@@ -122,7 +122,7 @@ public class Main {
 	}
 	
 	private static void addUser(HomeAway hw, Scanner in) {
-		String idUser = in.next().toLowerCase();
+		String idUser = in.next();
 		String email = in.next();
 		String phone = in.next();
 		String name = in.nextLine().trim();
@@ -138,7 +138,7 @@ public class Main {
 	}
 	
 	private static void editUser(HomeAway hw, Scanner in) {
-		String userId = in.next().toLowerCase();
+		String userId = in.next();
 		String email = in.next();
 		String phone = in.next();
 		in.nextLine();
@@ -153,7 +153,7 @@ public class Main {
 	}
 	
 	private static void removeUser(HomeAway hw, Scanner in) {
-		String userId = in.next().toLowerCase();
+		String userId = in.next();
 		in.nextLine();
 		try {
 			hw.removeUser(userId);
@@ -168,7 +168,7 @@ public class Main {
 	}
 	
 	private static void getUserInfo(HomeAway hw, Scanner in) {
-		String userId = in.next().toLowerCase();
+		String userId = in.next();
 		in.nextLine();
 		try {
 			UserInfo u = hw.getUserInfo(userId);
@@ -180,11 +180,11 @@ public class Main {
 	}
 	
 	private static void addHome(HomeAway hw, Scanner in) {
-		String homeId = in.next().toLowerCase();
-		String userId = in.next().toLowerCase();
+		String homeId = in.next();
+		String userId = in.next();
 		int price = in.nextInt();
 		int capacity = in.nextInt();
-		String location = in.nextLine().trim().toLowerCase();	
+		String location = in.nextLine().trim();	
 		String description = in.nextLine();
 		String address = in.nextLine();	
 		try {
@@ -203,7 +203,7 @@ public class Main {
 	}
 	
 	private static void removeHome(HomeAway hw, Scanner in) {
-		String homeId = in.next().toLowerCase();
+		String homeId = in.next();
 		in.nextLine();		
 		try {
 			hw.removeHome(homeId);
@@ -218,7 +218,7 @@ public class Main {
 	}
 	
 	private static void getHomeInfo(HomeAway hw, Scanner in){
-		String homeID = in.next().toLowerCase();
+		String homeID = in.next();
 		in.nextLine();
 		try {
 			HomeInfo home = hw.getHomeInfo(homeID);//description, address, local, price, capacity, score, name
@@ -269,7 +269,7 @@ public class Main {
 	}
 	
 	private static void listUserVisits(HomeAway hw, Scanner in) {
-		String userId = in.next().toLowerCase();
+		String userId = in.next();
 		in.nextLine();		
 		try {
 			Iterator<HomeInfo> it = hw.getUserVisits(userId);
@@ -289,7 +289,7 @@ public class Main {
 	
 	//idHome descricao morada local preco pessoas pontos 
 	private static void listUserProperties(HomeAway hw, Scanner in){
-		String userID = in.next().toLowerCase();
+		String userID = in.next();
 		in.nextLine();	
 		try {
 			HomeInfo home = hw.getUserProperties(userID);
@@ -303,7 +303,7 @@ public class Main {
 	
 	private static void searchHome(HomeAway hw, Scanner in) {
 		int capacity = in.nextInt();
-		String local = in.next().toLowerCase();
+		String local = in.next();
 		in.nextLine();	
 		try {
 			HomeInfo h = hw.searchHome(capacity, local);
@@ -318,7 +318,7 @@ public class Main {
 	}
 	
 	private static void listTopHome(HomeAway hw, Scanner in){
-		String local = in.next().toLowerCase();
+		String local = in.next();
 		in.nextLine();
 		try {
 			HomeInfo home = hw.topHomes(local);

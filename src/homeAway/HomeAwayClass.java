@@ -40,7 +40,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 	
 	private User getUser(String userID) throws UserDoesNotExistsException{
-		User user = users.find(userID);
+		User user = users.find(userID.toUpperCase());
 		if(user == null)
 			throw new UserDoesNotExistsException();
 		return user;
@@ -56,7 +56,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 	
 	private Home getHome(String homeID) throws HomeDoesNotExistsException{
-		Home home = properties.find(homeID);
+		Home home = properties.find(homeID.toUpperCase());
 		if(home==null)
 			throw new HomeDoesNotExistsException();
 		return home;
@@ -67,7 +67,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(hasUser(userID))
 			throw new UserAlreadyExistsException();
 		User user = new UserClass(userID, name, email, phone, nationality, address);
+<<<<<<< HEAD
 		users.insert(userID, user);
+=======
+		this.users.insert(userID.toUpperCase(), user);
+>>>>>>> 5bfb229f72a4006f15b3fb35ab2d2fc432546156
 	}
 	
 	@Override
@@ -82,7 +86,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void removeUser(String userID) throws UserDoesNotExistsException, UserHasHomeToRent {
 		if(getUser(userID).hasPropertyToRent())
 			throw new UserHasHomeToRent();
-		users.remove(userID);
+		users.remove(userID.toUpperCase());
 	}
 
 	@Override
@@ -99,13 +103,13 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		   throw new InvalidDataException();
 	   Home home = new HomeClass(homeID, user, local, address, description, price, people);
 	   user.newPropertyToRent(home);
-	   properties.insert(homeID, home);
-	   propertiesLocal.insert(local, home);
+	   properties.insert(homeID.toUpperCase(), home);
+	   propertiesLocal.insert(local.toUpperCase(), home);
 	}
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
-		Home home = properties.remove(homeID);	//checking if home exists
+		Home home = properties.remove(homeID.toUpperCase());	//checking if home exists
 		if(home == null)
 			throw new HomeDoesNotExistsException();
 		
@@ -156,15 +160,15 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public HomeInfo searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
 		if(capacity < 1 || capacity > 20) throw new InvalidDataException();
-		Home home = propertiesLocal.find(local);
-		if(home !=null && home.getCapacity() >= capacity && home.getLocal().toUpperCase().contains(local.toUpperCase()))
+		Home home = propertiesLocal.find(local.toUpperCase());
+		if(home !=null && home.getCapacity() >= capacity)
 			return home;
-		else throw new NoResultsException();
+		throw new NoResultsException();
 	}
 
 	@Override
 	public HomeInfo topHomes(String local) throws NoResultsException {
-		Home h = propertiesLocal.find(local);
+		Home h = propertiesLocal.find(local.toUpperCase());
 		if(h == null)
 			throw new NoResultsException();
 		
