@@ -284,7 +284,7 @@ public class Main {
 		}
 	}
 	
-	//idHome descricao morada local preco pessoas pontos
+	//idHome descricao morada local preco pessoas pontos 
 	private static void listUserProperties(HomeAway hw, Scanner in){
 		String userID = in.next();
 		in.nextLine();	
