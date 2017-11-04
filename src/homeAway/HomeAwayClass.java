@@ -67,7 +67,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(hasUser(userID))
 			throw new UserAlreadyExistsException();
 		User user = new UserClass(userID, name, email, phone, nationality, address);
-		this.users.insert(userID, user);
+		users.insert(userID, user);
 	}
 	
 	@Override
