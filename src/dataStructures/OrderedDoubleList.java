@@ -30,6 +30,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 
 	@Override
 	public V find(K key) {
+		if(isEmpty())	return null;
 		if(this.tail.getElement().getKey().compareTo(key) < 0
 		|| this.head.getElement().getKey().compareTo(key) > 0 || this.isEmpty())
 			return null;
@@ -49,6 +50,9 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 
 	@Override
 	public V insert(K key, V value) {
+		if(key == null || value == null) { 
+			return null;
+		}
 		DListNode<Entry<K, V>> ourEntry = new DListNode<Entry<K, V>>(new EntryClass<K, V>(key, value));
 		DListNode<Entry<K, V>> current = this.head;
 		if(isEmpty()){
@@ -71,7 +75,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			this.currentSize++;
 			return null;
 		}
-		current = current.getNext();
 		while(current != null){		
 			Entry<K, V> elemToCompare = current.getElement();
 			

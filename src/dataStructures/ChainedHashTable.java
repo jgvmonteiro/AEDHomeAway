@@ -40,7 +40,6 @@ public class ChainedHashTable<K extends Comparable<K>, V>
         table = (Dictionary<K,V>[]) new Dictionary[arraySize];
         for ( int i = 0; i < arraySize; i++ ){
             table[i] = new OrderedDoubleList<K,V>();
-            table[i] = null;
         }
         maxSize = capacity;
         currentSize = 0;
@@ -72,7 +71,6 @@ public class ChainedHashTable<K extends Comparable<K>, V>
         
         for(int i = 0; i < newTable.length; i++){
         	newTable[i] = new OrderedDoubleList<K, V>();
-        	newTable[i] = null;
         }
         
         this.table = newTable;
@@ -93,8 +91,13 @@ public class ChainedHashTable<K extends Comparable<K>, V>
     
     @Override
     public V find( K key )
-    {
-        return table[ this.hash(key) ].find(key);
+    {	
+    	int hash = this.hash(key);
+    	if(table[hash].isEmpty()) {
+    		return null;
+    	}
+        
+    	return table[ hash ].find(key);
     }
 
     @Override
@@ -102,10 +105,10 @@ public class ChainedHashTable<K extends Comparable<K>, V>
     {
         if ( this.isFull() )
             this.rehash();
-               
-        V found = this.table[hash(key)].insert(key, value);
-        if(found != null)
+        V found = this.table[this.hash(key)].insert(key, value);
+        if(found == null) {
         	this.currentSize++;
+        }
         return found;
     }
 
@@ -123,7 +126,7 @@ public class ChainedHashTable<K extends Comparable<K>, V>
     @Override
     public Iterator<Entry<K,V>> iterator( )
     {
-        return null;
+        return new ChainedIterator<K,V>(this.table, this.currentSize);
     } 
 }
 

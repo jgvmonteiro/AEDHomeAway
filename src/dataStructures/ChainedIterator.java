@@ -10,37 +10,48 @@ public class ChainedIterator<K, V> implements Iterator<Entry<K, V>>{
 	private Dictionary<K, V>[] table;
 	private Iterator<Entry<K, V>> currentIt;
 	private int current;
+	private int size;
+	private int iterations;
 	
-	
-	public ChainedIterator(Dictionary<K, V>[] table){
+	public ChainedIterator(Dictionary<K, V>[] table, int size){
 		//this.current = 0; done in rewind
 		this.table = table;
 		this.currentIt = null;
+		this.size = size;
+		this.iterations = 0;
 		this.rewind();
 	}
 	
 	
 	@Override
 	public boolean hasNext() {
-		return this.current != this.table.length;
+		return this.current != this.table.length && this.iterations < this.size;
+		
 		//return this.currentIt.hasNext();
 	}
 
 	@Override
+	/**
+	 * Final iteration always returns null
+	 */
 	public Entry<K, V> next() throws NoSuchElementException {
 		if (!this.hasNext())
             throw new NoSuchElementException();
 		
 		if(this.currentIt.hasNext()) {
+			this.iterations++;
 			return currentIt.next();
 		}
 		
 		else findNext();
 		
-		if(this.currentIt == null) {
+		if(this.currentIt == null || !this.currentIt.hasNext()) {
 			return null;
 		}
-		else return this.currentIt.next();
+		else {
+			this.iterations++;
+			return this.currentIt.next();
+		}
 	}
 
 	@Override
@@ -58,8 +69,13 @@ public class ChainedIterator<K, V> implements Iterator<Entry<K, V>>{
 			this.current++;
 			this.currentIt = this.table[this.current].iterator();
 		}*/
-		while(this.table[current] == null && this.current < this.table.length) {
+		this.current++;
+		if(this.current >= this.table.length)
+			return;
+		while((this.table[current] == null || this.table[current].isEmpty())) {
 			this.current++;
+			if(this.current >= this.table.length)
+				return;
 		}
 		this.currentIt = this.table[this.current].iterator();
 	}
