@@ -1,5 +1,8 @@
 package homeAway;
 
+import dataStructures.Iterator;
+import dataStructures.Stack;
+import dataStructures.StackWithIterator;
 import homeAway.exceptions.UserHasNotVisitedException;
 import homeAway.exceptions.UserIsNotOwnerException;
 
@@ -19,7 +22,7 @@ public class UserClass implements User{
 	private static final long serialVersionUID = 1L;
 	private String userID, email, phone, name, nationality, address;
 	private Home homeToRent;
-	private UserVisits visits;
+	private Stack<HomeInfo> visits;
 	
 	
 	public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
@@ -29,6 +32,7 @@ public class UserClass implements User{
 		this.name = name;
 		this.nationality = nationality;
 		this.address = address;
+		this.visits = new StackWithIterator<HomeInfo>();
 	}
 
 	@Override
@@ -88,28 +92,30 @@ public class UserClass implements User{
 	
 	@Override
 	public Home getPropertyToRent() throws UserIsNotOwnerException{
-		if(homeToRent==null)
-			throw new UserIsNotOwnerException("User is not owner of any property.");
+		if(homeToRent == null)
+			throw new UserIsNotOwnerException();
 		return homeToRent;
 	}
 	
 	@Override
 	public void newVisit(Home home){
 		if(visits == null)
-			visits = new UserVisits(home);
-		visits.newVisit();	//phase 1 only exists one property so no need to pass wich property here
+			visits = new StackWithIterator<HomeInfo>();
+		
+		visits.push(home);
 	}
 
 	@Override
 	public boolean hasVisited() {
-		return visits!=null;
+		return !visits.isEmpty();
 	}
 
 	@Override
-	public UserVisits getUserVisits() throws UserHasNotVisitedException{
-		if(visits==null)
-			throw new UserHasNotVisitedException("Attempt to get visits from a user that hasn't visited any property yet.");
-		return visits;
+	public Iterator<HomeInfo> getUserVisits() throws UserHasNotVisitedException{
+		if(visits.isEmpty())
+			throw new UserHasNotVisitedException();
+		StackWithIterator<HomeInfo> v = (StackWithIterator<HomeInfo>) visits;
+		return v.iterator();
 	}
 	
 }
