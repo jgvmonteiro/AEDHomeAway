@@ -25,7 +25,6 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
-		this.user = null;
 		this.home = null;
 		this.userHash = new ChainedHashTable<String, User>(10000);
 	}
@@ -104,7 +103,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
 		getHome(homeID);	//checking if home exists
-		if(userHash.find().getPropertyToRent().hasBeenVisited())
+		if(user.getPropertyToRent().hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
 		user.newPropertyToRent(null);
 		this.home = null;
