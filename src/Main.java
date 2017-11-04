@@ -275,7 +275,7 @@ public class Main {
 			UserVisits v = hw.getUserVisits(userId);
 			HomeInfo h = v.getHome();
 			for(int i = 0; i < v.getVisitations(); i++)
-				System.out.printf(HOME_INFO, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+				printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
@@ -291,7 +291,7 @@ public class Main {
 		in.nextLine();	
 		try {
 			HomeInfo home = hw.getUserProperties(userID);
-			System.out.printf(HOME_INFO, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
 		} catch (UserIsNotOwnerException e){
@@ -305,7 +305,7 @@ public class Main {
 		in.nextLine();	
 		try {
 			HomeInfo h = hw.searchHome(capacity, local);
-			System.out.printf(HOME_INFO, h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+			printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
 		}
 		catch(InvalidDataException e) {
 			System.out.println(ERR_INVALID_DATA);
@@ -320,7 +320,7 @@ public class Main {
 		in.nextLine();
 		try {
 			HomeInfo home = hw.topHomes(local);
-			System.out.printf(HOME_INFO, home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
 		} catch (NoResultsException e) {
 			System.out.println(ERR_SEARCH_NO_RESULTS);
 		}
@@ -335,6 +335,14 @@ public class Main {
 			//something went wrong...
 		}
 	}
+	
+	private static void printHomeInfo(String id, String description, String address, String local, int price, int capacity, int feedback) {
+		System.out.printf(HOME_INFO, id, description, address, price, local, price, capacity, feedback);
+	}
+	
+	
+	
+	
 	
 	private static HomeAway load() throws FileNotFoundException, IOException, ClassNotFoundException{
 		try {
