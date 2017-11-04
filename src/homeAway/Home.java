@@ -28,4 +28,6 @@ interface Home extends HomeInfo, Serializable{
 	 * @see hasBeenVisited in HouseInfo interface for more information.
 	 */
 	void newVisit(int feedback);
+
+	User getOwner();
 }

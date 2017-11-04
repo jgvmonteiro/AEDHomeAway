@@ -91,6 +91,11 @@ public class HomeClass implements Home{
 		this.visited = true;
 		this.feedback+=feedback;
 	}
+
+	@Override
+	public User getOwner() {
+		return owner;
+	}
 	
 	
 	

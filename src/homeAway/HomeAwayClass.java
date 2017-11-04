@@ -19,13 +19,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Home home;
 	private Dictionary<String, User> users;
 	private Dictionary<String, Home> properties;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	
 	public HomeAwayClass() {
-		this.home = null;
 		this.users = new ChainedHashTable<String, User>(10000);
 	}
 	
@@ -55,7 +53,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 	
 	private Home getHome(String homeID) throws HomeDoesNotExistsException{
-		if(home==null || !home.getHomeID().equalsIgnoreCase(homeID))
+		Home home = properties.find(homeID);
+		if(home==null)
 			throw new HomeDoesNotExistsException();
 		return home;
 	}	
@@ -95,18 +94,17 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		   throw new HomeAlreadyExistsException();
 	   if(price < 1 || people < 1 || people > MAX_PEOPLE_PEER_PROPERTY)
 		   throw new InvalidDataException();
-	   Home h = new HomeClass(homeID, user, local, address, description, price, people);
-	   user.newPropertyToRent(h);
-	   this.home = h;
+	   Home home = new HomeClass(homeID, user, local, address, description, price, people);
+	   user.newPropertyToRent(home);
+	   properties.insert(homeID, home);
 	}
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
-		getHome(homeID);	//checking if home exists
-		if(users.find().getPropertyToRent().hasBeenVisited())
+		Home home = properties.remove(homeID);	//checking if home exists
+		if(home.hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
-		user.newPropertyToRent(null);
-		this.home = null;
+		home.getOwner().newPropertyToRent(null);
 	}
 
 	@Override
@@ -118,18 +116,19 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
 		if(feedback < 1)
 			throw new InvalidDataException();
-		getUser(userID); 
-		getHome(homeID);  
-		throw new UserIsOwnerException(); 
-		//user.newVisit(home);
-		//home.newVisit(feedback);
+		User user = getUser(userID); 
+		Home home = getHome(homeID);  
+		if(home.getOwner() == user) //Posso comparar as referencias???
+			throw new UserIsOwnerException(); //are correctly throw if the method is called
+		user.newVisit(home);
+		home.newVisit(feedback);
 	}
 
 	@Override
 	public void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userID); //Verifies if ids are valid first, if not throwns exception
 		Home home = getHome(homeID);
-	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))	 //Phase 1 this exception shloud never be thrown....
+	   if(home.getOwner() != user)	 //
 		   throw new UserIsNotOwnerException(); 
 	    user.newVisit(home);
 		home.newVisit();	  
