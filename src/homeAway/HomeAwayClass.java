@@ -116,18 +116,19 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
 		if(feedback < 1)
 			throw new InvalidDataException();
-		getUser(userID); //Phase 1 there's only one user and one home so
-		getHome(homeID);   //this method should never be called. Anyway this lines are here just to make sure the exception 
-		throw new UserIsOwnerException(); //are correctly throw if the method is called
-		//user.newVisit(home);
-		//home.newVisit(feedback);
+		User user = getUser(userID); 
+		Home home = getHome(homeID);  
+		if(home.getOwner() == user) //Posso comparar as referencias???
+			throw new UserIsOwnerException(); //are correctly throw if the method is called
+		user.newVisit(home);
+		home.newVisit(feedback);
 	}
 
 	@Override
 	public void rentOwnHome(String userID, String homeID) throws UserDoesNotExistsException, HomeDoesNotExistsException, UserIsNotOwnerException {
 		User user = getUser(userID); //Verifies if ids are valid first, if not throwns exception
 		Home home = getHome(homeID);
-	   if(!home.getOwnerID().equalsIgnoreCase(user.getID()))	 //Phase 1 this exception shloud never be thrown....
+	   if(home.getOwner() != user)	 //
 		   throw new UserIsNotOwnerException(); 
 	    user.newVisit(home);
 		home.newVisit();	  
