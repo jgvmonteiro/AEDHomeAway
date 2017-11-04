@@ -67,7 +67,7 @@ public class Main {
 		HomeAway hw = load(); 
 		interpreter(hw);
 		System.out.println(SAVE_AND_QUIT);
-		save(hw);
+		//save(hw);
 	}
 	
 	private static void interpreter(HomeAway hw) {
@@ -339,7 +339,7 @@ public class Main {
 	}
 	
 	private static void printHomeInfo(String id, String description, String address, String local, int price, int capacity, int feedback) {
-		System.out.printf(HOME_INFO, id, description, address, price, local, price, capacity, feedback);
+		System.out.printf(HOME_INFO, id, description, address, local, price, capacity, feedback);
 	}
 	
 	
