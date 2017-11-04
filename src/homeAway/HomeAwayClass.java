@@ -150,8 +150,9 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	@Override
 	public HomeInfo searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
 		if(capacity < 1 || capacity > 20) throw new InvalidDataException();
-		if(home !=null && home.getCapacity() >= capacity && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
-			return this.home;
+		Home home = propertiesLocal.find(local);
+		if(home !=null && home.getCapacity() >= capacity && home.getLocal().toUpperCase().contains(local.toUpperCase()))
+			return home;
 		else throw new NoResultsException();
 	}
 
