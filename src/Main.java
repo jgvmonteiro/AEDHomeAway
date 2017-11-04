@@ -7,6 +7,7 @@
 
 import java.util.Scanner;
 
+import dataStructures.Iterator;
 import homeAway.exceptions.*;
 import homeAway.HomeAway;
 import homeAway.HomeAwayClass;
@@ -271,10 +272,12 @@ public class Main {
 		String userId = in.next();
 		in.nextLine();		
 		try {
-			UserVisits v = hw.getUserVisits(userId);
-			HomeInfo h = v.getHome();
-			for(int i = 0; i < v.getVisitations(); i++)
+			Iterator<HomeInfo> it = hw.getUserVisits(userId);
+			
+			while(it.hasNext()) {
+				HomeInfo h = it.next();
 				printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+			}
 		}
 		catch(UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
