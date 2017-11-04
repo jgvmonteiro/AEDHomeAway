@@ -100,13 +100,19 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   Home home = new HomeClass(homeID, user, local, address, description, price, people);
 	   user.newPropertyToRent(home);
 	   properties.insert(homeID, home);
+	   propertiesLocal.insert(local, home);
 	}
 
 	@Override
 	public void removeHome(String homeID) throws HomeDoesNotExistsException, HomeAlreadyVisitedException {
 		Home home = properties.remove(homeID);	//checking if home exists
+		if(home == null)
+			throw new HomeDoesNotExistsException();
+		
+		propertiesLocal.remove(home.getLocal());
 		if(home.hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
+		
 		home.getOwner().newPropertyToRent(null);
 	}
 
