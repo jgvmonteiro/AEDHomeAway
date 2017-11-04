@@ -5,7 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import dataStructures.*;
-
+/**
+ * remove 0.000
+ * finished about 0.014 seconds
+ */
 public class RemoveODLTest {
 
 	@Test

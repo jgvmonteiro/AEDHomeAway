@@ -1,5 +1,8 @@
-package tests;
-
+package tests;/**
+ * finished after 0.022 seconds
+ * insersimple 0.003
+ * insertrandom 0.003
+ */
 import static org.junit.Assert.*;
 import org.junit.Test;
 
