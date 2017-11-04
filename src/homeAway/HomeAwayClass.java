@@ -157,9 +157,11 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
 	@Override
 	public HomeInfo topHomes(String local) throws NoResultsException {
-		if(home != null && this.home.getLocal().toUpperCase().contains(local.toUpperCase()))
-			return this.home;
-		else throw new NoResultsException();
+		Home h = propertiesLocal.find(local);
+		if(h == null)
+			throw new NoResultsException();
+		
+		return h;
 	}
 	
 	
