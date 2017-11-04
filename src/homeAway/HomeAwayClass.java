@@ -141,7 +141,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException{
+	public Iterator<HomeInfo> getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException{
 		return getUser(userID).getUserVisits();
 	}
 

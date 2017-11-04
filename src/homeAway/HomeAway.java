@@ -1,5 +1,6 @@
 package homeAway;
 
+import dataStructures.Iterator;
 import homeAway.exceptions.*;
 
 /**
@@ -129,12 +130,12 @@ public interface HomeAway {
 	 * Returns all the properties visited by a specified user.
 	 * 
 	 * @param userID User's identification in the system
-	 * @return UserVisits object, contains information about the properties the user has visited. 
+	 * @return HomeInfo iterator, contains information about the properties the user has visited. 
 	 * @see UserVisits for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws UserHasNotVisitedException User hasn't stayed in any property.
 	 */
-	UserVisits getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException;
+	Iterator<HomeInfo> getUserVisits(String userID) throws UserDoesNotExistsException, UserHasNotVisitedException;
 	
 	/**
 	 * Searches a property on a given local that can host certain amount of people.
