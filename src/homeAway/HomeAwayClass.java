@@ -126,8 +126,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 			throw new InvalidDataException();
 		User user = getUser(userID); 
 		Home home = getHome(homeID);  
-		if(home.getOwner() == user) //Posso comparar as referencias???
-			throw new UserIsOwnerException(); //are correctly throw if the method is called
+		if(home.getOwner() == user) 
+			throw new UserIsOwnerException(); //
 		user.newVisit(home);
 		home.newVisit(feedback);
 	}
