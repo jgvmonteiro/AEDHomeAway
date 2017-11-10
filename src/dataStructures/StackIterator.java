@@ -2,6 +2,10 @@ package dataStructures;
 
 public class StackIterator<E> implements Iterator<E>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DListNode<E> first;
 	private DListNode<E> last;
 	private DListNode<E> next;

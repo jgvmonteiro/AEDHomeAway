@@ -23,11 +23,13 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private Dictionary<String, Home> properties;
 	private Dictionary<String, Home> propertiesLocal;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
+	private static final int MAX_EXPECTED_USERS = 10000;
+	private static final int MAX_EXPECTED_PROPERTY = 5000;
 	
 	public HomeAwayClass() {
-		this.users = new ChainedHashTable<String, User>(10000);
-		this.properties = new ChainedHashTable<String, Home>(5000);
-		this.propertiesLocal = new ChainedHashTable<String, Home>(5000);
+		this.users = new ChainedHashTable<String, User>(MAX_EXPECTED_USERS);
+		this.properties = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
+		this.propertiesLocal = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
 	}
 	
 	private boolean hasUser(String userID){
