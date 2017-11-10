@@ -48,11 +48,25 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		return null;
 	}
 
+	private void addFirst(DListNode<Entry<K, V>> ourEntry){
+		ourEntry.setNext(head);
+		head.setPrevious(ourEntry);
+		this.head = ourEntry;
+		this.currentSize++;
+	}
+	
+	private void addLast(DListNode<Entry<K, V>> ourEntry){
+		tail.setNext(ourEntry);
+		ourEntry.setPrevious(tail);
+		this.tail = ourEntry;
+		this.currentSize++;
+	}
+	
 	@Override
 	public V insert(K key, V value) {
-		if(key == null || value == null) { 
+		if(key == null || value == null)
 			return null;
-		}
+		
 		DListNode<Entry<K, V>> ourEntry = new DListNode<Entry<K, V>>(new EntryClass<K, V>(key, value));
 		DListNode<Entry<K, V>> current = this.head;
 		if(isEmpty()){
@@ -62,17 +76,11 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			return null;
 		}
 		if(tail.getElement().getKey().compareTo(key) < 0){
-			tail.setNext(ourEntry);
-			ourEntry.setPrevious(tail);
-			this.tail = ourEntry;
-			this.currentSize++;
+			addLast(ourEntry);
 			return null;
 		}
 		if(head.getElement().getKey().compareTo(key) > 0){
-			ourEntry.setNext(head);
-			head.setPrevious(ourEntry);
-			this.head = ourEntry;
-			this.currentSize++;
+			addFirst(ourEntry);
 			return null;
 		}
 		while(current != null){		
@@ -93,10 +101,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			}
 			current = current.getNext();
 		}
-		tail.setNext(ourEntry);
-		ourEntry.setPrevious(tail);
-		tail = ourEntry;
-		currentSize++;
+		//addLast(ourEntry);
 		return null;
 	}
 

@@ -2,7 +2,7 @@ package homeAway;
 
 import dataStructures.Iterator;
 import dataStructures.Stack;
-import dataStructures.StackWithIterator;
+import dataStructures.IteratorStackInList;
 import homeAway.exceptions.UserHasNotVisitedException;
 import homeAway.exceptions.UserIsNotOwnerException;
 
@@ -32,7 +32,7 @@ public class UserClass implements User{
 		this.name = name;
 		this.nationality = nationality;
 		this.address = address;
-		this.visits = new StackWithIterator<HomeInfo>();
+		this.visits = new IteratorStackInList<HomeInfo>();
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class UserClass implements User{
 	@Override
 	public void newVisit(Home home){
 		if(visits == null)
-			visits = new StackWithIterator<HomeInfo>();
+			visits = new IteratorStackInList<HomeInfo>();
 		
 		visits.push(home);
 	}
@@ -114,7 +114,7 @@ public class UserClass implements User{
 	public Iterator<HomeInfo> getUserVisits() throws UserHasNotVisitedException{
 		if(visits.isEmpty())
 			throw new UserHasNotVisitedException();
-		StackWithIterator<HomeInfo> v = (StackWithIterator<HomeInfo>) visits;
+		IteratorStackInList<HomeInfo> v = (IteratorStackInList<HomeInfo>) visits;
 		return v.iterator();
 	}
 	

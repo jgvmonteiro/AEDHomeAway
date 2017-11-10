@@ -13,7 +13,6 @@ import homeAway.HomeAway;
 import homeAway.HomeAwayClass;
 import homeAway.HomeInfo;
 import homeAway.UserInfo;
-import homeAway.UserVisits;
 
 import java.io.*;
 
