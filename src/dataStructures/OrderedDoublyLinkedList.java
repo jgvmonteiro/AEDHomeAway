@@ -25,7 +25,7 @@ public class OrderedDoublyLinkedList<E extends Comparable<E>> extends DoublyLink
 			addFirst(element);return;
 		}
 		
-		if(head.getElement().compareTo(element)<0){
+		if(tail.getElement().compareTo(element)<0){
 			addLast(element);return;
 		}
 		
@@ -39,7 +39,7 @@ public class OrderedDoublyLinkedList<E extends Comparable<E>> extends DoublyLink
 			}
 			
 			if(currentNode.getElement().compareTo(element)>0){
-				addMiddle(pos, element);
+				addMiddle(pos, element);return;
 			}
 			
 			currentNode = currentNode.getNext();

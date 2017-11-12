@@ -119,12 +119,12 @@ public interface HomeAway {
 	 * Returns all properties owner by a specified user.
 	 * 
 	 * @param userID User's identification in the system.
-	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
+	 * @return HomeInfo iterator, contains information about the property. Ordered by properties IDs,
 	 * @see HomeInfo for more details.
 	 * @throws UserDoesNotExistsException User with the supplied ID was not found in the system.
 	 * @throws UserIsNotOwnerException User does not own any property.
 	 */
-	HomeInfo getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException;
+	Iterator<HomeInfo> getUserProperties(String userID) throws UserDoesNotExistsException, UserIsNotOwnerException;
 	
 	/**
 	 * Returns all the properties visited by a specified user.

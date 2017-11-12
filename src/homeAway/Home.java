@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Diogo Tavares (50309) dc.tavares@campus.fct.unl.pt
  * @author Joao Monteiro (51105) jg.monteiro@campus.fct.unl.pt
  */
-interface Home extends HomeInfo, Serializable, Comparable<Home>{
+interface Home extends HomeInfo, Serializable{
 	
 	/**
 	 * Use this method when the property is visited by the owner.

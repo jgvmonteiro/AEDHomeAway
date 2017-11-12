@@ -291,8 +291,11 @@ public class Main {
 		String userID = in.next();
 		in.nextLine();	
 		try {
-			HomeInfo home = hw.getUserProperties(userID);
-			printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			Iterator<HomeInfo> it = hw.getUserProperties(userID);
+			while(it.hasNext()){
+				HomeInfo home = it.next();
+				printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			}
 		} catch (UserDoesNotExistsException e) {
 			System.out.println(ERR_USER_NOT_EXIST);
 		} catch (UserIsNotOwnerException e){

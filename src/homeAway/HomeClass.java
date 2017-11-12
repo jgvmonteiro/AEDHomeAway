@@ -98,7 +98,7 @@ class HomeClass implements Home{
 	}
 
 	@Override
-	public int compareTo(Home o) {
+	public int compareTo(HomeInfo o) {
 		return homeID.compareTo(o.getHomeID());
 	}
 	

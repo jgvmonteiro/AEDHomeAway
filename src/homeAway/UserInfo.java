@@ -61,10 +61,10 @@ public interface UserInfo extends Serializable{
 	
 	/**
 	 * 
-	 * @return Property owner by the user available for other users(or himself) to rent.
-	 * @throws UserIsNotOwnerException User doesn't have any property available for rent.
+	 * @return Properties owned by the user available for other users(or himself) to rent. Ordered by the properties IDzs.
+	 * @throws UserIsNotOwnerException User doesn't have any property available to rent.
 	 */
-	Home getPropertyToRent() throws UserIsNotOwnerException;
+	Iterator<HomeInfo> getPropertiesToRent() throws UserIsNotOwnerException;
 	
 	/**
 	 * 
