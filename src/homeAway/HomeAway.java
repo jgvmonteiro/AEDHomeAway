@@ -142,12 +142,12 @@ public interface HomeAway {
 	 * 
 	 * @param people Number of people property has to be able to host.
 	 * @param local Local of the property.
-	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
+	 * @return HomeInfo iterator, contains information about the properties in the system.
 	 * @see HomeInfo for more details.
 	 * @throws InvalidDataException Number of people must be a number between 1 and 20.
 	 * @throws NoResultsException No property in the system matched for the given arguments.
 	 */
-	HomeInfo searchHome(int people, String local) throws InvalidDataException, NoResultsException;
+	Iterator<HomeInfo> searchHome(int people, String local) throws InvalidDataException, NoResultsException;
 	
 	/**
 	 * Searches properties in a given local ordered by the visitor's feedback on the property, highest to lower.

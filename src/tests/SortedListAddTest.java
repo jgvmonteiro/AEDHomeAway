@@ -17,17 +17,24 @@ public class SortedListAddTest {
 		SortedList<String> l = new OrderedDoublyLinkedList<String>();
 
 		
-		l.add("test1");
+		/*l.add("test1");
 		l.add("test4");
 		l.add("test0");
 		l.add("test3");
 		l.add("test2");
+		*/
 		
-		Iterator<String> it = l.iterator();
-		while(it.hasNext()){
-			System.out.println(it.next());
+		for (int i = 499; i >= 0; i--) {
+			l.add("test"+i);	
 		}
 		
+		Iterator<String> it = l.iterator();
+		int c = 0;
+		while(it.hasNext()){
+			System.out.println(it.next());
+			c++;
+		}
+		System.out.println("\nCounted "+c+" entries.");
 		
 	}
 

@@ -33,9 +33,17 @@ interface User extends UserInfo, Serializable{
 	
 	/**
 	 * 
-	 * @param home User's property for other to rent.
+	 * @param home User's property for other to rent
+	 * @return true if property exists and is removed, false otherwise
 	 */
 	void newPropertyToRent(Home home);
+	
+	/**
+	 * 
+	 * @param home User's property to be removed.
+	 * @return true if property exists and is removed, false otherwise
+	 */
+	boolean removeProperty(Home home);
 	
 	/**
 	 * 

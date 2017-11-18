@@ -89,6 +89,11 @@ class UserClass implements User{
 	}
 	
 	@Override
+	public boolean removeProperty(Home home) {
+		return homesToRent.remove(home);
+	}
+	
+	@Override
 	public boolean hasPropertyToRent() {
 		return !homesToRent.isEmpty();
 	}
@@ -120,5 +125,6 @@ class UserClass implements User{
 		IteratorStackInList<HomeInfo> v = (IteratorStackInList<HomeInfo>) visits;
 		return v.iterator();
 	}
+
 	
 }

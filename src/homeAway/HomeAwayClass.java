@@ -22,6 +22,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private Dictionary<String, User> users;
 	private Dictionary<String, Home> properties;
 	private Dictionary<String, Home> propertiesLocal;
+	private PropertiesPerCapacity propertiesCapacitySearch;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	private static final int MAX_EXPECTED_USERS = 10000;
 	private static final int MAX_EXPECTED_PROPERTY = 5000;
@@ -30,6 +31,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		this.users = new ChainedHashTable<String, User>(MAX_EXPECTED_USERS);
 		this.properties = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
 		this.propertiesLocal = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
+		this.propertiesCapacitySearch = new PropertiesPerCapacityClass(MAX_PEOPLE_PEER_PROPERTY);
 	}
 	
 	private boolean hasUser(String userID){
@@ -103,6 +105,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   user.newPropertyToRent(home);
 	   properties.insert(homeID.toUpperCase(), home);
 	   propertiesLocal.insert(local.toUpperCase(), home);
+	   propertiesCapacitySearch.insert(home);
 	}
 
 	@Override
@@ -112,7 +115,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 			throw new HomeAlreadyVisitedException();
 		properties.remove(homeID.toUpperCase());	//checking if home exists
 		propertiesLocal.remove(home.getLocal().toUpperCase());
-		home.getOwner().newPropertyToRent(null);
+		home.getOwner().removeProperty(home);
+		propertiesCapacitySearch.remove(home);
 	}
 
 	@Override
@@ -153,12 +157,9 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public HomeInfo searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
+	public Iterator<HomeInfo> searchHome(int capacity, String local) throws InvalidDataException, NoResultsException {
 		if(capacity < 1 || capacity > 20) throw new InvalidDataException();
-		Home home = propertiesLocal.find(local.toUpperCase());
-		if(home !=null && home.getCapacity() >= capacity)
-			return home;
-		throw new NoResultsException();
+		return propertiesCapacitySearch.iterator(capacity, local);
 	}
 
 	@Override

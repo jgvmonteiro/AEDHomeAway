@@ -73,18 +73,19 @@ public class ChainedHashTable<K extends Comparable<K>, V>
         	newTable[i] = new OrderedDoubleList<K, V>();
         }
         
+        Dictionary<K, V>[] tempTable = table;
         this.table = newTable;
         this.maxSize = newMaxSize;
         this.currentSize = 0;
         
-        for(int i = 0; i < this.table.length; i++){
-        	if(this.table[i] != null){
-        		Iterator<Entry<K, V>> it = this.table[i].iterator();
+        for(int i = 0; i < tempTable.length; i++){
+        //	if(this.table[i] != null){
+        		Iterator<Entry<K, V>> it = tempTable[i].iterator();
         		while(it.hasNext()){
         			Entry<K, V> e = it.next();
         			insert(e.getKey(), e.getValue());
         		}
-        	}
+        //	}
         }   
     }
     

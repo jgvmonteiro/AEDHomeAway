@@ -64,6 +64,7 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
 		HomeAway hw = load(); 
+		//HomeAway hw = new HomeAwayClass();
 		interpreter(hw);
 		System.out.println(SAVE_AND_QUIT);
 		save(hw);
@@ -307,8 +308,12 @@ public class Main {
 		int capacity = in.nextInt();
 		String local = in.nextLine().trim();
 		try {
-			HomeInfo h = hw.searchHome(capacity, local);
-			printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+			Iterator<HomeInfo> it = hw.searchHome(capacity, local);
+			
+			while(it.hasNext()){
+				HomeInfo h = it.next();
+				printHomeInfo(h.getHomeID(), h.getDescription(), h.getAddress(), h.getLocal(), h.getPrice(), h.getCapacity(), h.getFeedback());
+			}
 		}
 		catch(InvalidDataException e) {
 			System.out.println(ERR_INVALID_DATA);
