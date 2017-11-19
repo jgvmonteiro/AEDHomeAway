@@ -1,18 +1,20 @@
 package dataStructures;
 
-public class EmptyDictionaryException extends RuntimeException{
+public class EmptyDictionaryException extends RuntimeException
+{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	public EmptyDictionaryException(){
-		super();
-	}
+    static final long serialVersionUID = 0L;
 
-	public EmptyDictionaryException(String message){
-		super(message);
-	}
-	
+
+    public EmptyDictionaryException( )
+    {
+        super();
+    }
+
+    public EmptyDictionaryException( String message )
+    {
+        super(message);
+    }
+
 }
+

@@ -24,5 +24,16 @@ public interface Entry<K,V> extends Serializable
 	 * @return value in the entry
 	 */
     V getValue( );
+    
+    /**
+     * 
+     * @param key
+     */
+    void setKey(K key);
 
+    /**
+     * 
+     * @param value
+     */
+    void setValue(V value);
 }

@@ -24,4 +24,14 @@ public class EntryClass<K, V> implements Entry<K, V>{
 		return value;
 	}
 
+	@Override
+	public void setKey(K key) {
+		this.key = key;
+	}
+
+	@Override
+	public void setValue(V value) {
+		this.value = value;
+	}
+
 }
