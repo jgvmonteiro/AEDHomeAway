@@ -28,7 +28,9 @@ public class OwnerMultiplePropertiesTest {
 		hw.addHome("home10", "user0", 22, 5, "address", "local", "desc");
 		hw.addHome("home32", "user0", 22, 5, "address", "local", "desc");
 		hw.addHome("home30", "user0", 22, 5, "address", "local", "desc");
-		hw.addHome("homa", "user0", 22, 5, "address", "local", "desc");
+		hw.addHome("home11", "user0", 22, 5, "address", "local", "desc");
+		
+		hw.removeHome("home5");
 		
 		Iterator<HomeInfo> it = hw.getUserProperties("user0");
 		while(it.hasNext()){

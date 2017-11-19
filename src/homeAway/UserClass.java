@@ -1,11 +1,10 @@
 package homeAway;
 
 import dataStructures.Iterator;
-import dataStructures.IteratorStack;
 import dataStructures.Stack;
 import dataStructures.IteratorStackInList;
-import dataStructures.OrderedDoublyLinkedList;
-import dataStructures.SortedList;
+import dataStructures.OrderedList;
+import dataStructures.OrderedTreeList;
 import homeAway.exceptions.UserHasNotVisitedException;
 import homeAway.exceptions.UserIsNotOwnerException;
 
@@ -24,7 +23,8 @@ class UserClass implements User{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String userID, email, phone, name, nationality, address;
-	private SortedList<HomeInfo> homesToRent;
+	//private SortedList<HomeInfo> homesToRent;
+	private OrderedList<String, HomeInfo> homesToRent;
 	private Stack<HomeInfo> visits;
 	
 	public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
@@ -34,7 +34,7 @@ class UserClass implements User{
 		this.name = name;
 		this.nationality = nationality;
 		this.address = address;
-		this.homesToRent = new OrderedDoublyLinkedList<HomeInfo>();
+		this.homesToRent = new OrderedTreeList<String, HomeInfo>();
 		this.visits = new IteratorStackInList<HomeInfo>();
 	}
 
@@ -85,12 +85,12 @@ class UserClass implements User{
 
 	@Override
 	public void newPropertyToRent(Home home){
-		homesToRent.add(home);
+		homesToRent.insert(home.getHomeID(), home);
 	}
 	
 	@Override
 	public boolean removeProperty(Home home) {
-		return homesToRent.remove(home);
+		return homesToRent.remove(home.getHomeID())==null?false:true;
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ class UserClass implements User{
 	public Iterator<HomeInfo> getPropertiesToRent() throws UserIsNotOwnerException{
 		if(!hasPropertyToRent())
 			throw new UserIsNotOwnerException();
-		return homesToRent.iterator();
+		return homesToRent.iteratorValues();
 	}
 	
 	@Override

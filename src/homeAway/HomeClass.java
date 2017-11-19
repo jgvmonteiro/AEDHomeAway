@@ -96,11 +96,6 @@ class HomeClass implements Home{
 	public User getOwner() {
 		return owner;
 	}
-
-	@Override
-	public int compareTo(HomeInfo o) {
-		return homeID.compareTo(o.getHomeID());
-	}
 	
 	
 	

@@ -3,8 +3,8 @@ package homeAway;
 import dataStructures.ChainedHashTable;
 import dataStructures.Dictionary;
 import dataStructures.Iterator;
-import dataStructures.OrderedDoublyLinkedList;
-import dataStructures.SortedList;
+import dataStructures.OrderedList;
+import dataStructures.OrderedTreeList;
 import homeAway.exceptions.NoResultsException;
 
 /**
@@ -18,13 +18,17 @@ import homeAway.exceptions.NoResultsException;
 public class PropertiesPerCapacityClass implements PropertiesPerCapacity {
 
 	
-	private Dictionary<String, SortedList<HomeInfo>[]> propertiesLocal;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Dictionary<String, OrderedList<String, HomeInfo>[]> propertiesLocal;
 	private int maxCapacity;
 	
 	public PropertiesPerCapacityClass(int maxCapacity) {
 		// TODO Auto-generated constructor stub
 		this.maxCapacity = maxCapacity;
-		propertiesLocal = new ChainedHashTable<String, SortedList<HomeInfo>[]>(100);
+		propertiesLocal = new ChainedHashTable<String, OrderedList<String, HomeInfo>[]>(100);
 	}
 	
 	//OrderedDoublyLinkedList
@@ -33,33 +37,33 @@ public class PropertiesPerCapacityClass implements PropertiesPerCapacity {
 	public void insert(Home home) {
 		// TODO Auto-generated method stub 
 		
-		SortedList<HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
+		OrderedList<String, HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
 		if(capacityArray==null){
-			SortedList<HomeInfo>[] newcapacityArray = (SortedList<HomeInfo>[]) new SortedList[maxCapacity];
+			OrderedList<String, HomeInfo>[] newcapacityArray = (OrderedList<String, HomeInfo>[]) new OrderedList[maxCapacity];
 			for (int i = 0; i < newcapacityArray.length; i++)
-				newcapacityArray[i] = new OrderedDoublyLinkedList<HomeInfo>();
+				newcapacityArray[i] = new OrderedTreeList<String, HomeInfo>();
 			
-			newcapacityArray[home.getCapacity()-1].add(home);
+			newcapacityArray[home.getCapacity()-1].insert(home.getHomeID(), home);
 			propertiesLocal.insert(home.getLocal().toUpperCase(), newcapacityArray);
 			return;
 		}
-		capacityArray[home.getCapacity()-1].add(home);
+		capacityArray[home.getCapacity()-1].insert(home.getHomeID(), home);
 	}
 
 	@Override
 	public boolean remove(Home home) {
 		// TODO Auto-generated method stub
-		SortedList<HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
+		OrderedList<String, HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
 		if(capacityArray==null)
 			return false;
-		return capacityArray[home.getCapacity()-1].remove(home);
+		return capacityArray[home.getCapacity()-1].remove(home.getHomeID())==null?false:true;
 		
 	}
 
 	@Override
 	public Iterator<HomeInfo> iterator(int capacity, String local) throws NoResultsException {
 		// TODO Auto-generated method stub
-		SortedList<HomeInfo>[] capacityArray = propertiesLocal.find(local.toUpperCase());
+		OrderedList<String, HomeInfo>[] capacityArray = propertiesLocal.find(local.toUpperCase());
 		if(capacityArray==null)
 			throw new NoResultsException();
 		Iterator<HomeInfo>  it = new PropertiesPerCapacityIterator<HomeInfo>(capacity, maxCapacity, capacityArray);
