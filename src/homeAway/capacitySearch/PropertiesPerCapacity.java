@@ -1,8 +1,9 @@
-package homeAway;
+package homeAway.capacitySearch;
 
 import java.io.Serializable;
 
 import dataStructures.Iterator;
+import homeAway.HomeInfo;
 import homeAway.exceptions.NoResultsException;
 
 /**
@@ -21,7 +22,7 @@ public interface PropertiesPerCapacity extends Serializable{
 	 * 
 	 * @param home property to stored
 	 */
-	void insert(Home home);
+	void add(HomeInfo home);
 	
 	/**
 	 * Removes a property from the structure
@@ -29,7 +30,7 @@ public interface PropertiesPerCapacity extends Serializable{
 	 * @param home property to be removed
 	 * @return true if the property exists and is removed, false otherwise
 	 */
-	boolean remove(Home home);
+	boolean remove(HomeInfo home);
 	
 	/**
 	 * 

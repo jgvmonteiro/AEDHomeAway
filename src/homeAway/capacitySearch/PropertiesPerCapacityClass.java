@@ -1,10 +1,11 @@
-package homeAway;
+package homeAway.capacitySearch;
 
 import dataStructures.ChainedHashTable;
 import dataStructures.Dictionary;
 import dataStructures.Iterator;
 import dataStructures.OrderedList;
 import dataStructures.OrderedTreeList;
+import homeAway.HomeInfo;
 import homeAway.exceptions.NoResultsException;
 
 /**
@@ -34,7 +35,7 @@ public class PropertiesPerCapacityClass implements PropertiesPerCapacity {
 	//OrderedDoublyLinkedList
 	@SuppressWarnings("unchecked")
 	@Override
-	public void insert(Home home) {
+	public void add(HomeInfo home) {
 		// TODO Auto-generated method stub 
 		
 		OrderedList<String, HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
@@ -51,7 +52,7 @@ public class PropertiesPerCapacityClass implements PropertiesPerCapacity {
 	}
 
 	@Override
-	public boolean remove(Home home) {
+	public boolean remove(HomeInfo home) {
 		// TODO Auto-generated method stub
 		OrderedList<String, HomeInfo>[] capacityArray = propertiesLocal.find(home.getLocal().toUpperCase());
 		if(capacityArray==null)
