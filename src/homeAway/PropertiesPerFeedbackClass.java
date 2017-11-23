@@ -1,0 +1,82 @@
+package homeAway;
+
+import dataStructures.BSTReverseKeyOrderIterator;
+import dataStructures.BinarySearchTree;
+import dataStructures.ChainedHashTable;
+import dataStructures.Dictionary;
+import dataStructures.Iterator;
+import dataStructures.OrderedDictionary;
+import dataStructures.ReverseIteratorBST;
+import dataStructures.ReverseIteratorOrderedDictionary;
+
+public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
+
+	
+	
+	private Dictionary<String, ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>>> propertiesLocal;
+	
+	public PropertiesPerFeedbackClass() {
+		// TODO Auto-generated constructor stub
+		this.propertiesLocal = new ChainedHashTable<String, ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>>>();
+	}
+	
+	@Override
+	public Home add(Home home) {
+		// TODO Auto-generated method stub
+		if(home==null)
+			return null;
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal());
+		if(propertiesFeedback==null){
+			propertiesFeedback = new ReverseIteratorBST<Integer, OrderedDictionary<String,Home>>();
+			OrderedDictionary<String,Home> propertiesIds = new BinarySearchTree<String, Home>();
+			propertiesIds.insert(home.getHomeID(), home);
+			propertiesFeedback.insert(home.getFeedback(), propertiesIds);
+			propertiesLocal.insert(home.getLocal(), propertiesFeedback);
+			return null;
+		}
+		
+		OrderedDictionary<String,Home> propertiesIds = propertiesFeedback.find(home.getFeedback());
+		if(propertiesIds==null){
+			propertiesIds = new BinarySearchTree<String, Home>();
+			propertiesIds.insert(home.getHomeID(), home);
+			propertiesFeedback.insert(home.getFeedback(), propertiesIds);
+			return null;
+		}
+		
+		return propertiesIds.insert(home.getHomeID(), home);
+		
+	}
+
+	@Override
+	public Home remove(Home home) {
+		// TODO Auto-generated method stub
+		if(home==null)
+			return null;
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal());
+		if(propertiesFeedback==null)
+			return null;
+		OrderedDictionary<String, Home> propertiesIds = propertiesFeedback.find(home.getFeedback());
+		if(propertiesIds==null)
+			return null;
+		return propertiesIds.remove(home.getHomeID());
+	}
+	
+	
+	@Override
+	public void update(Home home) {
+		// TODO Auto-generated method stub
+		Home h = remove(home);
+		if(h!=null)
+			add(h);
+	}
+
+	
+	@Override
+	public Iterator<HomeInfo> iterator(String local) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+}

@@ -1,11 +1,10 @@
-package homeAway.capacitySearch;
+package homeAway;
 
 import dataStructures.ChainedHashTable;
 import dataStructures.Dictionary;
 import dataStructures.Iterator;
 import dataStructures.OrderedList;
 import dataStructures.OrderedTreeList;
-import homeAway.HomeInfo;
 import homeAway.exceptions.NoResultsException;
 
 /**

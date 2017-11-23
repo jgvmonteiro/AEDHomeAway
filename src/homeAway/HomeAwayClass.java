@@ -1,7 +1,5 @@
 package homeAway;
 
-import homeAway.capacitySearch.PropertiesPerCapacity;
-import homeAway.capacitySearch.PropertiesPerCapacityClass;
 import homeAway.exceptions.*;
 import java.io.Serializable;
 

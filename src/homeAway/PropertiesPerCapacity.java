@@ -1,9 +1,8 @@
-package homeAway.capacitySearch;
+package homeAway;
 
 import java.io.Serializable;
 
 import dataStructures.Iterator;
-import homeAway.HomeInfo;
 import homeAway.exceptions.NoResultsException;
 
 /**

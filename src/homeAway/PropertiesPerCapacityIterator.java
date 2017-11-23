@@ -1,9 +1,8 @@
-package homeAway.capacitySearch;
+package homeAway;
 
 import dataStructures.Iterator;
 import dataStructures.NoSuchElementException;
 import dataStructures.OrderedList;
-import homeAway.HomeInfo;
 
 /**
  * 
