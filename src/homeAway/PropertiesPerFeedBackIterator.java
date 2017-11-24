@@ -1,6 +1,5 @@
 package homeAway;
 
-import dataStructures.Dictionary;
 import dataStructures.Entry;
 import dataStructures.Iterator;
 import dataStructures.NoSuchElementException;

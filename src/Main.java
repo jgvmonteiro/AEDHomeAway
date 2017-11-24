@@ -326,8 +326,11 @@ public class Main {
 	private static void listTopHome(HomeAway hw, Scanner in){
 		String local = in.nextLine().trim();
 		try {
-			HomeInfo home = hw.topHomes(local);
-			printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			Iterator<HomeInfo> it = hw.topHomes(local);
+			while(it.hasNext()){
+				HomeInfo home = it.next();
+				printHomeInfo(home.getHomeID(), home.getDescription(), home.getAddress(), home.getLocal(), home.getPrice(), home.getCapacity(), home.getFeedback());
+			}
 		} catch (NoResultsException e) {
 			System.out.println(ERR_SEARCH_NO_RESULTS);
 		}

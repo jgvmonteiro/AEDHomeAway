@@ -8,7 +8,7 @@ public interface PropertiesPerFeedback {
 	 
 	 Home remove(Home home);
 	 
-	 void update(Home home);
+	 void update(Home home, int feedback);
 	 
 	 Iterator<HomeInfo> iterator(String local);
 	 

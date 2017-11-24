@@ -153,10 +153,10 @@ public interface HomeAway {
 	 * Searches properties in a given local ordered by the visitor's feedback on the property, highest to lower.
 	 * 
 	 * @param local Local of the property.
-	 * @return HomeInfo object, contains information about the property. (Phase 1 only one property exists in the system)
+	 * @return HomeInfo iterator, contains information about the property. Sorteded by property feedback
 	 * @throws NoResultsException No property in the system matched for the given arguments.
 	 */
-	HomeInfo topHomes(String local) throws NoResultsException;
+	Iterator<HomeInfo> topHomes(String local) throws NoResultsException;
 			
 
 	

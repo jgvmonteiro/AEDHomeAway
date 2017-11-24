@@ -23,6 +23,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private Dictionary<String, Home> properties;
 	private Dictionary<String, Home> propertiesLocal;
 	private PropertiesPerCapacity propertiesCapacitySearch;
+	private PropertiesPerFeedback propertiesFeedback;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
 	private static final int MAX_FEEDBACK_SCORE = 20;
 	private static final int MAX_EXPECTED_USERS = 10000;
@@ -33,6 +34,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		this.properties = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
 		this.propertiesLocal = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
 		this.propertiesCapacitySearch = new PropertiesPerCapacityClass(MAX_PEOPLE_PEER_PROPERTY);
+		this.propertiesFeedback = new PropertiesPerFeedbackClass();
 	}
 	
 	private boolean hasUser(String userID){
@@ -107,6 +109,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   properties.insert(homeID.toUpperCase(), home);
 	   propertiesLocal.insert(local.toUpperCase(), home);
 	   propertiesCapacitySearch.add(home);
+	   propertiesFeedback.add(home);
 	}
 
 	@Override
@@ -118,6 +121,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		propertiesLocal.remove(home.getLocal().toUpperCase());
 		home.getOwner().removeProperty(home);
 		propertiesCapacitySearch.remove(home);
+		propertiesFeedback.remove(home);
 	}
 
 	@Override
@@ -134,7 +138,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(home.getOwner() == user) 
 			throw new UserIsOwnerException(); //
 		user.newVisit(home);
-		home.newVisit(feedback);
+		//home.newVisit(feedback);
+		propertiesFeedback.update(home, feedback);
 	}
 
 	@Override
@@ -164,12 +169,8 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	}
 
 	@Override
-	public HomeInfo topHomes(String local) throws NoResultsException {
-		Home h = propertiesLocal.find(local.toUpperCase());
-		if(h == null)
-			throw new NoResultsException();
-		
-		return h;
+	public Iterator<HomeInfo> topHomes(String local) throws NoResultsException {
+		return propertiesFeedback.iterator(local);
 	}
 	
 	

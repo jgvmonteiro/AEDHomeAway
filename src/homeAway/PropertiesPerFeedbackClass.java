@@ -1,6 +1,5 @@
 package homeAway;
 
-import dataStructures.BSTReverseKeyOrderIterator;
 import dataStructures.BinarySearchTree;
 import dataStructures.ChainedHashTable;
 import dataStructures.Dictionary;
@@ -8,6 +7,7 @@ import dataStructures.Iterator;
 import dataStructures.OrderedDictionary;
 import dataStructures.ReverseIteratorBST;
 import dataStructures.ReverseIteratorOrderedDictionary;
+import homeAway.exceptions.NoResultsException;
 
 public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 
@@ -17,7 +17,7 @@ public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 	
 	public PropertiesPerFeedbackClass() {
 		// TODO Auto-generated constructor stub
-		this.propertiesLocal = new ChainedHashTable<String, ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>>>();
+		this.propertiesLocal = new ChainedHashTable<String, ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>>>(10);
 	}
 	
 	@Override
@@ -63,18 +63,23 @@ public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 	
 	
 	@Override
-	public void update(Home home) {
+	public void update(Home home, int feedback) {
 		// TODO Auto-generated method stub
 		Home h = remove(home);
-		if(h!=null)
-			add(h);
+		if(h!=null){
+		h.newVisit(feedback);
+		add(h);
+		}
 	}
 
 	
 	@Override
-	public Iterator<HomeInfo> iterator(String local) {
+	public Iterator<HomeInfo> iterator(String local) throws NoResultsException{
 		// TODO Auto-generated method stub
-		return null;
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(local);
+		if(propertiesFeedback==null || propertiesFeedback.isEmpty())
+			throw new NoResultsException();
+		return new PropertiesPerFeedBackIterator(propertiesFeedback);
 	}
 
 
