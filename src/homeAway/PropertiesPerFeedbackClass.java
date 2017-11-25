@@ -9,10 +9,14 @@ import dataStructures.ReverseIteratorBST;
 import dataStructures.ReverseIteratorOrderedDictionary;
 import homeAway.exceptions.NoResultsException;
 
-public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
+class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Dictionary<String, ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>>> propertiesLocal;
 	
 	public PropertiesPerFeedbackClass() {
@@ -25,13 +29,13 @@ public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 		// TODO Auto-generated method stub
 		if(home==null)
 			return null;
-		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal());
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal().toUpperCase());
 		if(propertiesFeedback==null){
 			propertiesFeedback = new ReverseIteratorBST<Integer, OrderedDictionary<String,Home>>();
 			OrderedDictionary<String,Home> propertiesIds = new BinarySearchTree<String, Home>();
 			propertiesIds.insert(home.getHomeID(), home);
 			propertiesFeedback.insert(home.getFeedback(), propertiesIds);
-			propertiesLocal.insert(home.getLocal(), propertiesFeedback);
+			propertiesLocal.insert(home.getLocal().toUpperCase(), propertiesFeedback);
 			return null;
 		}
 		
@@ -52,13 +56,19 @@ public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 		// TODO Auto-generated method stub
 		if(home==null)
 			return null;
-		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal());
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(home.getLocal().toUpperCase());
 		if(propertiesFeedback==null)
 			return null;
 		OrderedDictionary<String, Home> propertiesIds = propertiesFeedback.find(home.getFeedback());
 		if(propertiesIds==null)
 			return null;
-		return propertiesIds.remove(home.getHomeID());
+		Home removed =  propertiesIds.remove(home.getHomeID());
+		if(propertiesIds.isEmpty())
+			propertiesFeedback.remove(home.getFeedback());
+		if(propertiesFeedback.isEmpty())
+			propertiesLocal.remove(home.getLocal().toUpperCase());
+	
+		return removed;
 	}
 	
 	
@@ -76,7 +86,7 @@ public class PropertiesPerFeedbackClass implements PropertiesPerFeedback {
 	@Override
 	public Iterator<HomeInfo> iterator(String local) throws NoResultsException{
 		// TODO Auto-generated method stub
-		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(local);
+		ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeedback = propertiesLocal.find(local.toUpperCase());
 		if(propertiesFeedback==null || propertiesFeedback.isEmpty())
 			throw new NoResultsException();
 		return new PropertiesPerFeedBackIterator(propertiesFeedback);

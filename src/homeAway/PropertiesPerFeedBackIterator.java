@@ -6,9 +6,13 @@ import dataStructures.NoSuchElementException;
 import dataStructures.OrderedDictionary;
 import dataStructures.ReverseIteratorOrderedDictionary;
 
-public class PropertiesPerFeedBackIterator implements Iterator<HomeInfo> {
+class PropertiesPerFeedBackIterator implements Iterator<HomeInfo> {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeeback;
 	Iterator<Entry<Integer, OrderedDictionary<String, Home>>> feedbackIt;
 	Iterator<Entry<String, Home>> currentPropertiesIt;

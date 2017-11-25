@@ -1,8 +1,10 @@
 package homeAway;
 
+import java.io.Serializable;
+
 import dataStructures.Iterator;
 
-public interface PropertiesPerFeedback {
+interface PropertiesPerFeedback extends Serializable {
 
 	 Home add(Home home);
 	 

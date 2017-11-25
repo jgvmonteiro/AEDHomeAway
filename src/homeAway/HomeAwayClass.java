@@ -21,7 +21,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	private static final long serialVersionUID = 1L;
 	private Dictionary<String, User> users;
 	private Dictionary<String, Home> properties;
-	private Dictionary<String, Home> propertiesLocal;
+	//private Dictionary<String, Home> propertiesLocal;
 	private PropertiesPerCapacity propertiesCapacitySearch;
 	private PropertiesPerFeedback propertiesFeedback;
 	private static final int MAX_PEOPLE_PEER_PROPERTY = 20;
@@ -32,7 +32,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	public HomeAwayClass() {
 		this.users = new ChainedHashTable<String, User>(MAX_EXPECTED_USERS);
 		this.properties = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
-		this.propertiesLocal = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
+		//this.propertiesLocal = new ChainedHashTable<String, Home>(MAX_EXPECTED_PROPERTY);
 		this.propertiesCapacitySearch = new PropertiesPerCapacityClass(MAX_PEOPLE_PEER_PROPERTY);
 		this.propertiesFeedback = new PropertiesPerFeedbackClass();
 	}
@@ -107,7 +107,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 	   Home home = new HomeClass(homeID, user, local, address, description, price, people);
 	   user.newPropertyToRent(home);
 	   properties.insert(homeID.toUpperCase(), home);
-	   propertiesLocal.insert(local.toUpperCase(), home);
+	   //propertiesLocal.insert(local.toUpperCase(), home);
 	   propertiesCapacitySearch.add(home);
 	   propertiesFeedback.add(home);
 	}
@@ -118,7 +118,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 		if(home.hasBeenVisited())
 			throw new HomeAlreadyVisitedException();
 		properties.remove(homeID.toUpperCase());	//checking if home exists
-		propertiesLocal.remove(home.getLocal().toUpperCase());
+		//propertiesLocal.remove(home.getLocal().toUpperCase());
 		home.getOwner().removeProperty(home);
 		propertiesCapacitySearch.remove(home);
 		propertiesFeedback.remove(home);
@@ -131,7 +131,7 @@ public class HomeAwayClass implements HomeAway, Serializable{
 
 	@Override
 	public void rentHome(String userID, String homeID, int feedback) throws UserDoesNotExistsException, HomeDoesNotExistsException, InvalidDataException, UserIsOwnerException {
-		if(feedback < 1 )//|| feedback > MAX_FEEDBACK_SCORE) //maximum feedback is 20 points??
+		if(feedback < 1 || feedback > MAX_FEEDBACK_SCORE) //maximum feedback is 20 points??
 			throw new InvalidDataException();
 		User user = getUser(userID); 
 		Home home = getHome(homeID);  
