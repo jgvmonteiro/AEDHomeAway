@@ -62,6 +62,20 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		this.currentSize++;
 	}
 	
+	private void addMiddle(DListNode<Entry<K, V>> ourEntry, DListNode<Entry<K, V>> entryAfter) {
+		ourEntry.setNext(entryAfter);
+		ourEntry.setPrevious(entryAfter.getPrevious());
+		entryAfter.setPrevious(ourEntry);
+		ourEntry.getPrevious().setNext(ourEntry);
+		currentSize++;
+	}
+	
+	private V replaceEntry(DListNode<Entry<K, V>> ourEntry, DListNode<Entry<K, V>> ret) {
+		V valueToReturn = ret.getElement().getValue();
+		ret.setElement(ourEntry.getElement());
+		return valueToReturn;
+	}
+	
 	@Override
 	public V insert(K key, V value) {
 		if(key == null || value == null)
@@ -87,17 +101,11 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			Entry<K, V> elemToCompare = current.getElement();
 			
 			if(elemToCompare.getKey().compareTo(key) > 0){
-				ourEntry.setNext(current);
-				ourEntry.setPrevious(current.getPrevious());
-				current.setPrevious(ourEntry);
-				ourEntry.getPrevious().setNext(ourEntry);
-				currentSize++;
+				addMiddle(ourEntry, current);
 				return null;
 			}
 			if(elemToCompare.getKey().compareTo(key) == 0){
-				V valueToReturn = current.getElement().getValue();
-				current.setElement(ourEntry.getElement());
-				return valueToReturn;
+				return replaceEntry(ourEntry, current);
 			}
 			current = current.getNext();
 		}

@@ -62,7 +62,7 @@ public class ChainedHashTable<K extends Comparable<K>, V>
     }
     
     /**
-     * Creates a new table, then goes through every item in the previous one and readds it
+     * Creates a new table, then goes through every item in the previous one and reads it
      */
     @SuppressWarnings("unchecked")
 	private void rehash(){
