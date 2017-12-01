@@ -47,49 +47,80 @@ public class AVLTree<K extends Comparable<K>, V>  extends AdvancedBSTree<K,V>
      */
     protected void reorganizeIns( Stack<PathStep<K,V>> path )               
     {                                                                   
-        boolean grew = true;
-        PathStep<K,V> lastStep = path.pop();
-        AVLNode<K,V> parent = (AVLNode<K,V>) lastStep.parent;
-        while ( grew && parent != null )
+    	 boolean grew = true;
+         PathStep<K,V> lastStep = path.pop();
+         AVLNode<K,V> parent = (AVLNode<K,V>) lastStep.parent;
+         while ( grew && parent != null )
+         {
+             if ( lastStep.isLeftChild )
+                 // parent's left subtree has grown.
+                 switch ( parent.getBalance() )
+                 {
+                     case 'L': 
+                         this.rebalanceInsLeft(parent, path); //left side too large
+                         grew = false;
+                         break;
+                     case 'E': 
+                         parent.setBalance('L');
+                         break;
+                     case 'R': 
+                         parent.setBalance('E');
+                         grew = false;
+                         break;
+                 }
+             else
+                 // parent's right subtree has grown.
+                 switch ( parent.getBalance() )
+                 {
+                     case 'L': 
+                         parent.setBalance('E');
+                         grew = false;
+                         break;
+                     case 'E': 
+                         parent.setBalance('R');
+                         break;
+                     case 'R': 
+                         this.rebalanceInsRight(parent, path); //right size too large
+                         grew = false;
+                         break;
+                 }
+             lastStep = path.pop();
+             parent = (AVLNode<K,V>) lastStep.parent;
+         } 
+    }
+    
+    protected void rebalanceRemLeft(AVLNode<K, V> node, Stack<PathStep<K, V>> path) { //removed right side
+    	AVLNode<K,V> leftChild = (AVLNode<K,V>) node.getLeft(); //node = parent
+        switch ( leftChild.getBalance() )
         {
-            if ( lastStep.isLeftChild )
-                // parent's left subtree has grown.
-                switch ( parent.getBalance() )
-                {
-                    case 'L': 
-                        this.rebalanceInsLeft(parent, path);
-                        grew = false;
-                        break;
-                    case 'E': 
-                        parent.setBalance('L');
-                        break;
-                    case 'R': 
-                        parent.setBalance('E');
-                        grew = false;
-                        break;
-                }
-            else
-                // parent's right subtree has grown.
-                switch ( parent.getBalance() )
-                {
-                    case 'L': 
-                        parent.setBalance('E');
-                        grew = false;
-                        break;
-                    case 'E': 
-                        parent.setBalance('R');
-                        break;
-                    case 'R': 
-                        this.rebalanceInsRight(parent, path);
-                        grew = false;
-                        break;
-                }
-            lastStep = path.pop();
-            parent = (AVLNode<K,V>) lastStep.parent;
-        } 
+            case 'L': 
+                this.rotateLeft1L(node, leftChild, path);
+                break;
+           case 'E': 
+        	  	this.rotateLeft1E(node, leftChild, path);
+        	  	break;
+            case 'R': 
+                this.rotateLeft2(node, leftChild, path);
+                break;
+        }
     }
 
-
+    protected void rebalanceRemRight(AVLNode<K, V> node, Stack<PathStep<K, V>> path) { //removed left side
+    	AVLNode<K,V> rightChild = (AVLNode<K,V>) node.getRight(); //node = parent
+        switch ( rightChild.getBalance() )
+        {
+            case 'L': 
+                this.rotateRight2(node, rightChild, path); //1r <---
+                break;
+           case 'E': 
+        	  	this.rotateRight1E(node, rightChild, path);
+        	  	break;
+            case 'R': 
+                this.rotateRight1R(node, rightChild, path);
+                break;
+        }
+    }
+    
     /**
      * Every ancestor of node is stored in the stack, which is not empty.
      * height( node.getLeft() ) - height( node.getRight() ) = 2.
@@ -178,7 +209,54 @@ public class AVLTree<K extends Comparable<K>, V>  extends AdvancedBSTree<K,V>
      */
     protected void reorganizeRem( Stack<PathStep<K,V>> path )               
     {                                                                   
-        //TODO: Left as an exercise.
+        //TODO: Left as an exercise. /exercise
+	   	 boolean shrank = true;
+	     PathStep<K,V> lastStep = path.pop();
+	     AVLNode<K,V> parent = (AVLNode<K,V>) lastStep.parent;
+	     while ( shrank && parent != null )
+	     {
+	         if ( lastStep.isLeftChild )
+	             // parent's left subtree has shrunk.
+	             switch ( parent.getBalance() )
+	             {
+	                 case 'L': 
+	                    // this.rebalanceInsLeft(parent, path);
+	                    // shrank = false;
+	                     parent.setBalance('E');
+	                     break;
+	                 case 'E': 
+	                     parent.setBalance('R');
+	                     shrank = false;
+	                     break;
+	                 case 'R': 
+	                     //parent.setBalance('E');
+	                     //problem
+	                	 rebalanceRemRight(parent, path);
+	                     shrank = false;
+	                     break;
+	             }
+	         else
+	             // parent's right subtree has shrunk.
+	             switch ( parent.getBalance() )
+	             {
+	                 case 'L': 
+	                	 //problem
+	                     //parent.setBalance('E');
+	                     rebalanceRemLeft(parent, path);
+	                	 shrank = false;
+	                     break;
+	                 case 'E': 
+	                     parent.setBalance('L');
+	                     shrank = false;
+	                     break;
+	                 case 'R':
+	                	 parent.setBalance('E');
+	                     //this.rebalanceInsRight(parent, path);
+	                     break;
+	             }
+	         lastStep = path.pop();
+	         parent = (AVLNode<K,V>) lastStep.parent;
+     	} 
     }
 
 

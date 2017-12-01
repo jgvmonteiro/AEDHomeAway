@@ -3,8 +3,8 @@ package homeAway;
 import dataStructures.Iterator;
 import dataStructures.Stack;
 import dataStructures.IteratorStackInList;
-import dataStructures.OrderedList;
 import dataStructures.OrderedTreeList;
+import dataStructures.TreeList;
 import homeAway.exceptions.UserHasNotVisitedException;
 import homeAway.exceptions.UserIsNotOwnerException;
 
@@ -24,7 +24,7 @@ class UserClass implements User{
 	private static final long serialVersionUID = 1L;
 	private String userID, email, phone, name, nationality, address;
 	//private SortedList<HomeInfo> homesToRent;
-	private OrderedList<String, HomeInfo> homesToRent;
+	private OrderedTreeList<String, HomeInfo> homesToRent;
 	private Stack<HomeInfo> visits;
 	
 	public UserClass(String userID, String name, String email, String phone, String nationality, String address) {
@@ -34,7 +34,7 @@ class UserClass implements User{
 		this.name = name;
 		this.nationality = nationality;
 		this.address = address;
-		this.homesToRent = new OrderedTreeList<String, HomeInfo>();
+		this.homesToRent = new TreeList<String, HomeInfo>();
 		this.visits = new IteratorStackInList<HomeInfo>();
 	}
 

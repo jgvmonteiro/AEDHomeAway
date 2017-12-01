@@ -2,7 +2,7 @@ package homeAway;
 
 import dataStructures.Iterator;
 import dataStructures.NoSuchElementException;
-import dataStructures.OrderedList;
+import dataStructures.OrderedTreeList;
 
 /**
  * 
@@ -19,9 +19,9 @@ class PropertiesPerCapacityIterator<E> implements Iterator<HomeInfo>{
 	private int minCapacity, maxCapacity;
 	private int currentCapacity;
 	private Iterator<HomeInfo> currentIterator;
-	private OrderedList<String, HomeInfo>[] propertiesArray;
+	private OrderedTreeList<String, HomeInfo>[] propertiesArray;
 	
-	public PropertiesPerCapacityIterator(int minCapacity, int maxCapacity, OrderedList<String, HomeInfo>[] propertiesArray){
+	public PropertiesPerCapacityIterator(int minCapacity, int maxCapacity, OrderedTreeList<String, HomeInfo>[] propertiesArray){
 		// TODO Auto-generated constructor stub
 
 		this.minCapacity = minCapacity;

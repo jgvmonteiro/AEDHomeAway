@@ -1,16 +1,12 @@
 package dataStructures;
 
-public class OrderedTreeList<K extends Comparable<K>, V> extends BinarySearchTree<K, V> implements OrderedList<K, V>{
+public interface OrderedTreeList<K extends Comparable<K>, V> extends OrderedDictionary<K, V> {
 
 	/**
 	 * 
+	 * @return
 	 */
-	private static final long serialVersionUID = 1L;
+	Iterator<V> iteratorValues();
 	
-	@Override
-	public Iterator<V> iteratorValues() {
-		// TODO Auto-generated method stub
-		return new OrderedTreeListIterator<K, V>(root);
-	}
-
+	
 }

@@ -323,6 +323,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
     public Iterator<Entry<K,V>> iterator( ) {
         //TODO: Original comentado para nao dar erro de compilacao.
          return new BSTKeyOrderIterator<K,V>(root);
+    	//return new BSTBreadthFirstIterator<K, V>(root);
     }
 
 

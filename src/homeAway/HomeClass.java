@@ -75,11 +75,6 @@ class HomeClass implements Home{
 	public boolean hasBeenVisited() {
 		return visited;
 	}
-
-	@Override
-	public int getFeedback() {
-		return feedback;
-	}
 	
 	@Override
 	public void newVisit(){
@@ -89,12 +84,17 @@ class HomeClass implements Home{
 	@Override
 	public void newVisit(int feedback) {
 		this.visited = true;
-		this.feedback+=feedback;
+		this.feedback += feedback;
 	}
 
 	@Override
 	public User getOwner() {
 		return owner;
+	}
+
+	@Override
+	public int getFeedback() {
+		return this.feedback;
 	}
 	
 	

@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class BSTReverseKeyOrderIterator<K,V> implements Iterator<Entry<K,V>> {
+public class BSTKeyOrderIteratorTEST<K,V> {
 
 	/**
 	 * 
@@ -9,7 +9,7 @@ public class BSTReverseKeyOrderIterator<K,V> implements Iterator<Entry<K,V>> {
 	private BSTNode<K, V> root;
 	private Stack<BSTNode<K, V>> path;
 	
-	public BSTReverseKeyOrderIterator(BSTNode<K, V> root) {
+	public BSTKeyOrderIteratorTEST(BSTNode<K, V> root) {
 		// TODO Auto-generated constructor stub
 		
 		this.root = root;
@@ -17,37 +17,34 @@ public class BSTReverseKeyOrderIterator<K,V> implements Iterator<Entry<K,V>> {
 	}
 	
 	
-	private void fullRight(BSTNode<K, V> startNode){
+	private void fullLeft(BSTNode<K, V> startNode){
 		BSTNode<K, V> node = startNode;
 		while(node!=null){
 			path.push(node);
-			node = node.getRight();
+			node = node.getLeft();
 		}
 	}
 	
-	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
 		return !path.isEmpty();
 	}
 
-	@Override
-	public Entry<K, V> next() throws NoSuchElementException {
+	public BSTNode<K, V> next() throws NoSuchElementException {
 		// TODO Auto-generated method stub
 		if(!hasNext())
 			throw new NoSuchElementException();
 		
 		BSTNode<K, V> node = path.pop();
-		fullRight(node.getLeft());
+		fullLeft(node.getRight());
 		
-		return node.getEntry();
+		return node;
 	}
 
-	@Override
 	public void rewind() {
 		// TODO Auto-generated method stub
 		path = new StackInList<BSTNode<K, V>>();
-		fullRight(root);
+		fullLeft(root);
 	}
 
 }

@@ -30,4 +30,5 @@ interface Home extends HomeInfo, Serializable{
 	void newVisit(int feedback);
 
 	User getOwner();
+	
 }

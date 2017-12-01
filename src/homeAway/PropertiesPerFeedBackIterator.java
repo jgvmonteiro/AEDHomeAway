@@ -4,7 +4,6 @@ import dataStructures.Entry;
 import dataStructures.Iterator;
 import dataStructures.NoSuchElementException;
 import dataStructures.OrderedDictionary;
-import dataStructures.ReverseIteratorOrderedDictionary;
 
 class PropertiesPerFeedBackIterator implements Iterator<HomeInfo> {
 
@@ -13,11 +12,11 @@ class PropertiesPerFeedBackIterator implements Iterator<HomeInfo> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeeback;
-	Iterator<Entry<Integer, OrderedDictionary<String, Home>>> feedbackIt;
+	OrderedDictionary<FeedbackKey, OrderedDictionary<String, Home>> propertiesFeeback;
+	Iterator<Entry<FeedbackKey, OrderedDictionary<String, Home>>> feedbackIt;
 	Iterator<Entry<String, Home>> currentPropertiesIt;
 	
-	public PropertiesPerFeedBackIterator(ReverseIteratorOrderedDictionary<Integer, OrderedDictionary<String, Home>> propertiesFeeback) {
+	public PropertiesPerFeedBackIterator(OrderedDictionary<FeedbackKey, OrderedDictionary<String, Home>> propertiesFeeback) {
 		// TODO Auto-generated constructor stub
 		this.propertiesFeeback = propertiesFeeback;
 		
@@ -47,7 +46,7 @@ class PropertiesPerFeedBackIterator implements Iterator<HomeInfo> {
 	@Override
 	public void rewind() {
 		// TODO Auto-generated method stub
-		feedbackIt = propertiesFeeback.reverseIterator();
+		feedbackIt = propertiesFeeback.iterator();
 		if(feedbackIt.hasNext())
 			currentPropertiesIt = feedbackIt.next().getValue().iterator();
 	}
